@@ -1,63 +1,52 @@
-# 🚀 VortextSoft Deployment Guide (Final)
+# 🚀 VortextSoft Deployment Guide (Vercel Only)
 
-Your app is now **Production Ready**.
-- Database: **MongoDB Atlas** (Cloud)
-- Frontend Config: **Ready for Vercel**
-- Backend Config: **Ready for Render/Railway**
+Your app is now configured to be deployed **100% on Vercel**.
+We will create **TWO** projects on Vercel from the **SAME** repository.
+
+1.  **Project A**: Backend (API)
+2.  **Project B**: Frontend (Client)
 
 ---
 
 ## Phase 1: Deploy Backend (API)
-We will use **Render** (Free) to host your Node.js API.
-
-1.  **Push Code to GitHub**: Ensure your latest code (with MongoDB changes) is on GitHub.
-2.  **Go to [Render Dashboard](https://dashboard.render.com/)**.
-3.  Click **New +** -> **Web Service**.
-4.  Connect your GitHub Repo.
-5.  **Settings**:
-    - **Name**: `vortextsoft-api`
-    - **Root Directory**: `api` (Important!)
-    - **Environment**: `Node`
-    - **Build Command**: `npm install`
-    - **Start Command**: `npm start`
-    - **Plan**: Free
-6.  **Environment Variables** (Click "Advanced" or "Environment"):
-    - Key: `MONGODB_URI`
-    - Value: `(Paste your MongoDB Connection String here)`
-    - Key: `EMAIL_USER` (If needed)
-    - Key: `EMAIL_PASSWORD` (If needed)
+1.  **Push** your latest code to GitHub (if you haven't already).
+2.  Go to **[Vercel Dashboard](https://vercel.com/dashboard)**.
+3.  Click **Add New...** -> **Project**.
+4.  Import your `vortextsoft-website` repository.
+5.  **Configure Project**:
+    *   **Project Name**: `vortextsoft-api`
+    *   **Framework Preset**: Other
+    *   **Root Directory**: Click Edit and select `api`. (Crucial!)
+6.  **Environment Variables**:
+    *   Key: `MONGODB_URI`
+    *   Value: `(Paste your MongoDB Connection String)`
 7.  **Click Deploy**.
-8.  **Wait**: Once it finishes, copy the URL (e.g., `https://vortextsoft-api.onrender.com`).
+8.  **Wait**: Once it finishes, copy the domain (e.g., `https://vortextsoft-api.vercel.app`).
+    *   *Note: Using Vercel for backend might be slower (cold starts) than Render, but it works.*
 
 ---
 
 ## Phase 2: Deploy Frontend (Client)
-We will use **Vercel** (Free) to host your React App.
-
-1.  **Go to [Vercel Dashboard](https://vercel.com/dashboard)**.
+1.  Go to Vercel Dashboard again.
 2.  Click **Add New...** -> **Project**.
-3.  Import your GitHub Repo.
-4.  **Settings**:
-    - **Framework Preset**: Vite (Auto-detected)
-    - **Root Directory**: `client` (Important! Click Edit to select 'client' folder)
+3.  Import the **SAME** `vortextsoft-website` repository.
+4.  **Configure Project**:
+    *   **Project Name**: `vortextsoft` (or whatever you want)
+    *   **Framework Preset**: Vite (Auto-detected)
+    *   **Root Directory**: Click Edit and select `client`.
 5.  **Environment Variables**:
-    - Key: `VITE_API_URL`
-    - Value: `(Paste your Render Backend URL here - e.g. https://vortextsoft-api.onrender.com)`
+    *   Key: `VITE_API_URL`
+    *   Value: `https://vortextsoft-api.vercel.app` (The URL from Phase 1)
       *(Note: No trailing slash /)*
 6.  **Click Deploy**.
 
 ---
 
 ## Phase 3: Verify
-- Open your Vercel URL (e.g. `https://vortextsoft.vercel.app`).
-- Check if "Services" load (means Database is working).
-- Try sending a "Contact" message (means API is writing to DB).
+- Open your Frontend URL.
+- Test the site!
 
 ---
 
-## Phase 4: Custom Domain (Optional)
-If you bought `vortextsoft.com.lk` or `vortextsoft.lk`:
-1.  Go to Vercel -> Settings -> Domains.
-2.  Add `vortextsoft.lk`.
-3.  Vercel will give you DNS Records (A Record / CNAME).
-4.  Add those records at your Domain Registrar.
+## MongoDB Note
+Remember to whitelist IP `0.0.0.0/0` in MongoDB Atlas Network Access so Vercel can connect!
