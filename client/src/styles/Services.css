@@ -1,0 +1,244 @@
+/* Services.css */
+/* Services.css */
+/* Hero Section */
+.services-hero {
+    padding: 180px 0 80px 0;
+    /* Increased top padding to avoid navbar overlap */
+    background: linear-gradient(135deg, #f8f9fa 0%, #eef1f5 100%);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero-content-center h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--color-dark-bg);
+    margin-bottom: 1.5rem;
+    background: -webkit-linear-gradient(45deg, var(--color-dark-bg), var(--color-primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content-center p {
+    font-size: 1.25rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+}
+
+/* Motion Background */
+.services-hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-motion-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.motion-icon {
+    position: absolute;
+    color: var(--color-primary);
+    opacity: 0.15;
+}
+
+.icon-1 {
+    top: 10%;
+    left: 10%;
+    width: 80px;
+    height: 80px;
+    animation: float-1 10s ease-in-out infinite;
+}
+
+.icon-2 {
+    top: 20%;
+    right: 15%;
+    width: 100px;
+    height: 100px;
+    animation: float-2 15s ease-in-out infinite;
+    color: var(--color-secondary);
+}
+
+.icon-3 {
+    bottom: 15%;
+    left: 20%;
+    width: 60px;
+    height: 60px;
+    animation: float-3 12s ease-in-out infinite;
+}
+
+.icon-4 {
+    bottom: 25%;
+    right: 10%;
+    width: 90px;
+    height: 90px;
+    animation: float-1 18s ease-in-out infinite reverse;
+    color: var(--color-secondary);
+}
+
+.icon-5 {
+    top: 40%;
+    left: 5%;
+    width: 50px;
+    height: 50px;
+    animation: float-2 20s ease-in-out infinite;
+}
+
+.icon-6 {
+    top: 40%;
+    right: 5%;
+    width: 70px;
+    height: 70px;
+    animation: float-3 14s ease-in-out infinite;
+}
+
+@keyframes float-1 {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-40px) rotate(10deg);
+    }
+}
+
+@keyframes float-2 {
+
+    0%,
+    100% {
+        transform: translateX(0) scale(1);
+    }
+
+    50% {
+        transform: translateX(30px) scale(1.1);
+    }
+}
+
+@keyframes float-3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(20px, -20px) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(0, -40px) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(-20px, -20px) rotate(270deg);
+    }
+}
+
+
+.services-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.service-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: var(--color-white);
+    padding: 2.5rem 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon-large {
+    color: var(--color-primary);
+    background-color: rgba(0, 200, 204, 0.1);
+    /* Updated to brand teal color */
+    padding: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0.5rem;
+}
+
+.service-icon-large svg {
+    width: 40px;
+    height: 40px;
+}
+
+.service-content h2 {
+    color: var(--color-dark-bg);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    min-height: 3.5rem;
+    /* Ensure consistent height for titles */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-short {
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    display: none;
+    /* Hide short description in box layout to save space */
+}
+
+.service-details {
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 1200px) {
+    .services-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .services-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .services-list {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header h1 {
+        font-size: 2.5rem;
+    }
+}

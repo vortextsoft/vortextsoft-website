@@ -1,0 +1,142 @@
+/* Navbar.css */
+.navbar {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1000px;
+    background-color: var(--color-white);
+    padding: 0.5rem 2rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-dark-bg);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.navbar-logo .highlight {
+    color: var(--color-primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links li a {
+    font-weight: 500;
+    color: var(--color-text-main);
+    transition: color 0.3s;
+    font-size: 0.95rem;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+    color: var(--color-primary);
+}
+
+.menu-icon {
+    display: none;
+    cursor: pointer;
+    color: var(--color-dark-bg);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    display: none;
+    /* Hidden by default on desktop */
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background-color: var(--color-white);
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+}
+
+.nav-links-mobile {
+    list-style: none;
+    text-align: center;
+    width: 100%;
+}
+
+.nav-links-mobile li {
+    margin: 1.5rem 0;
+}
+
+.nav-links-mobile li a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+.nav-links-mobile li a:hover,
+.nav-links-mobile li a.active {
+    color: var(--color-primary);
+}
+
+@media (max-width: 960px) {
+    .navbar {
+        top: 0;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        left: 0;
+        transform: none;
+        position: fixed;
+        /* Fixed on mobile for better UX */
+        padding: 0 1rem;
+        height: 60px;
+
+
+    }
+
+    .navbar-logo {
+        font-size: 1.2rem;
+        max-width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .mobile-menu {
+        top: 70px;
+        display: flex;
+        /* Matches navbar height */
+    }
+}

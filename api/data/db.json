@@ -1,0 +1,260 @@
+{
+  "services": [
+    {
+      "id": "service-1",
+      "title": "Custom Software Solutions",
+      "description": "Tailor-made software development to meet your unique business requirements and workflows.",
+      "icon": "Code",
+      "createdAt": "2025-12-12T18:00:00.000Z"
+    },
+    {
+      "id": "service-2",
+      "title": "Web & Mobile Application Development",
+      "description": "Create responsive, user-friendly websites and powerful cross-platform mobile applications.",
+      "icon": "Layout",
+      "createdAt": "2025-12-12T18:00:00.000Z"
+    },
+    {
+      "id": "service-3",
+      "title": "AI, Machine Learning & Data Science",
+      "description": "Intelligent AI and ML-driven solutions to automate processes and extract valuable insights from your data.",
+      "icon": "Cpu",
+      "createdAt": "2025-12-12T18:00:00.000Z"
+    },
+    {
+      "id": "service-4",
+      "title": "Consulting & Virtual Reality Solutions",
+      "description": "Immersive AR/VR experiences that revolutionize training, marketing, and user engagement.",
+      "icon": "Globe",
+      "createdAt": "2025-12-12T18:00:00.000Z"
+    },
+    {
+      "id": "service-5",
+      "title": "IoT & Embedded Systems",
+      "description": "Connect and automate devices and systems for real-time monitoring, control, and efficiency.",
+      "icon": "Layers",
+      "createdAt": "2025-12-12T18:00:00.000Z"
+    },
+    {
+      "id": "service-6",
+      "title": "Enterprise Resource Planning (ERP) Systems",
+      "description": "Integrated ERP solutions to streamline and automate all your business operations.",
+      "icon": "Layers",
+      "createdAt": "2025-12-12T18:00:00.000Z"
+    },
+    {
+      "id": "service-7",
+      "title": "Quality Assurance & Testing",
+      "description": "Ensure your software is secure, reliable, and performs flawlessly with our comprehensive QA services.",
+      "icon": "ShieldCheck",
+      "createdAt": "2025-12-12T18:00:00.000Z"
+    },
+    {
+      "id": "service-8",
+      "title": "DevOps, Deployment & Optimization",
+      "description": "Achieve optimized deployment, CI/CD automation, and infrastructure management for peak performance.",
+      "icon": "Code",
+      "createdAt": "2025-12-12T18:00:00.000Z"
+    }
+  ],
+  "caseStudies": [],
+  "blogPosts": [
+    {
+      "id": "340ed024-4e64-421b-9779-973e9ab0d0d5",
+      "title": "Supremacy of Quantum Computers",
+      "tags": "Quantum Computers",
+      "content": "Let’s say we have four playing cards. Each card differs from the others. After shuffling all four cards, one person asks to take the queen from those cards. He will pick cards one by one until he gets the queen card. So, at some point, he will get the queen card. This is how classical computers work. Classical computers are the computers that we use in our day-to-day lives. But quantum computers can find the queen only in one attempt. Whatever the number of cards, even within a million cards, quantum computers can find the queen with only one try. This shows how powerful they are.",
+      "link": "https://medium.com/@madhunickam/supremacy-of-quantum-computers-693f28583e93",
+      "createdAt": "2025-12-12T18:47:08.775Z",
+      "imageUrl": "/uploads/documents/doc-1765565602519-803244207.jpg",
+      "isVisible": true
+    },
+    {
+      "id": "2f089158-2d57-4464-a4dd-b4ab16f914f8",
+      "title": "SUPREMACY OF PRIVACY AND SECURITY IN THE DIGITAL ERA",
+      "tags": "Security & Privacy",
+      "content": "Nowadays, everybody has the power to send and receive any form of data and information just by the click of a button. It can be text, audio, video, e-mail, etc. But nobody thinks about how all this data and information is sent to others without any leakage of information. Due to the COVID-19 pandemic, more than 60% of commercial transactions are done online, demonstrating the critical need for high transaction security.",
+      "imageUrl": "/uploads/documents/doc-1765565917170-624375905.jpg",
+      "link": "https://medium.com/@madhunickam/supremacy-of-privacy-and-security-in-the-digital-era-d824cfe87df8",
+      "createdAt": "2025-12-12T18:58:59.450Z",
+      "isVisible": true
+    }
+  ],
+  "team": [
+    {
+      "id": "15a30731-38cb-4862-b5fb-de107572b891",
+      "name": "Mathanamohan Madhunicka ",
+      "role": "Co-founder/Software Engineer",
+      "createdAt": "2025-12-11T18:17:19.070Z",
+      "shortDescription": "Passionate about exploring new technologies, quick learner with a knack for innovation. Eager to contribute to dynamic environments. Let's connect and innovate together!",
+      "profileImage": "/uploads/team/profile-1765518775401-748180878.jpeg",
+      "linkedin": "https://www.linkedin.com/in/madhunicka-mathanamohan/",
+      "github": "https://github.com/Madhunicka",
+      "email": "madhunickam@gmail.com"
+    },
+    {
+      "id": "436b8a92-949f-463b-94c1-76279041a827",
+      "name": "Sivasothy Tharsi",
+      "role": "Co-founder/Software Engineer",
+      "shortDescription": "Passionate about exploring new technologies, quick learner with a knack for innovation. Eager to contribute to dynamic environments. Let's connect and innovate together!",
+      "profileImage": "/uploads/team/profile-1765518674317-519466486.jpeg",
+      "linkedin": "https://www.linkedin.com/in/sivasothy-tharsi-6ba193210/",
+      "github": "https://github.com/Sivasothy-Tharsi",
+      "email": "sivasothytharsi@gmail.com",
+      "createdAt": "2025-12-12T05:43:16.483Z"
+    },
+    {
+      "id": "e47bfeca-f1de-47de-8569-bf12e9016b96",
+      "name": "Sivasothy Tharsa",
+      "role": "Co-founder/Software Engineer",
+      "shortDescription": "Passionate about exploring new technologies, quick learner with a knack for innovation. Eager to contribute to dynamic environments. Let's connect and innovate together!",
+      "profileImage": "/uploads/team/profile-1765519290567-457759255.jpeg",
+      "linkedin": "https://www.linkedin.com/in/sivasothy-tharsa-68b3a8286p",
+      "github": "https://github.com/Thars7",
+      "email": "sivasothytharsa17@gmail.com",
+      "createdAt": "2025-12-12T06:00:34.097Z"
+    },
+    {
+      "id": "ba0be30e-8525-42d1-868e-2feec4af1500",
+      "name": "Sukumar Anujan",
+      "role": "Co-founder/Software Engineer",
+      "shortDescription": "Passionate about exploring new technologies, quick learner with a knack for innovation. Eager to contribute to dynamic environments. Let's connect and innovate together!",
+      "profileImage": "/uploads/team/profile-1765519904056-131267241.PNG",
+      "linkedin": "https://www.linkedin.com/in/anujan-sukumar-5a26421b0/",
+      "github": "https://github.com/AnujanGM",
+      "email": "anujan1352@gmail.com",
+      "createdAt": "2025-12-12T06:11:47.050Z"
+    },
+    {
+      "id": "9edc6a4f-f592-4a16-9341-9dbe69cd0d9a",
+      "name": "Sathakaran Thisenthan",
+      "role": "Co-founder/Electronic Engineer",
+      "shortDescription": "Passionate about exploring new technologies, quick learner with a knack for innovation. Eager to contribute to dynamic environments. Let's connect and innovate together!",
+      "profileImage": "/uploads/team/profile-1765519999272-260116468.jpeg",
+      "linkedin": "https://www.linkedin.com/in/sathakaran-thisenthan-610a46272/",
+      "github": "https://github.com/thisenthansatha",
+      "email": "thisenthansatha06@gmail.com",
+      "createdAt": "2025-12-12T06:13:00.572Z"
+    },
+    {
+      "id": "ba59e6b0-0a6f-4207-8eb2-249f72646516",
+      "name": "Tharshan Selvarasa ",
+      "role": "Frontend Developer/ UI UX designer",
+      "shortDescription": "Passionate about exploring new technologies, quick learner with a knack for innovation. Eager to contribute to dynamic environments. Let's connect and innovate together!",
+      "profileImage": "/uploads/team/profile-1765520659648-246702952.jpeg",
+      "linkedin": "https://www.linkedin.com/in/tharshan-selvarasa-84186a27b",
+      "github": "https://github.com/TharshanS98",
+      "email": "tharshan19984@gmail.com",
+      "createdAt": "2025-12-12T06:24:02.358Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "fd2cdd38-f8ce-40d8-abd7-2676ff7f363f",
+      "title": "Intern – Software Engineer (SE)",
+      "type": "Full-time",
+      "location": "Hybrid",
+      "description": "This internship provides hands-on experience in software development, allowing you to work closely with senior engineers on real-world projects. You will contribute to application development, testing, and documentation while learning industry-standard tools and programming practices.",
+      "responsibilities": "Assist in designing, developing, and testing software applications.\n\nCollaborate with the engineering team to implement new features.\n\nDebug and resolve technical issues under supervision.\n\nParticipate in code reviews and follow coding best practices.\n\nPrepare basic documentation for assigned tasks.\n\nLearn and adapt to new technologies quickly.",
+      "requirements": "Undergraduate in Computer Science, Software Engineering, or related field.\n\nBasic knowledge of Java, JavaScript, or similar programming languages.\n\nFamiliarity with frameworks like React, React Native, or Spring Boot is an added advantage.\n\nGood problem-solving skills and willingness to learn.\n\nAbility to work in a team and follow guidance.\n\nStrong communication skills.",
+      "createdAt": "2025-12-11T18:19:52.424Z",
+      "isOpen": true
+    }
+  ],
+  "applications": [
+    {
+      "id": "1f934ee7-7ccd-4f97-a665-c5ee7b9d8269",
+      "name": "Sivasothy Lakshan",
+      "email": "lakshansivasothy@gmail.com",
+      "phone": "0778863184",
+      "portfolio": "https://www.linkedin.com/in/sivasothy-tharsi-6ba193210/",
+      "message": "hi",
+      "cvLink": "https://drive.google.com/file/d/1ex8zik9e_RyO6YqJadOEONOxHaqO9UGN/view?usp=sharing",
+      "position": "Intern – Software Engineer (SE)",
+      "jobId": "fd2cdd38-f8ce-40d8-abd7-2676ff7f363f",
+      "status": "New",
+      "createdAt": "2025-12-11T18:22:04.363Z"
+    },
+    {
+      "id": "60b78ac6-6839-4ec0-860f-0867b77728d1",
+      "name": "Tharsa Sivasothy",
+      "email": "tharsathars07@gmail.com",
+      "phone": "0766370311",
+      "portfolio": "",
+      "message": "",
+      "cvLink": "/uploads/documents/doc-1765524653665-614286303.pdf",
+      "coverLetterLink": "/uploads/documents/doc-1765524697819-931999404.pdf",
+      "position": "Intern – Software Engineer (SE)",
+      "jobId": "fd2cdd38-f8ce-40d8-abd7-2676ff7f363f",
+      "status": "New",
+      "createdAt": "2025-12-12T07:31:42.798Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "7037b172-0c05-418f-9f8a-b0634e8ca111",
+      "name": "Thisenthan",
+      "email": "tharsathars07@gmail.com",
+      "phone": "0766370311",
+      "company": "win consultant pvt lmt",
+      "message": "Can we work together upcoming project",
+      "createdAt": "2025-12-12T06:30:06.776Z",
+      "replied": true,
+      "repliedAt": "2025-12-12T07:23:57.575Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "admin-1",
+      "email": "admin@vortextsoft.com",
+      "password": "admin",
+      "role": "admin"
+    }
+  ],
+  "partners": [
+    {
+      "id": "7bffa4fb-6b36-4ad8-9d41-a3c270c274a6",
+      "name": "Pickly (Pvt) Ltd",
+      "logo": "http://localhost:3001/uploads/partners/partner-1765531907703-961077355.png",
+      "createdAt": "2025-12-12T09:31:47.728Z"
+    },
+    {
+      "id": "8d93e584-437f-4c45-b473-d33cff3c654c",
+      "name": "Deconsqure",
+      "logo": "http://localhost:3001/uploads/partners/partner-1765532264972-867962296.png",
+      "createdAt": "2025-12-12T09:37:45.012Z"
+    },
+    {
+      "id": "32ffb869-0f41-4f23-b762-be67a9f795d1",
+      "name": "Lakpahana (Pvt) Ltd",
+      "logo": "http://localhost:3001/uploads/partners/partner-1765532515734-142032152.PNG",
+      "createdAt": "2025-12-12T09:41:55.742Z"
+    }
+  ],
+  "meetings": [
+    {
+      "id": "5198fce6-e3bf-491b-b380-efdb889a7359",
+      "name": "Kal",
+      "email": "tharsathars07@gmail.com",
+      "topic": "General Inquiry",
+      "reason": "",
+      "date": "2025-12-13",
+      "time": "17:00",
+      "status": "pending",
+      "isRead": false,
+      "createdAt": "2025-12-13T07:48:08.025Z"
+    },
+    {
+      "id": "490f5423-13be-4d82-92de-66ad2d42a8a6",
+      "name": "l",
+      "email": "tharsathars07@gmail.com",
+      "topic": "General Inquiry",
+      "reason": "",
+      "date": "2025-12-13",
+      "time": "12:00",
+      "status": "pending",
+      "isRead": false,
+      "createdAt": "2025-12-13T07:49:25.902Z"
+    }
+  ]
+}
