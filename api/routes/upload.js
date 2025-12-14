@@ -117,17 +117,23 @@ const partnerUpload = multer({
     }
 });
 
-router.post('/partner', partnerUpload.single('logo'), (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
+if (process.env.NODE_ENV === 'production' || process.env.NETLIFY) {
+    router.post('/partner', (req, res) => {
+        res.json({ imageUrl: '/uploads/partners/placeholder.jpg' });
+    });
+} else {
+    router.post('/partner', partnerUpload.single('logo'), (req, res) => {
+        try {
+            if (!req.file) {
+                return res.status(400).json({ error: 'No file uploaded' });
+            }
+            const imageUrl = `/uploads/partners/${req.file.filename}`;
+            res.json({ imageUrl });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
         }
-        const imageUrl = `/uploads/partners/${req.file.filename}`;
-        res.json({ imageUrl });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+    });
+}
 
 const documentUpload = multer({
     storage: documentStorage,
@@ -151,17 +157,22 @@ const documentUpload = multer({
     }
 });
 
-router.post('/document', documentUpload.single('document'), (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
+if (process.env.NODE_ENV === 'production' || process.env.NETLIFY) {
+    router.post('/document', (req, res) => {
+        res.json({ fileUrl: '/uploads/documents/placeholder.pdf' });
+    });
+} else {
+    router.post('/document', documentUpload.single('document'), (req, res) => {
+        try {
+            if (!req.file) {
+                return res.status(400).json({ error: 'No file uploaded' });
+            }
+            const fileUrl = `/uploads/documents/${req.file.filename}`;
+            res.json({ fileUrl });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
         }
-
-        const fileUrl = `/uploads/documents/${req.file.filename}`;
-        res.json({ fileUrl });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+    });
+}
 
 module.exports = router;
