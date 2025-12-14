@@ -44,19 +44,28 @@ const upload = multer({
 });
 
 // Upload endpoint
-router.post('/upload', upload.single('profileImage'), (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
+// Upload endpoint
+// In Production/Netlify, we CANNOT save files to disk.
+// We effectively mock the upload to prevent crashes.
+if (process.env.NODE_ENV === 'production' || process.env.NETLIFY) {
+    router.post('/upload', (req, res) => {
+        // Return a dummy image URL so the frontend doesn't break
+        res.json({ imageUrl: '/uploads/team/placeholder.jpg' });
+    });
+} else {
+    // Local Development: Standard Multer Upload
+    router.post('/upload', upload.single('profileImage'), (req, res) => {
+        try {
+            if (!req.file) {
+                return res.status(400).json({ error: 'No file uploaded' });
+            }
+            const imageUrl = `/uploads/team/${req.file.filename}`;
+            res.json({ imageUrl });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
         }
-
-        // Return the file path that can be accessed via static serving
-        const imageUrl = `/uploads/team/${req.file.filename}`;
-        res.json({ imageUrl });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+    });
+}
 
 // Document upload configuration (for PDFs - CV, cover letters)
 const documentStorage = multer.diskStorage({
