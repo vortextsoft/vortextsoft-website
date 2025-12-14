@@ -52,5 +52,6 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
-// Export for Vercel
-module.exports = app;
+// Export for Netlify (Serverless)
+const serverless = require('serverless-http');
+module.exports.handler = serverless(app);

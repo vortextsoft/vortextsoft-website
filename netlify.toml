@@ -1,0 +1,21 @@
+[build]
+  base = "."
+  # Install API deps (so serverless-http is found) AND Client deps, then build client
+  command = "cd api && npm install && cd ../client && npm install && npm run build"
+  publish = "client/dist"
+
+[functions]
+  directory = "api"
+  node_bundler = "esbuild"
+
+# 1. API Rewrite: /api/* -> Function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/index/:splat"
+  status = 200
+
+# 2. SPA Rewrite: Anything else -> index.html (React Router)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

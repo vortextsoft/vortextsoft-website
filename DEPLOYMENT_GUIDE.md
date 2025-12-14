@@ -24,52 +24,58 @@ We recommend these options:
 
 ## 🚀 Recommended Deployment Options
 
-### **Option 1: Vercel All-in-One (Frontend + Backend)** ⭐ RECOMMENDED
-**Best for**: Free, Fast, "Serverless" architecture.
+### **Option 1: Netlify (Frontend + Backend)** ⭐ RECOMMENDED
+**Best for**: Free, Fast, Works in Sri Lanka (No SMS Block).
 **Cost**: $0 (Free Tier)
 
 #### Why This?
-- ✅ **One Platform**: Host everything on Vercel.
-- ✅ **Free SSL**: Automatic HTTPS for `vortextsoft.lk` (once you buy the domain).
-- ✅ **Zero Maintenance**: No servers to manage.
+- ✅ **One Platform**: Host everything on Netlify.
+- ✅ **Free SSL**: Automatic HTTPS.
+- ✅ **Zero Maintenance**: Serverless architecture.
 
 ---
 
-## 🔧 STEP-BY-STEP: Vercel Deployment
+## 🔧 STEP-BY-STEP: Netlify Deployment
 
 ### **1. Push Code to GitHub**
-Ensure your latest code (with the new `vercel.json`) is pushed to your GitHub repository.
+Ensure your latest code (with `netlify.toml` and updated `api/index.js`) is pushed to your GitHub repository.
 
-### **2. Sign up for Vercel**
-- Go to https://vercel.com
-- Sign up with GitHub
+### **2. Sign up for Netlify**
+- Go to https://netlify.com
+- Sign up with GitHub (Easy!)
 
 ### **3. Import Project**
-1. Click **"Add New Project"**.
-2. Select your `VortextSoft` repository.
-3. **Important Configuration**:
-   - **Framework Preset**: Vite
-   - **Root Directory**: `client` (BUT wait! Since we have a `vercel.json`, Vercel might auto-detect the root. If asked, strictly follow the `vercel.json` logic: simply import the *root* of the repo, not just `client`).
-   - *Actually, for Monorepos:*
-     - Leave Root Directory as `./` (Project Root).
-     - **Build Command**: `npm run build` (inside client).
-     - **Output Directory**: `client/dist`.
-   - **Environment Variables**:
-     - `EMAIL_USER`: Your Gmail Address
-     - `EMAIL_PASWORD`: Your Gmail App Password
-     - `NODE_ENV`: `production`
+1. Click **"Add new site"** → **"Import an existing project"**.
+2. Select **GitHub**.
+3. Choose your `VortextSoft` repository.
+4. **Configuration (Important)**:
+   - Netlify should auto-detect settings from `netlify.toml`.
+   - **Build Command**: `cd api && npm install && cd ../client && npm install && npm run build` (If it's not auto-filled, type this!)
+   - **Publish Directory**: `client/dist`
+5. Click **Deploy Site**.
 
-### **4. Deploy**
-- Click **Deploy**.
-- Vercel will build the frontend and set up the API as serverless functions.
-- **Result**: You get one URL (e.g., `https://vortextsoft.vercel.app`).
-  - Frontend: `https://vortextsoft.vercel.app`
-  - API: `https://vortextsoft.vercel.app/api/services` (It just works!)
+### **4. Add Environment Variables**
+**Immediately after starting deployment:**
+1. Go to **SIte Configuration** > **Environment variables**.
+2. Add these variables:
+   - `EMAIL_USER`: Your Gmail Address
+   - `EMAIL_PASSWORD`: Your Gmail App Password
+   - `NODE_ENV`: `production`
+3. **Trigger Redeploy**: Go to "Deploys" tab -> "Trigger deploy" -> "Clear cache and deploy site" (to make sure emails work).
 
-### **5. Connect Domain**
-1. Go to **Settings > Domains**.
-2. Add `vortextsoft.lk` (assuming you bought it).
-3. Follow the DNS instructions.
+### **5. Result**
+- You get a URL like `vortextsoft-1234.netlify.app`.
+- Test it!
+  - Frontend: `https://vortextsoft-1234.netlify.app`
+  - API: `https://vortextsoft-1234.netlify.app/api/services`
+
+### **6. Connect Domain**
+1. Buy domain from local registrar (`domains.lk` etc).
+2. In Netlify: **Domain Management** > **Add Custom Domain**.
+3. Add `vortextsoft.lk`.
+4. Follow DNS instructions (Netlify will give you nameservers).
+
+---
 
 ---
 
