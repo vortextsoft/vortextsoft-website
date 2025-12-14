@@ -68,7 +68,36 @@ const About = () => {
                     </div>
 
                     <div className="team-grid">
-                        {team.length > 0 ? (
+                        {team.length === 0 ? (
+                            // Fallback if no data in API
+                            <>
+                                <TeamCard
+                                    name="Sivasothy Tharsa"
+                                    role="Co-founder and Software Engineer"
+                                    email="tharsa@vortextsoft.com"
+                                />
+                                <TeamCard
+                                    name="Sivasothy Tharsi"
+                                    role="Co-founder and Software Engineer"
+                                    email="tharsi@vortextsoft.com"
+                                />
+                                <TeamCard
+                                    name="Madunicka"
+                                    role="Co-founder and Software Engineer"
+                                    email="madunicka@vortextsoft.com"
+                                />
+                                <TeamCard
+                                    name="Sukumar Anujan"
+                                    role="Software Engineer"
+                                    email="anujan@vortextsoft.com"
+                                />
+                                <TeamCard
+                                    name="Sathakaran Thisenthan"
+                                    role="Project Manager, Business Analyst"
+                                    email="thisenthan@vortextsoft.com"
+                                />
+                            </>
+                        ) : (
                             team.map(member => (
                                 <TeamCard
                                     key={member.id}
@@ -81,10 +110,6 @@ const About = () => {
                                     github={member.github}
                                 />
                             ))
-                        ) : (
-                            <div className="no-data">
-                                <p>No team members found. Please add them from the Admin Panel.</p>
-                            </div>
                         )}
                     </div>
                 </div>

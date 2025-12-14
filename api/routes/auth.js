@@ -1,28 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const { readDb } = require('../utils/db');
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        // Find user in MongoDB
-        const user = await User.findOne({ email });
+        const db = await readDb();
+        const user = db.users.find(u => u.email === email && u.password === password);
 
-        if (user && user.password === password) {
-            // In a real app, sign a JWT here. 
-            // Note: Password usually hashed (bcrypt), but keeping as-is for migration parity
+        if (user) {
+            // In a real app, sign a JWT here
             const token = Buffer.from(`${user.email}:${Date.now()}`).toString('base64');
-
-            // Return user without password
-            const userObj = user.toObject();
-            delete userObj.password;
-
-            res.json({ user: userObj, token });
+            const { password, ...userWithoutPass } = user;
+            res.json({ user: userWithoutPass, token });
         } else {
             res.status(401).json({ error: 'Invalid credentials' });
         }
     } catch (error) {
-        console.error('Login Error:', error);
         res.status(500).json({ error: 'Login failed' });
     }
 });

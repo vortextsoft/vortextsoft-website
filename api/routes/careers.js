@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const Job = require('../models/Job');
+const { readDb, writeDb } = require('../utils/db');
+const { v4: uuidv4 } = require('uuid');
+
+const TABLE = 'jobs';
 
 router.get('/', async (req, res) => {
     try {
-        const jobs = await Job.find({ active: true }).sort({ createdAt: -1 });
-        res.json(jobs);
+        const db = await readDb();
+        res.json(db[TABLE] || []);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch items' });
     }
@@ -13,9 +16,10 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const job = await Job.findById(req.params.id);
-        if (!job) return res.status(404).json({ error: 'Item not found' });
-        res.json(job);
+        const db = await readDb();
+        const item = (db[TABLE] || []).find(s => s.id === req.params.id);
+        if (!item) return res.status(404).json({ error: 'Item not found' });
+        res.json(item);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch item' });
     }
@@ -23,9 +27,17 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const newJob = new Job(req.body);
-        const savedJob = await newJob.save();
-        res.status(201).json(savedJob);
+        const db = await readDb();
+        const newItem = {
+            id: uuidv4(),
+            ...req.body,
+            isOpen: true, // Default to open
+            createdAt: new Date().toISOString()
+        };
+        if (!db[TABLE]) db[TABLE] = [];
+        db[TABLE].push(newItem);
+        await writeDb(db);
+        res.status(201).json(newItem);
     } catch (error) {
         res.status(500).json({ error: 'Failed to create item' });
     }
@@ -33,13 +45,14 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const updatedJob = await Job.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        if (!updatedJob) return res.status(404).json({ error: 'Item not found' });
-        res.json(updatedJob);
+        const db = await readDb();
+        if (!db[TABLE]) db[TABLE] = [];
+        const index = db[TABLE].findIndex(s => s.id === req.params.id);
+        if (index === -1) return res.status(404).json({ error: 'Item not found' });
+
+        db[TABLE][index] = { ...db[TABLE][index], ...req.body };
+        await writeDb(db);
+        res.json(db[TABLE][index]);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update item' });
     }
@@ -47,8 +60,14 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const deletedJob = await Job.findByIdAndDelete(req.params.id);
-        if (!deletedJob) return res.status(404).json({ error: 'Item not found' });
+        const db = await readDb();
+        if (!db[TABLE]) db[TABLE] = [];
+        const newItems = db[TABLE].filter(s => s.id !== req.params.id);
+        if (newItems.length === db[TABLE].length) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+        db[TABLE] = newItems;
+        await writeDb(db);
         res.json({ message: 'Item deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to delete item' });

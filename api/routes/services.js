@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const Service = require('../models/Service');
+const { readDb, writeDb } = require('../utils/db');
+const { v4: uuidv4 } = require('uuid');
 
 // GET all services
 router.get('/', async (req, res) => {
     try {
-        const services = await Service.find().sort({ createdAt: 1 });
+        const db = await readDb();
+        const services = db.services || [];
+        // Sort by display order (if exists) or creation?
+        // services.sort((a, b) => a.order - b.order);
         res.json(services);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch services' });
@@ -15,7 +19,8 @@ router.get('/', async (req, res) => {
 // GET single service
 router.get('/:id', async (req, res) => {
     try {
-        const service = await Service.findById(req.params.id);
+        const db = await readDb();
+        const service = db.services.find(s => s.id === req.params.id);
         if (!service) return res.status(404).json({ error: 'Service not found' });
         res.json(service);
     } catch (error) {
@@ -23,12 +28,18 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// POST (Create) service
+// POST (Create) service - Admin only (TODO: Auth middleware)
 router.post('/', async (req, res) => {
     try {
-        const newService = new Service(req.body);
-        const savedService = await newService.save();
-        res.status(201).json(savedService);
+        const db = await readDb();
+        const newService = {
+            id: uuidv4(),
+            ...req.body,
+            createdAt: new Date().toISOString()
+        };
+        db.services.push(newService);
+        await writeDb(db);
+        res.status(201).json(newService);
     } catch (error) {
         res.status(500).json({ error: 'Failed to create service' });
     }
@@ -37,13 +48,13 @@ router.post('/', async (req, res) => {
 // PUT (Update) service
 router.put('/:id', async (req, res) => {
     try {
-        const updatedService = await Service.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        if (!updatedService) return res.status(404).json({ error: 'Service not found' });
-        res.json(updatedService);
+        const db = await readDb();
+        const index = db.services.findIndex(s => s.id === req.params.id);
+        if (index === -1) return res.status(404).json({ error: 'Service not found' });
+
+        db.services[index] = { ...db.services[index], ...req.body };
+        await writeDb(db);
+        res.json(db.services[index]);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update service' });
     }
@@ -52,8 +63,13 @@ router.put('/:id', async (req, res) => {
 // DELETE service
 router.delete('/:id', async (req, res) => {
     try {
-        const deletedService = await Service.findByIdAndDelete(req.params.id);
-        if (!deletedService) return res.status(404).json({ error: 'Service not found' });
+        const db = await readDb();
+        const newServices = db.services.filter(s => s.id !== req.params.id);
+        if (newServices.length === db.services.length) {
+            return res.status(404).json({ error: 'Service not found' });
+        }
+        db.services = newServices;
+        await writeDb(db);
         res.json({ message: 'Service deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to delete service' });

@@ -86,14 +86,54 @@ const Home = () => {
                     </div>
 
                     <div className="services-grid">
-                        {services.length > 0 ? (
+                        {/* If API has no data yet, show static placeholders as fallback/demo */}
+                        {services.length === 0 ? (
+                            <>
+                                <ServiceCard
+                                    title="Custom Software Solutions"
+                                    icon={<Code />}
+                                    description="Tailor-made software development to meet your unique business requirements and workflows."
+                                />
+                                <ServiceCard
+                                    title="Web & Mobile Application Development"
+                                    icon={<Layout />}
+                                    description="Create responsive, user-friendly websites and powerful cross-platform mobile applications."
+                                />
+                                <ServiceCard
+                                    title="AI, Machine Learning & Data Science"
+                                    icon={<Cpu />}
+                                    description="Intelligent AI and ML-driven solutions to automate processes and extract valuable insights from your data."
+                                />
+                                <ServiceCard
+                                    title="Consulting & Virtual Reality Solutions"
+                                    icon={<Globe />}
+                                    description="Immersive AR/VR experiences that revolutionize training, marketing, and user engagement."
+                                />
+                                <ServiceCard
+                                    title="IoT & Embedded Systems"
+                                    icon={<Layers />}
+                                    description="Connect and automate devices and systems for real-time monitoring, control, and efficiency."
+                                />
+                                <ServiceCard
+                                    title="Enterprise Resource Planning (ERP) Systems"
+                                    icon={<Layers />}
+                                    description="Integrated ERP solutions to streamline and automate all your business operations."
+                                />
+                                <ServiceCard
+                                    title="Quality Assurance & Testing"
+                                    icon={<ShieldCheck />}
+                                    description="Ensure your software is secure, reliable, and performs flawlessly with our comprehensive QA services."
+                                />
+                                <ServiceCard
+                                    title="DevOps, Deployment & Optimization"
+                                    icon={<Code />}
+                                    description="Achieve optimized deployment, CI/CD automation, and infrastructure management for peak performance."
+                                />
+                            </>
+                        ) : (
                             services.map(s => (
                                 <ServiceCard key={s.id} title={s.title} icon={getIcon(s.title)} description={s.description} />
                             ))
-                        ) : (
-                            <div className="no-data">
-                                <p>No services found. Please add them from the Admin Panel.</p>
-                            </div>
                         )}
                     </div>
 

@@ -1,8 +1,4 @@
 {
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
   "dependencies": {
     "body-parser": "^2.2.1",
     "cors": "^2.8.5",

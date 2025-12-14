@@ -11,10 +11,6 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Connect to Database
-const connectDB = require('./config/db');
-connectDB();
-
 // Serve static files from uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -50,11 +46,11 @@ app.get('/', (req, res) => {
 });
 
 // For local development
-if (require.main === module) {
+if (process.env.NODE_ENV !== 'production') {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
     });
 }
 
-// Export the app for Vercel
+// Export for Vercel
 module.exports = app;

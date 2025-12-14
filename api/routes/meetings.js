@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const Meeting = require('../models/Meeting');
+const { readDb, writeDb } = require('../utils/db');
+const { v4: uuidv4 } = require('uuid');
 const { sendEmail } = require('../utils/emailService');
 const { createEmailTemplate } = require('../utils/emailTemplate');
+
+const TABLE = 'meetings';
 
 // Get all meetings
 router.get('/', async (req, res) => {
     try {
-        const meetings = await Meeting.find().sort({ createdAt: -1 });
-        res.json(meetings);
+        const db = await readDb();
+        res.json(db[TABLE] || []);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch items' });
     }
@@ -17,25 +20,35 @@ router.get('/', async (req, res) => {
 // Create new meeting
 router.post('/', async (req, res) => {
     try {
-        const newMeeting = new Meeting({
+        const db = await readDb();
+        const newItem = {
+            id: uuidv4(),
             ...req.body,
-            status: 'pending',
-            isRead: false
-        });
-        const savedMeeting = await newMeeting.save();
-        res.status(201).json(savedMeeting);
+            reason: req.body.reason || '', // Ensure reason key exists
+            status: 'pending', // pending, confirmed, cancelled
+            isRead: false,
+            createdAt: new Date().toISOString()
+        };
+        if (!db[TABLE]) db[TABLE] = [];
+        db[TABLE].push(newItem);
+        await writeDb(db);
+        res.status(201).json(newItem);
     } catch (error) {
         res.status(500).json({ error: 'Failed to create item' });
     }
 });
 
 // Update meeting status (confirm/cancel)
+// Update meeting status (confirm/cancel)
 router.patch('/:id/status', async (req, res) => {
     try {
-        const meeting = await Meeting.findById(req.params.id);
-        if (!meeting) return res.status(404).json({ error: 'Item not found' });
+        const db = await readDb();
+        if (!db[TABLE]) db[TABLE] = [];
+        const index = db[TABLE].findIndex(s => s.id === req.params.id);
+        if (index === -1) return res.status(404).json({ error: 'Item not found' });
 
         const { status, meetingLink, cancellationReason } = req.body;
+        const meeting = db[TABLE][index];
 
         // Send Email if Confirmed
         if (status === 'confirmed' && meetingLink) {
@@ -91,13 +104,16 @@ router.patch('/:id/status', async (req, res) => {
         }
 
         // Update status and mark as read
-        meeting.status = status;
-        if (meetingLink) meeting.meetingLink = meetingLink;
-        if (cancellationReason) meeting.cancellationReason = cancellationReason;
-        meeting.isRead = true;
+        db[TABLE][index] = {
+            ...meeting,
+            status: status,
+            meetingLink: meetingLink || meeting.meetingLink,
+            cancellationReason: cancellationReason || meeting.cancellationReason,
+            isRead: true
+        };
 
-        await meeting.save();
-        res.json(meeting);
+        await writeDb(db);
+        res.json(db[TABLE][index]);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to update item' });
@@ -107,13 +123,14 @@ router.patch('/:id/status', async (req, res) => {
 // Mark meeting as read (for notification clearing)
 router.patch('/:id/read', async (req, res) => {
     try {
-        const meeting = await Meeting.findByIdAndUpdate(
-            req.params.id,
-            { isRead: true },
-            { new: true }
-        );
-        if (!meeting) return res.status(404).json({ error: 'Item not found' });
-        res.json(meeting);
+        const db = await readDb();
+        if (!db[TABLE]) db[TABLE] = [];
+        const index = db[TABLE].findIndex(s => s.id === req.params.id);
+        if (index === -1) return res.status(404).json({ error: 'Item not found' });
+
+        db[TABLE][index] = { ...db[TABLE][index], isRead: true };
+        await writeDb(db);
+        res.json(db[TABLE][index]);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update item' });
     }
@@ -122,8 +139,14 @@ router.patch('/:id/read', async (req, res) => {
 // Delete meeting
 router.delete('/:id', async (req, res) => {
     try {
-        const meeting = await Meeting.findByIdAndDelete(req.params.id);
-        if (!meeting) return res.status(404).json({ error: 'Item not found' });
+        const db = await readDb();
+        if (!db[TABLE]) db[TABLE] = [];
+        const newItems = db[TABLE].filter(s => s.id !== req.params.id);
+        if (newItems.length === db[TABLE].length) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+        db[TABLE] = newItems;
+        await writeDb(db);
         res.json({ message: 'Item deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to delete item' });

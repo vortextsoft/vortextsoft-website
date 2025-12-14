@@ -1,12 +1,14 @@
-// Automatically determine the backend URL
-// In production (Vercel), set VITE_API_URL environment variable.
-// In development, it defaults to localhost:3001.
+// Automatically determine the backend URL based on the current hostname
+// This allows the app to work on localhost and local network IPs (e.g., 10.x.x.x, 192.168.x.x)
 
-const hostname = window.location.hostname;
+// Production-ready config
+const isDevelopment = window.location.hostname === 'localhost';
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || `http://${hostname}:3001`;
+export const API_BASE_URL = isDevelopment
+    ? 'http://localhost:3001'
+    : ''; // Relative path in production (Vercel handles /api proxy)
 
 // Helper for full API routes
 export const API_URL = `${API_BASE_URL}/api`;
 
-console.log('API Configured at:', API_BASE_URL);
+console.log('API Configured at:', API_BASE_URL || 'Relative Path');

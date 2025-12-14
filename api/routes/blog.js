@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const BlogPost = require('../models/BlogPost');
+const { readDb, writeDb } = require('../utils/db');
+const { v4: uuidv4 } = require('uuid');
+
+const TABLE = 'blogPosts';
 
 router.get('/', async (req, res) => {
     try {
-        const posts = await BlogPost.find({ isVisible: true }).sort({ createdAt: -1 });
-        res.json(posts);
+        const db = await readDb();
+        res.json(db[TABLE] || []);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch items' });
     }
@@ -13,9 +16,10 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const post = await BlogPost.findById(req.params.id);
-        if (!post) return res.status(404).json({ error: 'Item not found' });
-        res.json(post);
+        const db = await readDb();
+        const item = (db[TABLE] || []).find(s => s.id === req.params.id);
+        if (!item) return res.status(404).json({ error: 'Item not found' });
+        res.json(item);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch item' });
     }
@@ -23,9 +27,16 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const newPost = new BlogPost(req.body);
-        const savedPost = await newPost.save();
-        res.status(201).json(savedPost);
+        const db = await readDb();
+        const newItem = {
+            id: uuidv4(),
+            ...req.body,
+            createdAt: new Date().toISOString()
+        };
+        if (!db[TABLE]) db[TABLE] = [];
+        db[TABLE].push(newItem);
+        await writeDb(db);
+        res.status(201).json(newItem);
     } catch (error) {
         res.status(500).json({ error: 'Failed to create item' });
     }
@@ -33,28 +44,29 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const updatedPost = await BlogPost.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        if (!updatedPost) return res.status(404).json({ error: 'Item not found' });
-        res.json(updatedPost);
+        const db = await readDb();
+        if (!db[TABLE]) db[TABLE] = [];
+        const index = db[TABLE].findIndex(s => s.id === req.params.id);
+        if (index === -1) return res.status(404).json({ error: 'Item not found' });
+
+        db[TABLE][index] = { ...db[TABLE][index], ...req.body };
+        await writeDb(db);
+        res.json(db[TABLE][index]);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update item' });
     }
 });
 
-// Patch for partial updates (legacy support)
 router.patch('/:id', async (req, res) => {
     try {
-        const updatedPost = await BlogPost.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        if (!updatedPost) return res.status(404).json({ error: 'Item not found' });
-        res.json(updatedPost);
+        const db = await readDb();
+        if (!db[TABLE]) db[TABLE] = [];
+        const index = db[TABLE].findIndex(s => s.id === req.params.id);
+        if (index === -1) return res.status(404).json({ error: 'Item not found' });
+
+        db[TABLE][index] = { ...db[TABLE][index], ...req.body };
+        await writeDb(db);
+        res.json(db[TABLE][index]);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update item' });
     }
@@ -62,8 +74,14 @@ router.patch('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const deletedPost = await BlogPost.findByIdAndDelete(req.params.id);
-        if (!deletedPost) return res.status(404).json({ error: 'Item not found' });
+        const db = await readDb();
+        if (!db[TABLE]) db[TABLE] = [];
+        const newItems = db[TABLE].filter(s => s.id !== req.params.id);
+        if (newItems.length === db[TABLE].length) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+        db[TABLE] = newItems;
+        await writeDb(db);
         res.json({ message: 'Item deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to delete item' });

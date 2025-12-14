@@ -24,128 +24,52 @@ We recommend these options:
 
 ## 🚀 Recommended Deployment Options
 
-### **Option 1: Vercel (Frontend) + Render (Backend)** ⭐ RECOMMENDED
-**Best for**: Easy deployment, automatic HTTPS, free SSL
-**Cost**: Free tier available
+### **Option 1: Vercel All-in-One (Frontend + Backend)** ⭐ RECOMMENDED
+**Best for**: Free, Fast, "Serverless" architecture.
+**Cost**: $0 (Free Tier)
 
-#### Why This Combo?
-- ✅ Automatic HTTPS/SSL
-- ✅ Free tier for both
-- ✅ Easy custom domain setup
-- ✅ Auto-deploy from Git
-- ✅ Global CDN for fast loading
+#### Why This?
+- ✅ **One Platform**: Host everything on Vercel.
+- ✅ **Free SSL**: Automatic HTTPS for `vortextsoft.lk` (once you buy the domain).
+- ✅ **Zero Maintenance**: No servers to manage.
 
 ---
 
-### **Option 2: Railway (Full-Stack)**
-**Best for**: All-in-one deployment
-**Cost**: $5 free credit monthly
+## 🔧 STEP-BY-STEP: Vercel Deployment
 
----
+### **1. Push Code to GitHub**
+Ensure your latest code (with the new `vercel.json`) is pushed to your GitHub repository.
 
-### **Option 3: DigitalOcean / AWS (VPS)**
-**Best for**: Full control, production scale
-**Cost**: $4-6/month minimum
-
----
-
-## 🔧 STEP-BY-STEP: Vercel + Render Deployment
-
-### **Part A: Deploy Backend to Render**
-
-#### 1. Prepare Your Backend
-```bash
-# Navigate to your project root
-cd "e:/VortextSoft/Vortextsoft-company website/VortextSoft (1)/VortextSoft"
-
-# Create a start script for production
-```
-
-Create `api/package.json` if it doesn't exist, and ensure it has:
-```json
-{
-  "scripts": {
-    "start": "node index.js"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  }
-}
-```
-
-#### 2. Sign up for Render
-- Go to https://render.com
-- Sign up with GitHub/GitLab
-- Connect your repository
-
-#### 3. Create Web Service
-1. Click **"New +"** → **"Web Service"**
-2. Connect your GitHub repo
-3. Configure:
-   - **Name**: `vortextsoft-api`
-   - **Root Directory**: `api`
-   - **Environment**: `Node`
-   - **Build Command**: `npm install`
-   - **Start Command**: `npm start`
-   - **Plan**: Free
-
-#### 4. Add Environment Variables
-In Render dashboard, add:
-```
-PORT=3001
-NODE_ENV=production
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASS=your-app-password
-```
-
-#### 5. Deploy
-- Click **"Create Web Service"**
-- Wait for deployment (5-10 minutes)
-- Copy your API URL: `https://vortextsoft-api.onrender.com`
-
----
-
-### **Part B: Deploy Frontend to Vercel**
-
-#### 1. Update API URL in Frontend
-Edit `client/src/config.js`:
-```javascript
-// Production-ready config
-const isDevelopment = window.location.hostname === 'localhost';
-
-export const API_BASE_URL = isDevelopment 
-  ? `http://${window.location.hostname}:3001`
-  : 'https://vortextsoft-api.onrender.com'; // Your Render API URL
-
-export const API_URL = `${API_BASE_URL}/api`;
-
-console.log('API Configured at:', API_BASE_URL);
-```
-
-#### 2. Build Frontend Locally (Test)
-```bash
-cd client
-npm run build
-```
-
-#### 3. Sign up for Vercel
+### **2. Sign up for Vercel**
 - Go to https://vercel.com
 - Sign up with GitHub
-- Import your repository
 
-#### 4. Configure Vercel
-1. Click **"Add New Project"**
-2. Import your repository
-3. Configure:
+### **3. Import Project**
+1. Click **"Add New Project"**.
+2. Select your `VortextSoft` repository.
+3. **Important Configuration**:
    - **Framework Preset**: Vite
-   - **Root Directory**: `client`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
+   - **Root Directory**: `client` (BUT wait! Since we have a `vercel.json`, Vercel might auto-detect the root. If asked, strictly follow the `vercel.json` logic: simply import the *root* of the repo, not just `client`).
+   - *Actually, for Monorepos:*
+     - Leave Root Directory as `./` (Project Root).
+     - **Build Command**: `npm run build` (inside client).
+     - **Output Directory**: `client/dist`.
+   - **Environment Variables**:
+     - `EMAIL_USER`: Your Gmail Address
+     - `EMAIL_PASWORD`: Your Gmail App Password
+     - `NODE_ENV`: `production`
 
-#### 5. Deploy
-- Click **"Deploy"**
-- Wait for deployment (2-3 minutes)
-- You'll get: `https://vortextsoft.vercel.app`
+### **4. Deploy**
+- Click **Deploy**.
+- Vercel will build the frontend and set up the API as serverless functions.
+- **Result**: You get one URL (e.g., `https://vortextsoft.vercel.app`).
+  - Frontend: `https://vortextsoft.vercel.app`
+  - API: `https://vortextsoft.vercel.app/api/services` (It just works!)
+
+### **5. Connect Domain**
+1. Go to **Settings > Domains**.
+2. Add `vortextsoft.lk` (assuming you bought it).
+3. Follow the DNS instructions.
 
 ---
 
