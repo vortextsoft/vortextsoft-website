@@ -7,7 +7,7 @@ const ServicesManagement = () => {
     const [services, setServices] = useState([]);
     const [editing, setEditing] = useState(null); // ID of service being edited or null
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [formData, setFormData] = useState({ title: '', description: '' });
+    const [formData, setFormData] = useState({ title: '', description: '', icon: '' });
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -28,13 +28,17 @@ const ServicesManagement = () => {
 
     const handleEdit = (service) => {
         setEditing(service.id);
-        setFormData({ title: service.title, description: service.description || service.shortDescription || '' });
+        setFormData({
+            title: service.title,
+            description: service.description || service.shortDescription || '',
+            icon: service.icon || ''
+        });
         setIsFormOpen(true);
     };
 
     const handleAdd = () => {
         setEditing(null);
-        setFormData({ title: '', description: '' });
+        setFormData({ title: '', description: '', icon: '' });
         setIsFormOpen(true);
     };
 
@@ -104,6 +108,10 @@ const ServicesManagement = () => {
                             <div className="form-group">
                                 <label>Description</label>
                                 <textarea required rows="4" value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })}></textarea>
+                            </div>
+                            <div className="form-group">
+                                <label>Icon Name (e.g., Globe, Code, Cpu)</label>
+                                <input type="text" value={formData.icon} onChange={e => setFormData({ ...formData, icon: e.target.value })} placeholder="Enter Lucide icon name" />
                             </div>
                             <div className="form-actions">
                                 <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancel</button>

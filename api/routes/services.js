@@ -32,11 +32,11 @@ router.post('/', async (req, res) => {
         const id = uuidv4();
 
         const query = `
-            INSERT INTO services (id, title, subtitle, description, icon, image, features, technologies)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            INSERT INTO services (id, title, description, icon)
+            VALUES ($1, $2, $3, $4)
             RETURNING *
         `;
-        const values = [id, title, subtitle, description, icon, image, features, technologies];
+        const values = [id, title, description, icon];
 
         const result = await db.query(query, values);
         res.status(201).json(result.rows[0]);
@@ -53,11 +53,11 @@ router.put('/:id', async (req, res) => {
 
         const query = `
             UPDATE services 
-            SET title = $1, subtitle = $2, description = $3, icon = $4, image = $5, features = $6, technologies = $7
-            WHERE id = $8
+            SET title = $1, description = $2, icon = $3
+            WHERE id = $4
             RETURNING *
         `;
-        const values = [title, subtitle, description, icon, image, features, technologies, req.params.id];
+        const values = [title, description, icon, req.params.id];
 
         const result = await db.query(query, values);
         if (result.rows.length === 0) return res.status(404).json({ error: 'Service not found' });
