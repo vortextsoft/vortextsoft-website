@@ -121,7 +121,7 @@ const About = () => {
 const TeamCard = ({ name, role, email, shortDescription, profileImage, linkedin, github }) => {
     const getImageUrl = (img) => {
         if (!img) return null;
-        if (img.startsWith('http')) return img;
+        if (img.startsWith('http') || img.startsWith('data:')) return img;
         return `http://localhost:3001${img}`;
     };
 

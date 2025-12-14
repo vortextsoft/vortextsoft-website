@@ -171,7 +171,7 @@ const TeamManagement = () => {
                                 {formData.profileImage && (
                                     <div style={{ marginTop: '1rem', textAlign: 'center' }}>
                                         <img
-                                            src={formData.profileImage.startsWith('http') ? formData.profileImage : `${API_BASE_URL}${formData.profileImage}`}
+                                            src={formData.profileImage.startsWith('http') || formData.profileImage.startsWith('data:') ? formData.profileImage : `${API_BASE_URL}${formData.profileImage}`}
                                             alt="Preview"
                                             style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover' }}
                                         />
