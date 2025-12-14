@@ -1,59 +1,52 @@
+```
 const express = require('express');
 const router = express.Router();
-const { readDb, writeDb } = require('../utils/db');
+const db = require('../utils/sql');
 const { v4: uuidv4 } = require('uuid');
 
-// GET all partners
+// GET all
 router.get('/', async (req, res) => {
     try {
-        const db = await readDb();
-        const partners = db.partners || [];
-        res.json(partners);
+        const result = await db.query('SELECT * FROM partners ORDER BY created_at ASC');
+        res.json(result.rows);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch partners' });
+        console.error('SQL Error:', error);
+        res.status(500).json({ error: 'Failed to fetch items' });
     }
 });
 
-// POST (Create) partner
+// POST
 router.post('/', async (req, res) => {
     try {
-        const db = await readDb();
-        // Ensure partners array exists
-        if (!db.partners) db.partners = [];
-
-        const newPartner = {
-            id: uuidv4(),
-            name: req.body.name,
-            logo: req.body.logo, // URL or base64
-            createdAt: new Date().toISOString()
-        };
-
-        db.partners.push(newPartner);
-        await writeDb(db);
-        res.status(201).json(newPartner);
+        const { name, logo, website } = req.body;
+        const id = uuidv4();
+        
+        const query = `
+            INSERT INTO partners(id, name, logo, website)
+VALUES($1, $2, $3, $4)
+RETURNING *
+    `;
+        const values = [id, name, logo, website];
+        
+        const result = await db.query(query, values);
+        res.status(201).json(result.rows[0]);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to create partner' });
+        console.error('SQL Error:', error);
+        res.status(500).json({ error: 'Failed to create item' });
     }
 });
 
-// DELETE partner
+// DELETE
 router.delete('/:id', async (req, res) => {
     try {
-        const db = await readDb();
-        if (!db.partners) db.partners = [];
-
-        const newPartners = db.partners.filter(p => p.id !== req.params.id);
-
-        if (newPartners.length === db.partners.length) {
-            return res.status(404).json({ error: 'Partner not found' });
-        }
-
-        db.partners = newPartners;
-        await writeDb(db);
-        res.json({ message: 'Partner deleted successfully' });
+        const result = await db.query('DELETE FROM partners WHERE id = $1 RETURNING id', [req.params.id]);
+        if (result.rows.length === 0) return res.status(404).json({ error: 'Item not found' });
+        
+        res.json({ message: 'Item deleted successfully' });
     } catch (error) {
-        res.status(500).json({ error: 'Failed to delete partner' });
+        res.status(500).json({ error: 'Failed to delete item' });
     }
 });
 
 module.exports = router;
+```

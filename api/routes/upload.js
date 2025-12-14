@@ -50,7 +50,8 @@ const upload = multer({
 if (process.env.NODE_ENV === 'production' || process.env.NETLIFY) {
     router.post('/upload', (req, res) => {
         // Return a dummy image URL so the frontend doesn't break
-        res.json({ imageUrl: '/uploads/team/placeholder.jpg' });
+        // Using a reliable external placeholder service
+        res.json({ imageUrl: 'https://placehold.co/600x400?text=Image+Saved' });
     });
 } else {
     // Local Development: Standard Multer Upload

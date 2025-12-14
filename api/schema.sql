@@ -60,6 +60,27 @@ CREATE TABLE IF NOT EXISTS case_studies (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Partners Table
+CREATE TABLE IF NOT EXISTS partners (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    logo VARCHAR(255),
+    website VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Careers (Job Openings) Table
+CREATE TABLE IF NOT EXISTS careers (
+    id VARCHAR(255) PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    type VARCHAR(50), -- Full-time, Part-time
+    location VARCHAR(100), -- Remote, Hybrid, On-site
+    description TEXT,
+    requirements TEXT[],
+    active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Messages (Contact Form)
 CREATE TABLE IF NOT EXISTS messages (
     id SERIAL PRIMARY KEY,
