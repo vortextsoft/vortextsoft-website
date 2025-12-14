@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
+import { API_URL } from '../../config';
 
 const AdminDashboard = () => {
     const [stats, setStats] = useState({
@@ -20,8 +21,8 @@ const AdminDashboard = () => {
                     api.getCaseStudies(),
                     api.getBlogPosts(),
                     api.getJobs(),
-                    fetch('http://localhost:3001/api/applications').then(r => r.json()), // Create helpers later
-                    fetch('http://localhost:3001/api/contact').then(r => r.json())
+                    api.submitApplication ? fetch(`${API_URL}/applications`).then(r => r.json()) : Promise.resolve([]),
+                    fetch(`${API_URL}/contact`).then(r => r.json())
                 ]);
                 setStats({
                     services: s.length,

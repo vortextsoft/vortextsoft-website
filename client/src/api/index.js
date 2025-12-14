@@ -55,36 +55,24 @@ export const api = {
     }),
 
     // Uploads
+    // Uploads
     uploadPartnerLogo: (formData) => fetch(`${API_URL}/upload/partner`, {
         method: 'POST',
         body: formData
-    }).then(res => res.json()),
+    }).then(handleResponse),
     // Meetings
-    getMeetings: async () => {
-        const response = await fetch(`${API_URL}/meetings`);
-        return response.json();
-    },
-    scheduleMeeting: async (meetingData) => {
-        const response = await fetch(`${API_URL}/meetings`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(meetingData)
-        });
-        if (!response.ok) throw new Error('Failed to schedule meeting');
-        return response.json();
-    },
-    updateMeetingStatus: async (id, status, data = {}) => {
-        const response = await fetch(`${API_URL}/meetings/${id}/status`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status, ...data })
-        });
-        return response.json();
-    },
-    markMeetingAsRead: async (id) => {
-        const response = await fetch(`${API_URL}/meetings/${id}/read`, {
-            method: 'PATCH'
-        });
-        return response.json();
-    }
+    getMeetings: () => fetch(`${API_URL}/meetings`).then(handleResponse),
+    scheduleMeeting: (meetingData) => fetch(`${API_URL}/meetings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(meetingData)
+    }).then(handleResponse),
+    updateMeetingStatus: (id, status, data = {}) => fetch(`${API_URL}/meetings/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status, ...data })
+    }).then(handleResponse),
+    markMeetingAsRead: (id) => fetch(`${API_URL}/meetings/${id}/read`, {
+        method: 'PATCH'
+    }).then(handleResponse)
 };

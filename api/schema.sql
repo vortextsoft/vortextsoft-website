@@ -92,6 +92,36 @@ CREATE TABLE IF NOT EXISTS messages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Applications (Job Applications)
+CREATE TABLE IF NOT EXISTS applications (
+    id VARCHAR(255) PRIMARY KEY,
+    job_id VARCHAR(255),
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(50),
+    linkedin VARCHAR(255),
+    portfolio VARCHAR(255),
+    resume VARCHAR(255), -- URL to file
+    cover_letter TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Meetings
+CREATE TABLE IF NOT EXISTS meetings (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    date VARCHAR(50),
+    time VARCHAR(50),
+    topic VARCHAR(255),
+    reason TEXT,
+    status VARCHAR(50) DEFAULT 'pending', -- pending, confirmed, cancelled
+    is_read BOOLEAN DEFAULT false,
+    meeting_link VARCHAR(255),
+    cancellation_reason TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Initial Admin User (Default: admin / admin)
 INSERT INTO users (email, password) 
 VALUES ('admin@vortextsoft.com', 'admin')

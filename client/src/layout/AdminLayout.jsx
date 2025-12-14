@@ -16,8 +16,10 @@ const AdminLayout = () => {
         const fetchCount = () => {
             api.getMeetings()
                 .then(data => {
-                    const pending = data.filter(m => !m.isRead && m.status === 'pending').length;
-                    setMeetingCount(pending);
+                    if (Array.isArray(data)) {
+                        const pending = data.filter(m => !m.isRead && m.status === 'pending').length;
+                        setMeetingCount(pending);
+                    }
                 })
                 .catch(console.error);
         };
