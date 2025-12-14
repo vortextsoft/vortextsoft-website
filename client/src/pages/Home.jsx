@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Code, Cpu, Globe, Layout, Layers, ShieldCheck } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { api } from '../api';
 import '../styles/Home.css';
 
@@ -15,15 +16,21 @@ const Home = () => {
         api.getPartners().then(data => setPartners(data)).catch(err => console.log(err));
     }, []);
 
-    // Hardcoded icons for demo purposes matching the service names
-    const getIcon = (title) => {
+    // Dynamic icon lookup
+    const getIcon = (iconName, title) => {
+        if (iconName) {
+            const formattedName = iconName.charAt(0).toUpperCase() + iconName.slice(1);
+            const IconComponent = LucideIcons[formattedName] || LucideIcons[iconName];
+            if (IconComponent) return <IconComponent />;
+        }
+
         const t = title.toLowerCase();
-        if (t.includes('web')) return <Globe />;
-        if (t.includes('ai') || t.includes('intelligence')) return <Cpu />;
-        if (t.includes('app')) return <Layout />;
-        if (t.includes('erp')) return <Layers />;
-        if (t.includes('quality') || t.includes('test')) return <ShieldCheck />;
-        return <Code />;
+        if (t.includes('web')) return <LucideIcons.Globe />;
+        if (t.includes('ai') || t.includes('intelligence')) return <LucideIcons.Cpu />;
+        if (t.includes('app')) return <LucideIcons.Layout />;
+        if (t.includes('erp')) return <LucideIcons.Layers />;
+        if (t.includes('quality') || t.includes('test')) return <LucideIcons.ShieldCheck />;
+        return <LucideIcons.Code />;
     };
 
     return (
@@ -91,48 +98,48 @@ const Home = () => {
                             <>
                                 <ServiceCard
                                     title="Custom Software Solutions"
-                                    icon={<Code />}
+                                    icon={<LucideIcons.Code />}
                                     description="Tailor-made software development to meet your unique business requirements and workflows."
                                 />
                                 <ServiceCard
                                     title="Web & Mobile Application Development"
-                                    icon={<Layout />}
+                                    icon={<LucideIcons.Layout />}
                                     description="Create responsive, user-friendly websites and powerful cross-platform mobile applications."
                                 />
                                 <ServiceCard
                                     title="AI, Machine Learning & Data Science"
-                                    icon={<Cpu />}
+                                    icon={<LucideIcons.Cpu />}
                                     description="Intelligent AI and ML-driven solutions to automate processes and extract valuable insights from your data."
                                 />
                                 <ServiceCard
                                     title="Consulting & Virtual Reality Solutions"
-                                    icon={<Globe />}
+                                    icon={<LucideIcons.Globe />}
                                     description="Immersive AR/VR experiences that revolutionize training, marketing, and user engagement."
                                 />
                                 <ServiceCard
                                     title="IoT & Embedded Systems"
-                                    icon={<Layers />}
+                                    icon={<LucideIcons.Layers />}
                                     description="Connect and automate devices and systems for real-time monitoring, control, and efficiency."
                                 />
                                 <ServiceCard
                                     title="Enterprise Resource Planning (ERP) Systems"
-                                    icon={<Layers />}
+                                    icon={<LucideIcons.Layers />}
                                     description="Integrated ERP solutions to streamline and automate all your business operations."
                                 />
                                 <ServiceCard
                                     title="Quality Assurance & Testing"
-                                    icon={<ShieldCheck />}
+                                    icon={<LucideIcons.ShieldCheck />}
                                     description="Ensure your software is secure, reliable, and performs flawlessly with our comprehensive QA services."
                                 />
                                 <ServiceCard
                                     title="DevOps, Deployment & Optimization"
-                                    icon={<Code />}
+                                    icon={<LucideIcons.Code />}
                                     description="Achieve optimized deployment, CI/CD automation, and infrastructure management for peak performance."
                                 />
                             </>
                         ) : (
                             services.map(s => (
-                                <ServiceCard key={s.id} title={s.title} icon={getIcon(s.title)} description={s.description} />
+                                <ServiceCard key={s.id} title={s.title} icon={getIcon(s.icon, s.title)} description={s.description} />
                             ))
                         )}
                     </div>

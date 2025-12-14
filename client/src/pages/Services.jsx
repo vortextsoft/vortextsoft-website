@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
 import '../styles/Services.css';
-import { Code, Cpu, Globe, Layout, Layers, ShieldCheck } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 
 const Services = () => {
     const [services, setServices] = useState([]);
@@ -19,14 +19,23 @@ const Services = () => {
             });
     }, []);
 
-    const getIcon = (title) => {
+    const getIcon = (iconName, title) => {
+        // 1. Try to find the icon by name directly from Lucide
+        if (iconName) {
+            // Capitalize first letter just in case (e.g. "calendar" -> "Calendar")
+            const formattedName = iconName.charAt(0).toUpperCase() + iconName.slice(1);
+            const IconComponent = LucideIcons[formattedName] || LucideIcons[iconName];
+            if (IconComponent) return <IconComponent />;
+        }
+
+        // 2. Fallback based on title keywords
         const t = title.toLowerCase();
-        if (t.includes('web')) return <Globe />;
-        if (t.includes('ai') || t.includes('intelligence')) return <Cpu />;
-        if (t.includes('app')) return <Layout />;
-        if (t.includes('erp')) return <Layers />;
-        if (t.includes('quality') || t.includes('test')) return <ShieldCheck />;
-        return <Code />;
+        if (t.includes('web')) return <LucideIcons.Globe />;
+        if (t.includes('ai') || t.includes('intelligence')) return <LucideIcons.Cpu />;
+        if (t.includes('app')) return <LucideIcons.Layout />;
+        if (t.includes('erp')) return <LucideIcons.Layers />;
+        if (t.includes('quality') || t.includes('test')) return <LucideIcons.ShieldCheck />;
+        return <LucideIcons.Code />;
     };
 
     return (
@@ -34,12 +43,12 @@ const Services = () => {
             {/* Hero Section */}
             <section className="services-hero">
                 <div className="hero-motion-bg">
-                    <Globe className="motion-icon icon-1" />
-                    <Cpu className="motion-icon icon-2" />
-                    <Code className="motion-icon icon-3" />
-                    <Layout className="motion-icon icon-4" />
-                    <Layers className="motion-icon icon-5" />
-                    <ShieldCheck className="motion-icon icon-6" />
+                    <LucideIcons.Globe className="motion-icon icon-1" />
+                    <LucideIcons.Cpu className="motion-icon icon-2" />
+                    <LucideIcons.Code className="motion-icon icon-3" />
+                    <LucideIcons.Layout className="motion-icon icon-4" />
+                    <LucideIcons.Layers className="motion-icon icon-5" />
+                    <LucideIcons.ShieldCheck className="motion-icon icon-6" />
                 </div>
                 <div className="container hero-content-center">
                     <h1>Comprehensive Tech Solutions</h1>
@@ -56,7 +65,7 @@ const Services = () => {
                         {!Array.isArray(services) || services.length === 0 ? <p>No services found.</p> : null}
                         {Array.isArray(services) && services.map(service => (
                             <div key={service.id} className="service-item">
-                                <div className="service-icon-large">{getIcon(service.title)}</div>
+                                <div className="service-icon-large">{getIcon(service.icon, service.title)}</div>
                                 <div className="service-content">
                                     <h2>{service.title}</h2>
                                     <p className="service-short">{service.shortDescription}</p>
