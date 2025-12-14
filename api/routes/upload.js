@@ -6,10 +6,14 @@ const router = express.Router();
 
 // Create uploads directory if it doesn't exist
 const uploadsDir = path.join(__dirname, '../uploads/team');
-if (process.env.NODE_ENV !== 'production' && !process.env.NETLIFY) {
-    if (!fs.existsSync(uploadsDir)) {
-        fs.mkdirSync(uploadsDir, { recursive: true });
+try {
+    if (process.env.NODE_ENV !== 'production' && !process.env.NETLIFY) {
+        if (!fs.existsSync(uploadsDir)) {
+            fs.mkdirSync(uploadsDir, { recursive: true });
+        }
     }
+} catch (error) {
+    console.warn('Failed to create upload directory (expected in serverless):', error.message);
 }
 
 // Configure multer for file uploads
