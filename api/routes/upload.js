@@ -57,7 +57,9 @@ const documentStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         const docsDir = path.join(__dirname, '../uploads/documents');
         if (!fs.existsSync(docsDir)) {
-            fs.mkdirSync(docsDir, { recursive: true });
+            if (process.env.NODE_ENV !== 'production' && !process.env.NETLIFY) {
+                fs.mkdirSync(docsDir, { recursive: true });
+            }
         }
         cb(null, docsDir);
     },
@@ -72,7 +74,9 @@ const partnerStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         const partnersDir = path.join(__dirname, '../uploads/partners');
         if (!fs.existsSync(partnersDir)) {
-            fs.mkdirSync(partnersDir, { recursive: true });
+            if (process.env.NODE_ENV !== 'production' && !process.env.NETLIFY) {
+                fs.mkdirSync(partnersDir, { recursive: true });
+            }
         }
         cb(null, partnersDir);
     },
