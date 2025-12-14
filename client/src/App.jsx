@@ -32,44 +32,47 @@ import MeetingManagement from './pages/admin/MeetingManagement'
 
 const Placeholder = ({ title }) => <div className="admin-card"><h2>{title} Management</h2><p>Coming Soon</p></div>
 
+import ErrorBoundary from './components/ErrorBoundary';
+
 function App() {
   return (
-    <AuthProvider>
-      <ScrollToTop />
-      <FloatingLogo />
-      <Routes>
-        {/* ... Public Routes ... */}
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfService />} />
-        </Route>
+    <ErrorBoundary>
+      <AuthProvider>
+        <ScrollToTop />
+        <FloatingLogo />
+        <Routes>
+          {/* ... Public Routes ... */}
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+          </Route>
 
-        {/* Admin Login */}
-        <Route path="/admin/login" element={<AdminLogin />} />
+          {/* Admin Login */}
+          <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* Protected Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="services" element={<ServicesManagement />} />
-          <Route path="casestudies" element={<CaseStudiesManagement />} />
-          <Route path="blog" element={<BlogManagement />} />
-          <Route path="team" element={<TeamManagement />} />
-          <Route path="careers" element={<CareersManagement />} />
-          <Route path="applications" element={<ApplicationsList />} />
-          <Route path="messages" element={<MessagesList />} />
-          <Route path="partners" element={<PartnersManagement />} />
-          <Route path="meetings" element={<MeetingManagement />} />
-        </Route>
-      </Routes>
-    </AuthProvider>
-  )
+          {/* Protected Admin Routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="services" element={<ServicesManagement />} />
+            <Route path="casestudies" element={<CaseStudiesManagement />} />
+            <Route path="blog" element={<BlogManagement />} />
+            <Route path="team" element={<TeamManagement />} />
+            <Route path="careers" element={<CareersManagement />} />
+            <Route path="applications" element={<ApplicationsList />} />
+            <Route path="messages" element={<MessagesList />} />
+            <Route path="partners" element={<PartnersManagement />} />
+            <Route path="meetings" element={<MeetingManagement />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
+      )
 }
 
-export default App
+      export default App
