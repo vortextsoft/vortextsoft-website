@@ -25,10 +25,10 @@ CREATE TABLE IF NOT EXISTS team (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     role VARCHAR(255),
-    bio TEXT,
-    image VARCHAR(255),
+    email VARCHAR(255),
+    shortDescription TEXT,
+    profileImage TEXT,
     linkedin VARCHAR(255),
-    twitter VARCHAR(255),
     github VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

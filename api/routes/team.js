@@ -24,15 +24,16 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { name, role, bio, image, linkedin, twitter, github } = req.body;
+        const { name, role, email, shortDescription, profileImage, linkedin, github } = req.body;
         const id = uuidv4();
 
+        // Using quoted identifiers for camelCase columns in Postgres
         const query = `
-            INSERT INTO team (id, name, role, bio, image, linkedin, twitter, github)
+            INSERT INTO team (id, name, role, email, "shortDescription", "profileImage", linkedin, github)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING *
         `;
-        const values = [id, name, role, bio, image, linkedin, twitter, github];
+        const values = [id, name, role, email, shortDescription, profileImage, linkedin, github];
 
         const result = await db.query(query, values);
         res.status(201).json(result.rows[0]);
@@ -44,15 +45,15 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const { name, role, bio, image, linkedin, twitter, github } = req.body;
+        const { name, role, email, shortDescription, profileImage, linkedin, github } = req.body;
 
         const query = `
             UPDATE team 
-            SET name = $1, role = $2, bio = $3, image = $4, linkedin = $5, twitter = $6, github = $7
+            SET name = $1, role = $2, email = $3, "shortDescription" = $4, "profileImage" = $5, linkedin = $6, github = $7
             WHERE id = $8
             RETURNING *
         `;
-        const values = [name, role, bio, image, linkedin, twitter, github, req.params.id];
+        const values = [name, role, email, shortDescription, profileImage, linkedin, github, req.params.id];
 
         const result = await db.query(query, values);
         if (result.rows.length === 0) return res.status(404).json({ error: 'Item not found' });
