@@ -1,13 +1,27 @@
 import { API_URL } from '../config';
 
 
+// Helper to handle responses
+const handleResponse = async (res) => {
+    if (!res.ok) {
+        const errorText = await res.text();
+        try {
+            const errorJson = JSON.parse(errorText);
+            throw new Error(errorJson.error || 'API Request Failed');
+        } catch (e) {
+            throw new Error(`API Request Failed: ${res.status} ${res.statusText}`);
+        }
+    }
+    return res.json();
+};
+
 export const api = {
-    getServices: () => fetch(`${API_URL}/services`).then(res => res.json()),
-    getCaseStudies: () => fetch(`${API_URL}/casestudies`).then(res => res.json()),
-    getBlogPosts: () => fetch(`${API_URL}/blog`).then(res => res.json()),
-    getTeam: () => fetch(`${API_URL}/team`).then(res => res.json()),
-    getJobs: () => fetch(`${API_URL}/careers`).then(res => res.json()),
-    getPartners: () => fetch(`${API_URL}/partners`).then(res => res.json()),
+    getServices: () => fetch(`${API_URL}/services`).then(handleResponse),
+    getCaseStudies: () => fetch(`${API_URL}/casestudies`).then(handleResponse),
+    getBlogPosts: () => fetch(`${API_URL}/blog`).then(handleResponse),
+    getTeam: () => fetch(`${API_URL}/team`).then(handleResponse),
+    getJobs: () => fetch(`${API_URL}/careers`).then(handleResponse),
+    getPartners: () => fetch(`${API_URL}/partners`).then(handleResponse),
     addPartner: (data) => fetch(`${API_URL}/partners`, { // No auth header for now based on context
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -53,8 +53,8 @@ const Services = () => {
                     <p>Loading services...</p>
                 ) : (
                     <div className="services-list">
-                        {services.length === 0 ? <p>No services found.</p> : null}
-                        {services.map(service => (
+                        {!Array.isArray(services) || services.length === 0 ? <p>No services found.</p> : null}
+                        {Array.isArray(services) && services.map(service => (
                             <div key={service.id} className="service-item">
                                 <div className="service-icon-large">{getIcon(service.title)}</div>
                                 <div className="service-content">

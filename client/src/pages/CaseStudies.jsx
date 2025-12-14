@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
+import { API_BASE_URL } from '../config';
 import '../styles/CaseStudies.css';
 
 const CaseStudies = () => {
@@ -138,7 +139,7 @@ const CaseStudies = () => {
                                     <div className="case-study-image">
                                         {study.heroImage ? (
                                             <div className="image-container">
-                                                <img src={`http://localhost:3001${study.heroImage}`} alt={study.title} />
+                                                <img src={`${API_BASE_URL}${study.heroImage}`} alt={study.title} />
                                                 {study.heroVideo && (
                                                     <button
                                                         className="video-play-overlay"
@@ -157,7 +158,7 @@ const CaseStudies = () => {
                                             </div>
                                         ) : study.heroVideo ? (
                                             <video
-                                                src={`http://localhost:3001${study.heroVideo}`}
+                                                src={`${API_BASE_URL}${study.heroVideo}`}
                                                 controls
                                                 muted
                                                 className="case-video"
