@@ -139,7 +139,7 @@ const CaseStudies = () => {
                                     <div className="case-study-image">
                                         {study.heroImage ? (
                                             <div className="image-container">
-                                                <img src={`${API_BASE_URL}${study.heroImage}`} alt={study.title} />
+                                                <img src={study.heroImage.startsWith('http') ? study.heroImage : `${API_BASE_URL}${study.heroImage}`} alt={study.title} />
                                                 {study.heroVideo && (
                                                     <button
                                                         className="video-play-overlay"
@@ -158,7 +158,7 @@ const CaseStudies = () => {
                                             </div>
                                         ) : study.heroVideo ? (
                                             <video
-                                                src={`${API_BASE_URL}${study.heroVideo}`}
+                                                src={study.heroVideo.startsWith('http') ? study.heroVideo : `${API_BASE_URL}${study.heroVideo}`}
                                                 controls
                                                 muted
                                                 className="case-video"

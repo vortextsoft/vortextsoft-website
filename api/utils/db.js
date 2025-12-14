@@ -3,24 +3,23 @@ const path = require('path');
 
 const DB_PATH = path.join(__dirname, '../data/db.json');
 
+// In Netlify Production, we MUST use 'require' to ensure the file is bundled.
+// fs.readFile often fails because the file isn't where we expect it in Lambda.
+const staticDb = require('../data/db.json');
+
 async function readDb() {
+    // If production, return static require data (Read-Only)
+    if (process.env.NODE_ENV === 'production' || process.env.NETLIFY) {
+        return staticDb;
+    }
+
+    // Local Development: Continue using FS so we can update it
     try {
         const data = await fs.readFile(DB_PATH, 'utf-8');
         return JSON.parse(data);
     } catch (error) {
         console.error('Error reading DB:', error);
-        // Return default structure if read fails
-        return {
-            services: [],
-            caseStudies: [],
-            blogPosts: [],
-            team: [],
-            jobs: [],
-            applications: [],
-            messages: [],
-            users: [],
-            partners: []
-        };
+        return staticDb; // Fallback
     }
 }
 
