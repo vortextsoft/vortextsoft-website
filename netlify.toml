@@ -9,7 +9,6 @@
   node_bundler = "esbuild"
 
 [build.environment]
-  NODE_ENV = "production"
   NETLIFY = "true"
 
 # 1. API Rewrite: /api/* -> Function
