@@ -41,6 +41,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/partners', partnersRoutes);
 app.use('/api/meetings', meetingsRoutes);
+app.use('/api/setup', require('./routes/setup'));
 
 app.get('/', (req, res) => {
     res.send('Vortextsoft API is running');

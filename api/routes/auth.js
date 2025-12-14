@@ -20,7 +20,7 @@ router.post('/login', async (req, res) => {
         }
     } catch (error) {
         console.error('Login SQL Error:', error);
-        const dbStatus = process.env.DATABASE_URL ? 'DB_URL_SET' : 'DB_URL_MISSING';
+        const dbStatus = (process.env.NETLIFY_DATABASE_URL || process.env.DATABASE_URL) ? 'DB_URL_SET' : 'DB_URL_MISSING';
         res.status(500).json({ error: `Login failed: ${error.message} [${dbStatus}]` });
     }
 });
