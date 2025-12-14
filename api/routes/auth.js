@@ -7,6 +7,7 @@ router.post('/login', async (req, res) => {
     try {
         const db = await readDb();
         console.log('Login Attempt for:', email);
+        console.log('REQ BODY KEYS:', Object.keys(req.body));
         console.log('Users in DB:', db.users ? db.users.length : 'No Users Array');
 
         const user = db.users.find(u => u.email === email && u.password === password);
