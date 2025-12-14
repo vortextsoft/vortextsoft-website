@@ -9,6 +9,7 @@
     "multer": "^2.0.2",
     "nodemailer": "^7.0.11",
     "uuid": "^9.0.1",
-    "serverless-http": "latest"
+    "serverless-http": "latest",
+    "pg": "^8.11.3"
   }
 }

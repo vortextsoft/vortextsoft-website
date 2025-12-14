@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { readDb, writeDb } = require('../utils/db');
+const db = require('../utils/sql');
 const { v4: uuidv4 } = require('uuid');
-
-const TABLE = 'team';
 
 router.get('/', async (req, res) => {
     try {
-        const db = await readDb();
-        res.json(db[TABLE] || []);
+        const result = await db.query('SELECT * FROM team ORDER BY created_at ASC');
+        res.json(result.rows);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch items' });
     }
@@ -16,10 +14,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const db = await readDb();
-        const item = (db[TABLE] || []).find(s => s.id === req.params.id);
-        if (!item) return res.status(404).json({ error: 'Item not found' });
-        res.json(item);
+        const result = await db.query('SELECT * FROM team WHERE id = $1', [req.params.id]);
+        if (result.rows.length === 0) return res.status(404).json({ error: 'Item not found' });
+        res.json(result.rows[0]);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch item' });
     }
@@ -27,31 +24,40 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const db = await readDb();
-        const newItem = {
-            id: uuidv4(),
-            ...req.body,
-            createdAt: new Date().toISOString()
-        };
-        if (!db[TABLE]) db[TABLE] = [];
-        db[TABLE].push(newItem);
-        await writeDb(db);
-        res.status(201).json(newItem);
+        const { name, role, bio, image, linkedin, twitter, github } = req.body;
+        const id = uuidv4();
+
+        const query = `
+            INSERT INTO team (id, name, role, bio, image, linkedin, twitter, github)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            RETURNING *
+        `;
+        const values = [id, name, role, bio, image, linkedin, twitter, github];
+
+        const result = await db.query(query, values);
+        res.status(201).json(result.rows[0]);
     } catch (error) {
+        console.error('SQL Error:', error);
         res.status(500).json({ error: 'Failed to create item' });
     }
 });
 
 router.put('/:id', async (req, res) => {
     try {
-        const db = await readDb();
-        if (!db[TABLE]) db[TABLE] = [];
-        const index = db[TABLE].findIndex(s => s.id === req.params.id);
-        if (index === -1) return res.status(404).json({ error: 'Item not found' });
+        const { name, role, bio, image, linkedin, twitter, github } = req.body;
 
-        db[TABLE][index] = { ...db[TABLE][index], ...req.body };
-        await writeDb(db);
-        res.json(db[TABLE][index]);
+        const query = `
+            UPDATE team 
+            SET name = $1, role = $2, bio = $3, image = $4, linkedin = $5, twitter = $6, github = $7
+            WHERE id = $8
+            RETURNING *
+        `;
+        const values = [name, role, bio, image, linkedin, twitter, github, req.params.id];
+
+        const result = await db.query(query, values);
+        if (result.rows.length === 0) return res.status(404).json({ error: 'Item not found' });
+
+        res.json(result.rows[0]);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update item' });
     }
@@ -59,14 +65,9 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const db = await readDb();
-        if (!db[TABLE]) db[TABLE] = [];
-        const newItems = db[TABLE].filter(s => s.id !== req.params.id);
-        if (newItems.length === db[TABLE].length) {
-            return res.status(404).json({ error: 'Item not found' });
-        }
-        db[TABLE] = newItems;
-        await writeDb(db);
+        const result = await db.query('DELETE FROM team WHERE id = $1 RETURNING id', [req.params.id]);
+        if (result.rows.length === 0) return res.status(404).json({ error: 'Item not found' });
+
         res.json({ message: 'Item deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to delete item' });

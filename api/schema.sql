@@ -1,0 +1,77 @@
+-- Users Table
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) DEFAULT 'admin',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Services Table
+CREATE TABLE IF NOT EXISTS services (
+    id VARCHAR(255) PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    subtitle VARCHAR(255),
+    description TEXT,
+    icon VARCHAR(255),
+    image VARCHAR(255),
+    features TEXT[], -- Array of strings
+    technologies TEXT[], -- Array of strings
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Team Table
+CREATE TABLE IF NOT EXISTS team (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    role VARCHAR(255),
+    bio TEXT,
+    image VARCHAR(255),
+    linkedin VARCHAR(255),
+    twitter VARCHAR(255),
+    github VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Blog Posts Table
+CREATE TABLE IF NOT EXISTS blog_posts (
+    id VARCHAR(255) PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    excerpt TEXT,
+    content TEXT,
+    author VARCHAR(255),
+    image VARCHAR(255),
+    category VARCHAR(255),
+    tags TEXT[],
+    published BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Case Studies (Projects)
+CREATE TABLE IF NOT EXISTS case_studies (
+    id VARCHAR(255) PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    client VARCHAR(255),
+    description TEXT,
+    image VARCHAR(255),
+    video VARCHAR(255),
+    category VARCHAR(255),
+    results TEXT[],
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Messages (Contact Form)
+CREATE TABLE IF NOT EXISTS messages (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(255),
+    message TEXT NOT NULL,
+    read BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Initial Admin User (Default: admin / admin)
+INSERT INTO users (email, password) 
+VALUES ('admin@vortextsoft.com', 'admin')
+ON CONFLICT (email) DO NOTHING;
