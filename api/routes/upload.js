@@ -47,14 +47,13 @@ const upload = multer({
 // Upload endpoint
 // In Production/Netlify, we CANNOT save files to disk.
 // We effectively mock the upload to prevent crashes.
-// Feature Flag: Depend on Env Vars now that we set them in netlify.toml
-const isProduction = process.env.NODE_ENV === 'production' || process.env.NETLIFY === 'true';
-
-if (isProduction) {
+if (process.env.NODE_ENV === 'production' || process.env.NETLIFY) {
     router.post('/upload', (req, res) => {
+        // Return a dummy image URL so the frontend doesn't break
         res.json({ imageUrl: '/uploads/team/placeholder.jpg' });
     });
 } else {
+    // Local Development: Standard Multer Upload
     router.post('/upload', upload.single('profileImage'), (req, res) => {
         try {
             if (!req.file) {
@@ -68,42 +67,101 @@ if (isProduction) {
     });
 }
 
-// ... Document and Partner Logic mirrors this ...
-
-if (isProduction) {
-    router.post('/partner', (req, res) => {
-        res.json({ imageUrl: '/uploads/partners/placeholder.jpg' });
-    });
-} else {
-    router.post('/partner', partnerUpload.single('logo'), (req, res) => {
-        try {
-            if (!req.file) {
-                return res.status(400).json({ error: 'No file uploaded' });
+// Document upload configuration (for PDFs - CV, cover letters)
+const documentStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const docsDir = path.join(__dirname, '../uploads/documents');
+        if (!fs.existsSync(docsDir)) {
+            if (process.env.NODE_ENV !== 'production' && !process.env.NETLIFY) {
+                fs.mkdirSync(docsDir, { recursive: true });
             }
-            const imageUrl = `/uploads/partners/${req.file.filename}`;
-            res.json({ imageUrl });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
         }
-    });
-}
+        cb(null, docsDir);
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, 'doc-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
 
-if (isProduction) {
-    router.post('/document', (req, res) => {
-        res.json({ fileUrl: '/uploads/documents/placeholder.pdf' });
-    });
-} else {
-    router.post('/document', documentUpload.single('document'), (req, res) => {
-        try {
-            if (!req.file) {
-                return res.status(400).json({ error: 'No file uploaded' });
+// Partner Logo Storage
+const partnerStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const partnersDir = path.join(__dirname, '../uploads/partners');
+        if (!fs.existsSync(partnersDir)) {
+            if (process.env.NODE_ENV !== 'production' && !process.env.NETLIFY) {
+                fs.mkdirSync(partnersDir, { recursive: true });
             }
-            const fileUrl = `/uploads/documents/${req.file.filename}`;
-            res.json({ fileUrl });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
         }
-    });
-}
+        cb(null, partnersDir);
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, 'partner-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const partnerUpload = multer({
+    storage: partnerStorage,
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    fileFilter: function (req, file, cb) {
+        const allowedTypes = /jpeg|jpg|png|gif|webp|svg/;
+        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = allowedTypes.test(file.mimetype) || file.mimetype === 'image/svg+xml';
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        } else {
+            cb(new Error('Only image files (including SVG) are allowed!'));
+        }
+    }
+});
+
+router.post('/partner', partnerUpload.single('logo'), (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+        const imageUrl = `/uploads/partners/${req.file.filename}`;
+        res.json({ imageUrl });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+const documentUpload = multer({
+    storage: documentStorage,
+    limits: { fileSize: 50 * 1024 * 1024 }, // 50MB limit for videos
+    fileFilter: function (req, file, cb) {
+        // Allow PDFs, images, and videos
+        console.log('File upload attempt:', file.originalname, 'MIME:', file.mimetype);
+        const allowedTypes = /pdf|jpeg|jpg|png|gif|webp|mp4|webm|ogg|mov|avi/;
+        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = file.mimetype === 'application/pdf' ||
+            file.mimetype.startsWith('image/') ||
+            file.mimetype.startsWith('video/');
+
+        console.log('Extension check:', extname, 'MIME check:', mimetype);
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        } else {
+            cb(new Error('Only PDF, image, and video files are allowed!'));
+        }
+    }
+});
+
+router.post('/document', documentUpload.single('document'), (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded' });
+        }
+
+        const fileUrl = `/uploads/documents/${req.file.filename}`;
+        res.json({ fileUrl });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 module.exports = router;
