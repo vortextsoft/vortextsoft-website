@@ -72,7 +72,8 @@ function App() {
           </Route>
         </Routes>
       </AuthProvider>
-      )
+    </ErrorBoundary>
+  )
 }
 
-      export default App
+export default App
