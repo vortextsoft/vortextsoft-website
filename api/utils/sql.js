@@ -2,8 +2,11 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 // Create a connection pool using the DATABASE_URL from Netlify/Neon
+// Netlify Neon extension uses NETLIFY_DATABASE_URL
+const connectionString = process.env.NETLIFY_DATABASE_URL || process.env.DATABASE_URL;
+
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString,
     ssl: {
         rejectUnauthorized: false // Required for Neon/Heroku/most cloud DBs
     }
