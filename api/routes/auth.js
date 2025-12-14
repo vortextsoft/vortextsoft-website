@@ -18,10 +18,20 @@ router.post('/login', async (req, res) => {
             const { password, ...userWithoutPass } = user;
             res.json({ user: userWithoutPass, token });
         } else {
-            res.status(401).json({ error: 'Invalid credentials' });
+            // DEBUGGING: Return why it failed
+            res.status(401).json({
+                error: 'Invalid credentials',
+                debug: {
+                    receivedEmail: email,
+                    receivedPasswordLength: password ? password.length : 0,
+                    dbUsersCount: db.users ? db.users.length : 'undefined',
+                    firstUserEmail: db.users && db.users.length > 0 ? db.users[0].email : 'N/A',
+                    firstUserPassLength: db.users && db.users.length > 0 ? db.users[0].password.length : 'N/A'
+                }
+            });
         }
     } catch (error) {
-        res.status(500).json({ error: 'Login failed' });
+        res.status(500).json({ error: 'Login failed', details: error.message });
     }
 });
 
