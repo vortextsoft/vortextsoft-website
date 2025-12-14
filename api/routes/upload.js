@@ -47,11 +47,10 @@ const upload = multer({
 // Upload endpoint
 // In Production/Netlify, we CANNOT save files to disk.
 // We effectively mock the upload to prevent crashes.
-// Feature Flag: If upload directory exists, we are in Local Dev (Writable).
-// If it does NOT exist, we are in Production/Serverless (Read-Only).
-const shouldUseMock = !fs.existsSync(uploadsDir);
+// Feature Flag: Depend on Env Vars now that we set them in netlify.toml
+const isProduction = process.env.NODE_ENV === 'production' || process.env.NETLIFY === 'true';
 
-if (shouldUseMock) {
+if (isProduction) {
     router.post('/upload', (req, res) => {
         res.json({ imageUrl: '/uploads/team/placeholder.jpg' });
     });
@@ -71,10 +70,7 @@ if (shouldUseMock) {
 
 // ... Document and Partner Logic mirrors this ...
 
-const partnersDir = path.join(__dirname, '../uploads/partners');
-const shouldUsePartnerMock = !fs.existsSync(partnersDir);
-
-if (shouldUsePartnerMock) {
+if (isProduction) {
     router.post('/partner', (req, res) => {
         res.json({ imageUrl: '/uploads/partners/placeholder.jpg' });
     });
@@ -92,10 +88,7 @@ if (shouldUsePartnerMock) {
     });
 }
 
-const docsDir = path.join(__dirname, '../uploads/documents');
-const shouldUseDocMock = !fs.existsSync(docsDir);
-
-if (shouldUseDocMock) {
+if (isProduction) {
     router.post('/document', (req, res) => {
         res.json({ fileUrl: '/uploads/documents/placeholder.pdf' });
     });
