@@ -20,7 +20,8 @@ router.post('/login', async (req, res) => {
         }
     } catch (error) {
         console.error('Login SQL Error:', error);
-        res.status(500).json({ error: 'Login failed', details: error.message });
+        const dbStatus = process.env.DATABASE_URL ? 'DB_URL_SET' : 'DB_URL_MISSING';
+        res.status(500).json({ error: `Login failed: ${error.message} [${dbStatus}]` });
     }
 });
 
