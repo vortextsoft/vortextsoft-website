@@ -70,15 +70,24 @@ const CareersManagement = () => {
         const method = editing ? 'PUT' : 'POST';
 
         try {
-            await fetch(url, {
+            const res = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(`Error: ${data.details || data.error || 'Failed to save'}`);
+                return;
+            }
+
             setIsFormOpen(false);
             fetchData();
         } catch (error) {
             console.error(error);
+            alert('An unexpected error occurred.');
         } finally {
             setLoading(false);
         }
