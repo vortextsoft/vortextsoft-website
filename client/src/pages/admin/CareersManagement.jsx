@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
+import { API_URL } from '../../config';
 import { Pencil, Trash2, Plus, Ban } from 'lucide-react';
 
 const CareersManagement = () => {
