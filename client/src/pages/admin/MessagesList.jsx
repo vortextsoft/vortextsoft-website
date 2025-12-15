@@ -36,6 +36,50 @@ const MessagesList = () => {
         }
     };
 
+    const handleView = async (message) => {
+        setViewing(message);
+        setIsModalOpen(true);
+
+        // Mark as read if not already
+        if (!message.read) {
+            try {
+                await fetch(`${API_URL}/contact/${message.id}/replied`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ read: true })
+                });
+                // Update local state to reflect read status
+                setMessages(prev => prev.map(m => m.id === message.id ? { ...m, read: true } : m));
+            } catch (err) {
+                console.error("Failed to mark as read", err);
+            }
+        }
+    };
+
+    const handleReply = () => {
+        setIsModalOpen(false);
+        setReplyData({
+            subject: `Re: Contact from ${viewing.name}`,
+            message: `Hi ${viewing.name},\n\nThank you for reaching out.\n\nBest regards,\nVortextSoft Team`
+        });
+        setIsReplyOpen(true);
+    };
+
+    const handleSendEmail = async (e) => {
+        e.preventDefault();
+        setSending(true);
+
+        // Since we don't have a dedicated "Reply" endpoint yet, using mailto for now
+        // or just alerting. Ideally we should create an endpoint. 
+        // For now, let's simulate success to clear the modal, but warn user.
+
+        const mailtoLink = `mailto:${viewing.email}?subject=${encodeURIComponent(replyData.subject)}&body=${encodeURIComponent(replyData.message)}`;
+        window.location.href = mailtoLink;
+
+        setSending(false);
+        setIsReplyOpen(false);
+    };
+
     // ... (rest of component)
 
     return (
