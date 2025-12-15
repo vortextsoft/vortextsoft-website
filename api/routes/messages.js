@@ -16,46 +16,49 @@ router.get('/', async (req, res) => {
 // POST (Send Message)
 router.post('/', async (req, res) => {
     try {
-        const { name, email, subject, message } = req.body;
+        const { name, email, phone, company, message } = req.body;
+        const { v4: uuidv4 } = require('uuid');
 
         if (!email || !message) {
             return res.status(400).json({ error: 'Email and message are required' });
         }
 
-        // 1. Send Email (Keep existing logic)
+        const id = uuidv4();
+
+        // 1. Send Email (Optional, non-blocking)
         try {
             const { sendEmail } = require('../utils/emailService');
             await sendEmail({
                 to: process.env.EMAIL_USER,
-                subject: `New Contact Form: ${subject || 'No Subject'}`,
-                text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+                subject: `New Contact from ${name} at ${company || 'No Company'}`,
+                text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'N/A'}\nCompany: ${company || 'N/A'}\n\nMessage:\n${message}`,
                 html: `
                     <h3>New Contact Message</h3>
                     <p><strong>From:</strong> ${name} (${email})</p>
-                    <p><strong>Subject:</strong> ${subject}</p>
+                    <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+                    <p><strong>Company:</strong> ${company || 'N/A'}</p>
                     <hr/>
                     <p>${message.replace(/\n/g, '<br>')}</p>
                 `
             });
         } catch (emailError) {
             console.error('Email sending failed:', emailError);
-            // Continue to save to DB anyway
         }
 
         // 2. Save to Postgres DB
         const query = `
-            INSERT INTO messages (name, email, subject, message)
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO messages (id, name, email, phone, company, message)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *
         `;
-        const values = [name, email, subject, message];
+        const values = [id, name, email, phone, company, message];
         const result = await db.query(query, values);
 
         res.status(201).json(result.rows[0]);
 
     } catch (error) {
         console.error('Contact form error:', error);
-        res.status(500).json({ error: 'Failed to send message' });
+        res.status(500).json({ error: 'Failed to send message', details: error.message });
     }
 });
 
