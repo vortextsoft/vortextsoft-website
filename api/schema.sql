@@ -100,14 +100,14 @@ CREATE TABLE IF NOT EXISTS messages (
 DROP TABLE IF EXISTS applications;
 CREATE TABLE IF NOT EXISTS applications (
     id VARCHAR(255) PRIMARY KEY,
-    "jobId" VARCHAR(255),
+    job_id VARCHAR(255),
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(50),
     portfolio VARCHAR(255),
     message TEXT,
-    "cvLink" TEXT,
-    "coverLetterLink" TEXT,
+    cv_link TEXT,
+    cover_letter_link TEXT,
     position VARCHAR(255),
     status VARCHAR(50) DEFAULT 'New',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
