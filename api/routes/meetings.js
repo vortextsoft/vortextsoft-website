@@ -66,7 +66,7 @@ router.post('/', async (req, res) => {
         res.status(201).json(newItem);
     } catch (error) {
         console.error('SQL Error:', error);
-        res.status(500).json({ error: 'Failed to create item' });
+        res.status(500).json({ error: 'Failed to create item', details: error.message });
     }
 });
 
