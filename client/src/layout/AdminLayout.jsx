@@ -10,6 +10,7 @@ const AdminLayout = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [meetingCount, setMeetingCount] = useState(0);
 
     useEffect(() => {
         // Fetch pending meetings count
