@@ -10,7 +10,7 @@ const Blog = () => {
     useEffect(() => {
         api.getBlogPosts()
             .then(data => {
-                setPosts(data.filter(post => post.isVisible));
+                setPosts(data.filter(post => post.is_visible));
                 setLoading(false);
             })
             .catch(err => setLoading(false));
@@ -34,10 +34,10 @@ const Blog = () => {
         const decor1 = hero.querySelector('.hero-decoration-1');
         const decor2 = hero.querySelector('.hero-decoration-2');
 
-        if (image) image.style.transform = `translate(${moveX * -1}px, ${moveY * -1}px)`;
+        if (image) image.style.transform = `translate(${moveX * - 1}px, ${moveY * - 1}px)`;
         if (circle) circle.style.transform = `translate(${moveX}px, ${moveY}px)`;
         if (decor1) decor1.style.transform = `translate(${moveX * 1.5}px, ${moveY * 1.5}px)`;
-        if (decor2) decor2.style.transform = `translate(${moveX * -0.5}px, ${moveY * -0.5}px)`;
+        if (decor2) decor2.style.transform = `translate(${moveX * - 0.5}px, ${moveY * - 0.5}px)`;
     };
 
     const handleMouseLeave = (e) => {
@@ -80,15 +80,15 @@ const Blog = () => {
                         {posts.length === 0 ? <p>No blog posts available.</p> : null}
                         {posts.map(post => (
                             <div key={post.id} className="blog-item">
-                                {post.imageUrl && (
+                                {post.image_url && (
                                     <div className="blog-image">
-                                        <img src={`${API_BASE_URL}${post.imageUrl}`} alt={post.title} />
+                                        <img src={`${API_BASE_URL}${post.image_url}`} alt={post.title} />
                                     </div>
                                 )}
                                 <div className="blog-content">
                                     <h3>{post.title}</h3>
                                     <div className="blog-meta">
-                                        <span>{post.publishDate ? new Date(post.publishDate).toLocaleDateString() : new Date().toLocaleDateString()}</span>
+                                        <span>{post.created_at ? new Date(post.created_at).toLocaleDateString() : new Date().toLocaleDateString()}</span>
                                         <span className="separator">•</span>
                                         <span>{post.tags || "Tech"}</span>
                                     </div>

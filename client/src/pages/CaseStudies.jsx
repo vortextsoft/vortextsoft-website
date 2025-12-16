@@ -134,7 +134,7 @@ const CaseStudies = () => {
                             {filteredCaseStudies.map((study, index) => (
                                 <div
                                     key={study.id}
-                                    className={`case -study - card - horizontal ${index === currentIndex ? 'active' : ''} `}
+                                    className={`case-study-card-horizontal ${index === currentIndex ? 'active' : ''}`}
                                     style={{ display: index === currentIndex ? 'flex' : 'none' }}
                                 >
                                     <div className="case-study-image">
