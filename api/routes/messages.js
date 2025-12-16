@@ -79,7 +79,7 @@ router.patch('/:id/replied', async (req, res) => {
     try {
         const query = `
             UPDATE messages 
-            SET read = $1
+            SET replied = $1
             WHERE id = $2
             RETURNING *
         `;

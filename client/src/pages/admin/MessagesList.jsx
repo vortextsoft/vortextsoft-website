@@ -41,15 +41,15 @@ const MessagesList = () => {
         setIsModalOpen(true);
 
         // Mark as read if not already
-        if (!message.read) {
+        if (!message.replied) {
             try {
                 await fetch(`${API_URL}/contact/${message.id}/replied`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ read: true })
+                    body: JSON.stringify({ replied: true })
                 });
                 // Update local state to reflect read status
-                setMessages(prev => prev.map(m => m.id === message.id ? { ...m, read: true } : m));
+                setMessages(prev => prev.map(m => m.id === message.id ? { ...m, replied: true } : m));
             } catch (err) {
                 console.error("Failed to mark as read", err);
             }
@@ -126,7 +126,7 @@ const MessagesList = () => {
                                 <td>{s.company || '-'}</td>
                                 <td>{s.created_at ? new Date(s.created_at).toLocaleDateString() : '-'}</td>
                                 <td>
-                                    {s.read ? (
+                                    {s.replied ? (
                                         <span style={{
                                             background: '#d4edda',
                                             color: '#155724',
