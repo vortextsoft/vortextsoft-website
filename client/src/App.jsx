@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import MainLayout from './layout/MainLayout'
 import AdminLayout from './layout/AdminLayout'
@@ -35,11 +35,14 @@ const Placeholder = ({ title }) => <div className="admin-card"><h2>{title} Manag
 import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
   return (
     <ErrorBoundary>
       <AuthProvider>
         <ScrollToTop />
-        <FloatingLogo />
+        {!isAdminRoute && <FloatingLogo />}
         <Routes>
           {/* ... Public Routes ... */}
           <Route element={<MainLayout />}>
@@ -71,8 +74,8 @@ function App() {
             <Route path="meetings" element={<MeetingManagement />} />
           </Route>
         </Routes>
-      </AuthProvider>
-    </ErrorBoundary>
+      </AuthProvider >
+    </ErrorBoundary >
   )
 }
 
