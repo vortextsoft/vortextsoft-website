@@ -124,7 +124,9 @@ CREATE TABLE IF NOT EXISTS meetings (
     topic VARCHAR(255),
     reason TEXT,
     status VARCHAR(50) DEFAULT 'pending', 
-    "isRead" BOOLEAN DEFAULT false,
+    is_read BOOLEAN DEFAULT false,
+    meeting_link VARCHAR(255),
+    cancellation_reason TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

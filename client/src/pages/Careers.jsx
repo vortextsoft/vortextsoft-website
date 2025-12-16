@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
+import { API_URL } from '../config';
 import { Cpu, Users, TrendingUp, Award } from 'lucide-react';
 import '../styles/Careers.css';
 
@@ -112,7 +113,7 @@ const Careers = () => {
         formData.append('document', file);
 
         try {
-            const response = await fetch('http://localhost:3001/api/upload/document', {
+            const response = await fetch(`${API_URL}/upload/document`, {
                 method: 'POST',
                 body: formData
             });
