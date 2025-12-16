@@ -47,7 +47,7 @@ const CaseStudies = () => {
 
     // Get unique categories
     const getUniqueCategories = () => {
-        const categories = caseStudies.map(study => study.category || study.clientType || 'Other');
+        const categories = caseStudies.map(study => study.category || study.client_type || 'Other');
         return ['All', ...new Set(categories)];
     };
 
@@ -55,7 +55,7 @@ const CaseStudies = () => {
     const filteredCaseStudies = selectedCategory === 'All'
         ? caseStudies
         : caseStudies.filter(study =>
-            (study.category || study.clientType || 'Other') === selectedCategory
+            (study.category || study.client_type || 'Other') === selectedCategory
         );
 
     // Carousel Navigation
@@ -138,14 +138,14 @@ const CaseStudies = () => {
                                     style={{ display: index === currentIndex ? 'flex' : 'none' }}
                                 >
                                     <div className="case-study-image">
-                                        {study.heroImage ? (
+                                        {study.hero_image ? (
                                             <div className="image-container">
-                                                <img src={study.heroImage.startsWith('http') ? study.heroImage : `${API_BASE_URL}${study.heroImage} `} alt={study.title} />
-                                                {study.heroVideo && (
+                                                <img src={study.hero_image.startsWith('http') ? study.hero_image : `${API_BASE_URL}${study.hero_image}`} alt={study.title} />
+                                                {study.hero_video && (
                                                     <button
                                                         className="video-play-overlay"
                                                         onClick={() => {
-                                                            setCurrentVideo(study.heroVideo);
+                                                            setCurrentVideo(study.hero_video);
                                                             setVideoModalOpen(true);
                                                         }}
                                                         aria-label="Play video"
@@ -157,9 +157,9 @@ const CaseStudies = () => {
                                                     </button>
                                                 )}
                                             </div>
-                                        ) : study.heroVideo ? (
+                                        ) : study.hero_video ? (
                                             <video
-                                                src={study.heroVideo.startsWith('http') ? study.heroVideo : `${API_BASE_URL}${study.heroVideo} `}
+                                                src={study.hero_video.startsWith('http') ? study.hero_video : `${API_BASE_URL}${study.hero_video}`}
                                                 controls
                                                 muted
                                                 className="case-video"
@@ -171,9 +171,9 @@ const CaseStudies = () => {
                                         )}
                                     </div>
                                     <div className="case-study-content-horizontal">
-                                        <span className="case-category">{study.category || study.clientType || 'TECHNOLOGY'}</span>
+                                        <span className="case-category">{study.category || study.client_type || 'TECHNOLOGY'}</span>
                                         <h3>{study.title}</h3>
-                                        <p className="case-description">{study.subtitle || study.problemStatement}</p>
+                                        <p className="case-description">{study.subtitle || study.problem_statement}</p>
 
                                         {study.features && study.features.length > 0 && (
                                             <ul className="case-features">

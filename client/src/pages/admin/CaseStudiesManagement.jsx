@@ -44,16 +44,16 @@ const CaseStudiesManagement = () => {
         setEditing(item.id);
         setFormData({
             title: item.title,
-            clientName: item.clientName || '',
+            clientName: item.client_name || '',
             category: item.category || '',
-            clientType: item.clientType || '',
+            clientType: item.client_type || '',
             subtitle: item.subtitle || '',
-            problemStatement: item.problemStatement || '',
+            problemStatement: item.problem_statement || '',
             solution: item.solution || '',
             results: item.results || '',
             features: item.features || [],
-            heroImage: item.heroImage || '',
-            heroVideo: item.heroVideo || ''
+            heroImage: item.hero_image || '',
+            heroVideo: item.hero_video || ''
         });
         setIsFormOpen(true);
     };
@@ -184,8 +184,8 @@ const CaseStudiesManagement = () => {
                         {cases.map(s => (
                             <tr key={s.id}>
                                 <td>{s.title}</td>
-                                <td>{s.clientName || '-'}</td>
-                                <td>{s.clientType}</td>
+                                <td>{s.client_name || '-'}</td>
+                                <td>{s.client_type}</td>
                                 <td>
                                     <button className="action-btn edit-btn" onClick={() => handleEdit(s)}><Pencil size={14} /></button>
                                     <button className="action-btn delete-btn" onClick={() => handleDelete(s.id)}><Trash2 size={14} /></button>

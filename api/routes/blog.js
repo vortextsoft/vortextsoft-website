@@ -60,54 +60,79 @@ router.post('/', async (req, res) => {
 // PUT (Update) post
 router.put('/:id', async (req, res) => {
     try {
-        const { title, excerpt, content, author, image, category, tags, published } = req.body;
+        const { title, excerpt, content, author, imageUrl, category, tags, isVisible, link } = req.body;
 
         const query = `
             UPDATE blog_posts 
-            SET title = $1, excerpt = $2, content = $3, author = $4, image = $5, category = $6, tags = $7, published = $8
-            WHERE id = $9
+            SET title = $1, excerpt = $2, content = $3, author = $4, image_url = $5, category = $6, tags = $7, is_visible = $8, link = $9
+            WHERE id = $10
             RETURNING *
         `;
-        const values = [title, excerpt, content, author, image, category, tags, published, req.params.id];
+        const values = [
+            title,
+            excerpt,
+            content,
+            author,
+            imageUrl,
+            category,
+            tags,
+            isVisible,
+            link,
+            req.params.id
+        ];
 
         const result = await db.query(query, values);
         if (result.rows.length === 0) return res.status(404).json({ error: 'Item not found' });
 
         res.json(result.rows[0]);
     } catch (error) {
+        console.error('SQL Error:', error);
         res.status(500).json({ error: 'Failed to update item' });
     }
 });
 
 // PATCH (Update Partial)
 router.patch('/:id', async (req, res) => {
-    // For simplicity in this migration, we'll reuse the PUT logic or generic update
-    // But typically PATCH handles partials. 
-    // Given the previous code just did a merge, let's stick to the previous pattern but we need all fields for the SQL Update unless we build it dynamically.
-    // For now, let's assume the frontend sends the full object or we instruct to use PUT.
-    // OR we can implement a dynamic query builder.
     try {
-        // Dynamic Update
-        const fields = Object.keys(req.body);
-        if (fields.length === 0) return res.status(400).json({ error: 'No fields to update' });
+        const fields = req.body;
+        const keys = Object.keys(fields);
 
-        const setClause = fields.map((field, idx) => `${field} = $${idx + 2}`).join(', ');
-        const values = [req.params.id, ...Object.values(req.body)];
+        if (keys.length === 0) return res.status(400).json({ error: 'No fields to update' });
 
-        const query = `UPDATE blog_posts SET ${setClause} WHERE id = $1 RETURNING *`;
+        // Map frontend keys to DB columns
+        const fieldMap = {
+            title: 'title',
+            excerpt: 'excerpt',
+            content: 'content',
+            author: 'author',
+            imageUrl: 'image_url',
+            image: 'image_url', // fallback
+            category: 'category',
+            tags: 'tags',
+            isVisible: 'is_visible',
+            is_visible: 'is_visible', // direct
+            published: 'is_visible', // fallback
+            link: 'link'
+        };
 
-        // Note: This is risky for SQL injection if keys aren't sanitized, but purely internal admin API is strictly controlled.
-        // Better to be explicit if possible, but for 'patch' generic behavior:
+        const validUpdates = [];
+        const values = [];
+        let paramCount = 1;
 
-        // Safe approach: only map known columns
-        const allowed = ['title', 'excerpt', 'content', 'author', 'image', 'category', 'tags', 'published'];
-        const validFields = fields.filter(f => allowed.includes(f));
-        if (validFields.length === 0) return res.status(400).json({ error: 'No valid fields' });
+        keys.forEach(key => {
+            if (fieldMap[key]) {
+                validUpdates.push(`${fieldMap[key]} = $${paramCount}`);
+                values.push(fields[key]);
+                paramCount++;
+            }
+        });
 
-        const safeSet = validFields.map((f, i) => `${f} = $${i + 2}`).join(', ');
-        const safeValues = [req.params.id, ...validFields.map(f => req.body[f])];
+        if (validUpdates.length === 0) return res.status(400).json({ error: 'No valid fields' });
 
-        const result = await db.query(`UPDATE blog_posts SET ${safeSet} WHERE id = $1 RETURNING *`, safeValues);
+        values.push(req.params.id);
+        const query = `UPDATE blog_posts SET ${validUpdates.join(', ')} WHERE id = $${paramCount} RETURNING *`;
+
+        const result = await db.query(query, values);
 
         if (result.rows.length === 0) return res.status(404).json({ error: 'Item not found' });
         res.json(result.rows[0]);

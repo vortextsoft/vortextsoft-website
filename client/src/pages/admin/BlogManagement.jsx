@@ -32,7 +32,7 @@ const BlogManagement = () => {
             await fetch(`${API_URL}/blog/${post.id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ isVisible: !post.isVisible })
+                body: JSON.stringify({ is_visible: !post.is_visible })
             });
             fetchData();
         } catch (error) {
@@ -46,9 +46,9 @@ const BlogManagement = () => {
             title: item.title,
             tags: item.tags || '',
             content: item.content || '',
-            imageUrl: item.imageUrl || '',
+            imageUrl: item.image_url || '',
             link: item.link || '',
-            isVisible: item.isVisible !== undefined ? item.isVisible : true
+            isVisible: item.is_visible !== undefined ? item.is_visible : true
         });
         setIsFormOpen(true);
     };
@@ -132,14 +132,14 @@ const BlogManagement = () => {
                             <tr key={s.id}>
                                 <td>{s.title}</td>
                                 <td>{s.tags}</td>
-                                <td>{s.publishDate ? new Date(s.publishDate).toLocaleDateString() : 'Now'}</td>
+                                <td>{s.created_at ? new Date(s.created_at).toLocaleDateString() : 'Now'}</td>
                                 <td>
                                     <button
                                         className="action-btn"
                                         onClick={() => toggleVisibility(s)}
-                                        title={s.isVisible ? "Marked Visible" : "Marked Hidden"}
+                                        title={s.is_visible ? "Marked Visible" : "Marked Hidden"}
                                     >
-                                        {s.isVisible ? <Eye size={18} color="green" /> : <EyeOff size={18} color="gray" />}
+                                        {s.is_visible ? <Eye size={18} color="green" /> : <EyeOff size={18} color="gray" />}
                                     </button>
                                 </td>
                                 <td>
