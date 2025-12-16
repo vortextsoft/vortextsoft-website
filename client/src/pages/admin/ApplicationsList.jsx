@@ -80,11 +80,11 @@ const ApplicationsList = () => {
                             {/* CV and Cover Letter Documents */}
                             <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#f8f9fa', borderRadius: '6px' }}>
                                 <p style={{ marginBottom: '0.75rem', fontWeight: 'bold' }}>Documents:</p>
-                                {viewing.cvLink && (
+                                {viewing.cv_link && (
                                     <p style={{ marginBottom: '0.5rem' }}>
                                         <strong>CV/Resume:</strong>{' '}
                                         <a
-                                            href={`${API_BASE_URL}${viewing.cvLink}`}
+                                            href={`${API_BASE_URL}${viewing.cv_link}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             style={{ color: '#0094FF', textDecoration: 'none', fontWeight: '500' }}
@@ -93,11 +93,11 @@ const ApplicationsList = () => {
                                         </a>
                                     </p>
                                 )}
-                                {viewing.coverLetterLink && (
+                                {viewing.cover_letter_link && (
                                     <p style={{ marginBottom: '0' }}>
                                         <strong>Cover Letter:</strong>{' '}
                                         <a
-                                            href={`${API_BASE_URL}${viewing.coverLetterLink}`}
+                                            href={`${API_BASE_URL}${viewing.cover_letter_link}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             style={{ color: '#0094FF', textDecoration: 'none', fontWeight: '500' }}
@@ -106,7 +106,7 @@ const ApplicationsList = () => {
                                         </a>
                                     </p>
                                 )}
-                                {!viewing.cvLink && !viewing.coverLetterLink && (
+                                {!viewing.cv_link && !viewing.cover_letter_link && (
                                     <p style={{ color: '#666', fontStyle: 'italic', margin: 0 }}>No documents uploaded</p>
                                 )}
                             </div>
