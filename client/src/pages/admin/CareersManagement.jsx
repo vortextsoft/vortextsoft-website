@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import { API_URL } from '../../config';
 import { Pencil, Trash2, Plus, Ban } from 'lucide-react';
-import JoditEditor from 'jodit-react';
+import Editor from 'react-simple-wysiwyg';
 
 const CareersManagement = () => {
     const [jobs, setJobs] = useState([]);
@@ -181,15 +181,15 @@ const CareersManagement = () => {
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                <JoditEditor value={formData.description} onChange={(val) => setFormData({ ...formData, description: val })} />
+                                <Editor value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <label>Responsibilities</label>
-                                <JoditEditor value={formData.responsibilities} onChange={(val) => setFormData({ ...formData, responsibilities: val })} />
+                                <Editor value={formData.responsibilities} onChange={(e) => setFormData({ ...formData, responsibilities: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <label>Requirements</label>
-                                <JoditEditor value={formData.requirements} onChange={(val) => setFormData({ ...formData, requirements: val })} />
+                                <Editor value={formData.requirements} onChange={(e) => setFormData({ ...formData, requirements: e.target.value })} />
                             </div>
                             <div className="form-actions">
                                 <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancel</button>

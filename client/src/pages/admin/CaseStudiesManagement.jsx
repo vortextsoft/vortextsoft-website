@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import { API_URL, API_BASE_URL } from '../../config';
 import { Pencil, Trash2, Plus } from 'lucide-react';
-import JoditEditor from 'jodit-react';
+import Editor from 'react-simple-wysiwyg';
 
 const CaseStudiesManagement = () => {
     const [cases, setCases] = useState([]);
@@ -248,15 +248,15 @@ const CaseStudiesManagement = () => {
                             </div>
                             <div className="form-group">
                                 <label>Problem Statement</label>
-                                <JoditEditor value={formData.problemStatement} onChange={(val) => setFormData({ ...formData, problemStatement: val })} />
+                                <Editor value={formData.problemStatement} onChange={(e) => setFormData({ ...formData, problemStatement: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <label>Solution</label>
-                                <JoditEditor value={formData.solution} onChange={(val) => setFormData({ ...formData, solution: val })} />
+                                <Editor value={formData.solution} onChange={(e) => setFormData({ ...formData, solution: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <label>Results</label>
-                                <JoditEditor value={formData.results} onChange={(val) => setFormData({ ...formData, results: val })} />
+                                <Editor value={formData.results} onChange={(e) => setFormData({ ...formData, results: e.target.value })} />
                             </div>
                             <div className="form-group">
                                 <label>Upload Image</label>
