@@ -171,9 +171,148 @@
     color: var(--color-dark-bg);
 }
 
-.form-actions {
+display: flex;
+justify-content: flex-end;
+gap: 1rem;
+margin-top: 1.5rem;
+}
+
+/* Responsive Admin Styles */
+
+/* Mobile Header (Hidden on Desktop) */
+.mobile-header {
+    display: none;
+    background-color: var(--color-panel-bg);
+    color: white;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+}
+
+.mobile-brand {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
     display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-sidebar-btn {
+    display: none;
+    /* Hidden on desktop */
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.sidebar-overlay.open {
+    display: block;
+    opacity: 1;
+}
+
+/* Table Container for Scrolling */
+.table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+}
+
+/* Force table to keep min width so it prompts scroll */
+.data-table {
+    min-width: 600px;
+}
+
+@media (max-width: 768px) {
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .mobile-header {
+        display: flex;
+    }
+
+    /* Sidebar Hidden by Default */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        height: 100vh;
+        z-index: 1200;
+        transition: left 0.3s ease-in-out;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        width: 260px;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .close-sidebar-btn {
+        display: block;
+        margin-left: auto;
+    }
+
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Main Content Adjustments */
+    .admin-main {
+        margin-top: 60px;
+        /* Space for mobile header */
+        padding: 1rem;
+    }
+
+    .login-box {
+        padding: 1.5rem;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .admin-card {
+        padding: 1rem;
+        overflow-x: auto;
+        /* Allow tables to scroll */
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .admin-header h2 {
+        font-size: 1.5rem;
+    }
 }

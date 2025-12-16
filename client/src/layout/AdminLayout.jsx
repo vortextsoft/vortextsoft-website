@@ -9,7 +9,7 @@ const AdminLayout = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const [meetingCount, setMeetingCount] = useState(0);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         // Fetch pending meetings count
@@ -26,7 +26,12 @@ const AdminLayout = () => {
         fetchCount();
         const interval = setInterval(fetchCount, 30000); // Poll every 30s
         return () => clearInterval(interval);
-    }, [location.pathname]); // Refresh on route change too
+    }, [location.pathname]);
+
+    // Close sidebar on route change (mobile)
+    useEffect(() => {
+        setIsSidebarOpen(false);
+    }, [location.pathname]);
 
     if (!user) {
         return <Navigate to="/admin/login" replace />;
@@ -39,9 +44,21 @@ const AdminLayout = () => {
 
     return (
         <div className="admin-layout">
-            <div className="sidebar">
+            <div className={`mobile-header ${isSidebarOpen ? 'hidden' : ''}`}>
+                <button className="menu-btn" onClick={() => setIsSidebarOpen(true)}>
+                    <Layers size={24} />
+                </button>
+                <span className="mobile-brand">VortextAdmin</span>
+            </div>
+
+            <div className={`sidebar-overlay ${isSidebarOpen ? 'open' : ''}`} onClick={() => setIsSidebarOpen(false)}></div>
+
+            <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
                 <div className="sidebar-header">
                     VortextAdmin
+                    <button className="close-sidebar-btn" onClick={() => setIsSidebarOpen(false)}>
+                        <LogOut size={20} style={{ transform: 'rotate(180deg)' }} />
+                    </button>
                 </div>
                 <nav className="sidebar-nav">
                     <NavLink to="/admin" end className={({ isActive }) => isActive ? 'active' : ''}>
