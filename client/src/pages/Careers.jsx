@@ -244,15 +244,15 @@ const Careers = () => {
                                     <div className="job-details">
                                         <div className="detail-section">
                                             <h4>About the Role</h4>
-                                            <p>{job.description}</p>
+                                            <div dangerouslySetInnerHTML={{ __html: job.description }} />
                                         </div>
                                         <div className="detail-section">
                                             <h4>Responsibilities</h4>
-                                            <p>{job.responsibilities || "Standard responsibilities apply."}</p>
+                                            <div dangerouslySetInnerHTML={{ __html: job.responsibilities || "Standard responsibilities apply." }} />
                                         </div>
                                         <div className="detail-section">
                                             <h4>Requirements</h4>
-                                            <p>{job.requirements || "Standard requirements apply."}</p>
+                                            <div dangerouslySetInnerHTML={{ __html: job.requirements || "Standard requirements apply." }} />
                                         </div>
 
                                         <div className="application-form-container">

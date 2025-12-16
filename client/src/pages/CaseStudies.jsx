@@ -173,7 +173,10 @@ const CaseStudies = () => {
                                     <div className="case-study-content-horizontal">
                                         <span className="case-category">{study.category || study.client_type || 'TECHNOLOGY'}</span>
                                         <h3>{study.title}</h3>
-                                        <p className="case-description">{study.subtitle || study.problem_statement}</p>
+                                        <div
+                                            className="case-description"
+                                            dangerouslySetInnerHTML={{ __html: study.subtitle || study.problem_statement }}
+                                        />
 
                                         {study.features && study.features.length > 0 && (
                                             <ul className="case-features">

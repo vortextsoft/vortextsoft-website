@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import { API_URL, API_BASE_URL } from '../../config';
 import { Pencil, Trash2, Plus } from 'lucide-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const CaseStudiesManagement = () => {
     const [cases, setCases] = useState([]);
@@ -247,15 +249,15 @@ const CaseStudiesManagement = () => {
                             </div>
                             <div className="form-group">
                                 <label>Problem Statement</label>
-                                <textarea rows="3" value={formData.problemStatement} onChange={e => setFormData({ ...formData, problemStatement: e.target.value })}></textarea>
+                                <ReactQuill theme="snow" value={formData.problemStatement} onChange={(val) => setFormData({ ...formData, problemStatement: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Solution</label>
-                                <textarea rows="3" value={formData.solution} onChange={e => setFormData({ ...formData, solution: e.target.value })}></textarea>
+                                <ReactQuill theme="snow" value={formData.solution} onChange={(val) => setFormData({ ...formData, solution: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Results</label>
-                                <textarea rows="2" value={formData.results} onChange={e => setFormData({ ...formData, results: e.target.value })}></textarea>
+                                <ReactQuill theme="snow" value={formData.results} onChange={(val) => setFormData({ ...formData, results: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Upload Image</label>

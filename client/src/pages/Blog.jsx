@@ -92,9 +92,10 @@ const Blog = () => {
                                         <span className="separator">•</span>
                                         <span>{post.tags || "Tech"}</span>
                                     </div>
-                                    <p className="blog-excerpt">
-                                        {post.content || "No content available."}
-                                    </p>
+                                    <div
+                                        className="blog-excerpt"
+                                        dangerouslySetInnerHTML={{ __html: post.content || "No content available." }}
+                                    />
                                     {post.link && (
                                         <button className="read-more-btn" onClick={() => window.open(post.link, '_blank')}>
                                             Read full article

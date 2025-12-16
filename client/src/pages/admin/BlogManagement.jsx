@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import { API_URL, API_BASE_URL } from '../../config';
 import { Pencil, Trash2, Plus, Eye, EyeOff } from 'lucide-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const BlogManagement = () => {
     const [posts, setPosts] = useState([]);
@@ -198,7 +200,12 @@ const BlogManagement = () => {
                             </div>
                             <div className="form-group">
                                 <label>Content</label>
-                                <textarea required rows="8" value={formData.content} onChange={e => setFormData({ ...formData, content: e.target.value })}></textarea>
+                                <ReactQuill
+                                    theme="snow"
+                                    value={formData.content}
+                                    onChange={(value) => setFormData({ ...formData, content: value })}
+                                    style={{ height: '300px', marginBottom: '50px' }}
+                                />
                             </div>
                             <div className="form-actions">
                                 <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancel</button>

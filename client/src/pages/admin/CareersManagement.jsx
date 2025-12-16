@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import { API_URL } from '../../config';
 import { Pencil, Trash2, Plus, Ban } from 'lucide-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const CareersManagement = () => {
     const [jobs, setJobs] = useState([]);
@@ -180,15 +182,15 @@ const CareersManagement = () => {
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                <textarea rows="3" required value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })}></textarea>
+                                <ReactQuill theme="snow" value={formData.description} onChange={(val) => setFormData({ ...formData, description: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Responsibilities</label>
-                                <textarea rows="3" value={formData.responsibilities} onChange={e => setFormData({ ...formData, responsibilities: e.target.value })}></textarea>
+                                <ReactQuill theme="snow" value={formData.responsibilities} onChange={(val) => setFormData({ ...formData, responsibilities: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Requirements</label>
-                                <textarea rows="3" value={formData.requirements} onChange={e => setFormData({ ...formData, requirements: e.target.value })}></textarea>
+                                <ReactQuill theme="snow" value={formData.requirements} onChange={(val) => setFormData({ ...formData, requirements: val })} />
                             </div>
                             <div className="form-actions">
                                 <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancel</button>
