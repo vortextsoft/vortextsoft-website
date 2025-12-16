@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import { API_URL, API_BASE_URL } from '../../config';
 import { Pencil, Trash2, Plus, Eye, EyeOff } from 'lucide-react';
-import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.snow.css';
+import JoditEditor from 'jodit-react';
 
 const BlogManagement = () => {
     const [posts, setPosts] = useState([]);

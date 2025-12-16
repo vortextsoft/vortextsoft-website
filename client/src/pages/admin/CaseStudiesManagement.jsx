@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import { API_URL, API_BASE_URL } from '../../config';
 import { Pencil, Trash2, Plus } from 'lucide-react';
-import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.snow.css';
+import JoditEditor from 'jodit-react';
 
 const CaseStudiesManagement = () => {
     const [cases, setCases] = useState([]);
@@ -249,15 +248,15 @@ const CaseStudiesManagement = () => {
                             </div>
                             <div className="form-group">
                                 <label>Problem Statement</label>
-                                <ReactQuill theme="snow" value={formData.problemStatement} onChange={(val) => setFormData({ ...formData, problemStatement: val })} />
+                                <JoditEditor value={formData.problemStatement} onChange={(val) => setFormData({ ...formData, problemStatement: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Solution</label>
-                                <ReactQuill theme="snow" value={formData.solution} onChange={(val) => setFormData({ ...formData, solution: val })} />
+                                <JoditEditor value={formData.solution} onChange={(val) => setFormData({ ...formData, solution: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Results</label>
-                                <ReactQuill theme="snow" value={formData.results} onChange={(val) => setFormData({ ...formData, results: val })} />
+                                <JoditEditor value={formData.results} onChange={(val) => setFormData({ ...formData, results: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Upload Image</label>

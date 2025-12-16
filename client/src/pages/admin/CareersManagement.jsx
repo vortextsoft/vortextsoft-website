@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import { API_URL } from '../../config';
 import { Pencil, Trash2, Plus, Ban } from 'lucide-react';
-import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.snow.css';
+import JoditEditor from 'jodit-react';
 
 const CareersManagement = () => {
     const [jobs, setJobs] = useState([]);
@@ -182,15 +181,15 @@ const CareersManagement = () => {
                             </div>
                             <div className="form-group">
                                 <label>Description</label>
-                                <ReactQuill theme="snow" value={formData.description} onChange={(val) => setFormData({ ...formData, description: val })} />
+                                <JoditEditor value={formData.description} onChange={(val) => setFormData({ ...formData, description: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Responsibilities</label>
-                                <ReactQuill theme="snow" value={formData.responsibilities} onChange={(val) => setFormData({ ...formData, responsibilities: val })} />
+                                <JoditEditor value={formData.responsibilities} onChange={(val) => setFormData({ ...formData, responsibilities: val })} />
                             </div>
                             <div className="form-group">
                                 <label>Requirements</label>
-                                <ReactQuill theme="snow" value={formData.requirements} onChange={(val) => setFormData({ ...formData, requirements: val })} />
+                                <JoditEditor value={formData.requirements} onChange={(val) => setFormData({ ...formData, requirements: val })} />
                             </div>
                             <div className="form-actions">
                                 <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancel</button>
