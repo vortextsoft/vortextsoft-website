@@ -148,10 +148,14 @@ const CaseStudiesManagement = () => {
         const method = editing ? 'PUT' : 'POST';
 
         try {
+            const payload = {
+                ...formData,
+                features: Array.isArray(formData.features) ? formData.features : [formData.features]
+            };
             await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(payload)
             });
             setIsFormOpen(false);
             fetchData();
@@ -238,13 +242,11 @@ const CaseStudiesManagement = () => {
                                 ></textarea>
                             </div>
                             <div className="form-group">
-                                <label>Features (one per line)</label>
-                                <textarea
-                                    rows="5"
-                                    placeholder="Enter each feature on a new line"
-                                    value={Array.isArray(formData.features) ? formData.features.join('\n') : ''}
-                                    onChange={e => setFormData({ ...formData, features: e.target.value.split('\n').filter(f => f.trim()) })}
-                                ></textarea>
+                                <label>Features</label>
+                                <Editor
+                                    value={Array.isArray(formData.features) ? '<ul>' + formData.features.map(f => `<li>${f}</li>`).join('') + '</ul>' : formData.features}
+                                    onChange={(e) => setFormData({ ...formData, features: e.target.value })}
+                                />
                             </div>
                             <div className="form-group">
                                 <label>Problem Statement</label>
