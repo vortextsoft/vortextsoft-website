@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { API_BASE_URL } from '../config';
 import { api } from '../api';
 import '../styles/Blog.css';
 
@@ -81,7 +81,7 @@ const Blog = () => {
                             <div key={post.id} className="blog-item">
                                 {post.imageUrl && (
                                     <div className="blog-image">
-                                        <img src={`http://localhost:3001${post.imageUrl}`} alt={post.title} />
+                                        <img src={`${API_BASE_URL}${post.imageUrl}`} alt={post.title} />
                                     </div>
                                 )}
                                 <div className="blog-content">

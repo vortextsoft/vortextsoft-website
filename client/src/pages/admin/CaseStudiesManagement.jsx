@@ -92,7 +92,7 @@ const CaseStudiesManagement = () => {
         formDataUpload.append('document', file);
 
         try {
-            const response = await fetch('http://localhost:3001/api/upload/document', {
+            const response = await fetch(`${API_URL}/upload/document`, {
                 method: 'POST',
                 body: formDataUpload
             });
@@ -124,7 +124,7 @@ const CaseStudiesManagement = () => {
         formDataUpload.append('document', file);
 
         try {
-            const response = await fetch('http://localhost:3001/api/upload/document', {
+            const response = await fetch(`${API_URL}/upload/document`, {
                 method: 'POST',
                 body: formDataUpload
             });

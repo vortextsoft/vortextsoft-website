@@ -1,3 +1,4 @@
+```javascript
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
 import { API_BASE_URL } from '../config';
@@ -29,10 +30,10 @@ const CaseStudies = () => {
         const decor1 = hero.querySelector('.hero-decoration-1');
         const decor2 = hero.querySelector('.hero-decoration-2');
 
-        if (image) image.style.transform = `translate(${moveX * -1}px, ${moveY * -1}px)`;
-        if (circle) circle.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        if (decor1) decor1.style.transform = `translate(${moveX * 1.5}px, ${moveY * 1.5}px)`;
-        if (decor2) decor2.style.transform = `translate(${moveX * -0.5}px, ${moveY * -0.5}px)`;
+        if (image) image.style.transform = `translate(${ moveX * - 1}px, ${ moveY * - 1}px)`;
+        if (circle) circle.style.transform = `translate(${ moveX }px, ${ moveY }px)`;
+        if (decor1) decor1.style.transform = `translate(${ moveX * 1.5}px, ${ moveY * 1.5}px)`;
+        if (decor2) decor2.style.transform = `translate(${ moveX * - 0.5}px, ${ moveY * - 0.5}px)`;
     };
 
     const handleMouseLeave = (e) => {
@@ -117,7 +118,7 @@ const CaseStudies = () => {
                             {getUniqueCategories().map((category) => (
                                 <button
                                     key={category}
-                                    className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
+                                    className={`category - btn ${ selectedCategory === category ? 'active' : '' } `}
                                     onClick={() => {
                                         setSelectedCategory(category);
                                         setCurrentIndex(0);
@@ -133,13 +134,13 @@ const CaseStudies = () => {
                             {filteredCaseStudies.map((study, index) => (
                                 <div
                                     key={study.id}
-                                    className={`case-study-card-horizontal ${index === currentIndex ? 'active' : ''}`}
+                                    className={`case -study - card - horizontal ${ index === currentIndex ? 'active' : '' } `}
                                     style={{ display: index === currentIndex ? 'flex' : 'none' }}
                                 >
                                     <div className="case-study-image">
                                         {study.heroImage ? (
                                             <div className="image-container">
-                                                <img src={study.heroImage.startsWith('http') ? study.heroImage : `${API_BASE_URL}${study.heroImage}`} alt={study.title} />
+                                                <img src={study.heroImage.startsWith('http') ? study.heroImage : `${ API_BASE_URL }${ study.heroImage } `} alt={study.title} />
                                                 {study.heroVideo && (
                                                     <button
                                                         className="video-play-overlay"
@@ -158,7 +159,7 @@ const CaseStudies = () => {
                                             </div>
                                         ) : study.heroVideo ? (
                                             <video
-                                                src={study.heroVideo.startsWith('http') ? study.heroVideo : `${API_BASE_URL}${study.heroVideo}`}
+                                                src={study.heroVideo.startsWith('http') ? study.heroVideo : `${ API_BASE_URL }${ study.heroVideo } `}
                                                 controls
                                                 muted
                                                 className="case-video"
@@ -204,9 +205,9 @@ const CaseStudies = () => {
                                 {filteredCaseStudies.map((_, index) => (
                                     <button
                                         key={index}
-                                        className={`pagination-dot ${index === currentIndex ? 'active' : ''}`}
+                                        className={`pagination - dot ${ index === currentIndex ? 'active' : '' } `}
                                         onClick={() => goToSlide(index)}
-                                        aria-label={`Go to slide ${index + 1}`}
+                                        aria-label={`Go to slide ${ index + 1 } `}
                                     />
                                 ))}
                             </div>
@@ -231,15 +232,15 @@ const CaseStudies = () => {
                             </svg>
                         </button>
                         <video
-                            src={`http://localhost:3001${currentVideo}`}
-                            controls
-                            autoPlay
-                            className="modal-video"
-                        />
-                    </div>
-                </div>
+                            src={`${ API_BASE_URL }${ currentVideo } `}
+controls
+autoPlay
+className = "modal-video"
+    />
+                    </div >
+                </div >
             )}
-        </div>
+        </div >
     );
 };
 

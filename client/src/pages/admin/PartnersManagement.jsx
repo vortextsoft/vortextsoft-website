@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../../api';
+import { API_BASE_URL } from '../../config';
 import { Trash2, Plus, Upload, ImageIcon } from 'lucide-react';
 
 const PartnersManagement = () => {
@@ -64,7 +65,7 @@ const PartnersManagement = () => {
                 throw new Error('Upload failed');
             }
 
-            const logoUrl = `http://localhost:3001${uploadRes.imageUrl}`; // Ensure absolute URL for frontend
+            const logoUrl = `${API_BASE_URL}${uploadRes.imageUrl}`; // Ensure absolute URL for frontend
 
             // 2. Create Partner
             const newPartner = await api.addPartner({

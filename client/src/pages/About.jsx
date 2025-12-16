@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API_BASE_URL } from '../config';
 import { api } from '../api';
 import '../styles/About.css';
 
@@ -122,7 +123,7 @@ const TeamCard = ({ name, role, email, shortDescription, profileImage, linkedin,
     const getImageUrl = (img) => {
         if (!img) return null;
         if (img.startsWith('http') || img.startsWith('data:')) return img;
-        return `http://localhost:3001${img}`;
+        return `${API_BASE_URL}${img}`;
     };
 
     return (
