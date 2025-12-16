@@ -95,4 +95,34 @@ router.patch('/:id/replied', async (req, res) => {
     }
 });
 
+// POST (Reply to Message)
+router.post('/reply', async (req, res) => {
+    try {
+        const { to, subject, message } = req.body;
+        const { sendEmail } = require('../utils/emailService');
+
+        if (!to || !message) return res.status(400).json({ error: 'Recipient and message are required' });
+
+        await sendEmail({
+            to,
+            subject,
+            text: message,
+            html: `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <p>${message.replace(/\n/g, '<br>')}</p>
+                    <br/>
+                    <hr/>
+                    <p style="color: #666; font-size: 12px;">Sent from VortextSoft Admin</p>
+                </div>
+            `
+        });
+
+        res.json({ success: true, message: 'Email reply sent successfully' });
+
+    } catch (error) {
+        console.error('Reply error:', error);
+        res.status(500).json({ error: 'Failed to send reply', details: error.message });
+    }
+});
+
 module.exports = router;

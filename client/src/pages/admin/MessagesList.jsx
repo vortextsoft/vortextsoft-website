@@ -69,15 +69,33 @@ const MessagesList = () => {
         e.preventDefault();
         setSending(true);
 
-        // Since we don't have a dedicated "Reply" endpoint yet, using mailto for now
-        // or just alerting. Ideally we should create an endpoint. 
-        // For now, let's simulate success to clear the modal, but warn user.
+        try {
+            const res = await fetch(`${API_URL}/contact/reply`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    to: viewing.email,
+                    subject: replyData.subject,
+                    message: replyData.message
+                })
+            });
 
-        const mailtoLink = `mailto:${viewing.email}?subject=${encodeURIComponent(replyData.subject)}&body=${encodeURIComponent(replyData.message)}`;
-        window.location.href = mailtoLink;
+            const data = await res.json();
 
-        setSending(false);
-        setIsReplyOpen(false);
+            if (!res.ok) throw new Error(data.details || 'Failed to send');
+
+            alert('Reply sent successfully!');
+
+            // Mark as replied if successful
+            handleView({ ...viewing, read: true });
+
+            setIsReplyOpen(false);
+        } catch (error) {
+            console.error(error);
+            alert(`Error sending email: ${error.message}`);
+        } finally {
+            setSending(false);
+        }
     };
 
     // ... (rest of component)
