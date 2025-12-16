@@ -28,21 +28,32 @@ router.get('/:id', async (req, res) => {
 // POST (Create) post
 router.post('/', async (req, res) => {
     try {
-        const { title, excerpt, content, author, image, category, tags, published } = req.body;
+        const { title, excerpt, content, author, imageUrl, category, tags, isVisible, link } = req.body;
         const id = uuidv4();
 
         const query = `
-            INSERT INTO blog_posts (id, title, excerpt, content, author, image, category, tags, published)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            INSERT INTO blog_posts (id, title, excerpt, content, author, image_url, category, tags, is_visible, link)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
             RETURNING *
         `;
-        const values = [id, title, excerpt, content, author, image, category, tags, published !== undefined ? published : true];
+        const values = [
+            id,
+            title,
+            excerpt,
+            content,
+            author,
+            imageUrl,
+            category,
+            tags,
+            isVisible !== undefined ? isVisible : true,
+            link
+        ];
 
         const result = await db.query(query, values);
         res.status(201).json(result.rows[0]);
     } catch (error) {
         console.error('SQL Error:', error);
-        res.status(500).json({ error: 'Failed to create item' });
+        res.status(500).json({ error: 'Failed to create item', details: error.message });
     }
 });
 

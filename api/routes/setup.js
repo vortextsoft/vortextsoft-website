@@ -45,8 +45,11 @@ CREATE TABLE IF NOT EXISTS blog_posts (
     content TEXT,
     tags TEXT,
     link VARCHAR(255),
-    "imageUrl" TEXT,
-    "isVisible" BOOLEAN DEFAULT true,
+    image_url TEXT,
+    is_visible BOOLEAN DEFAULT true,
+    excerpt TEXT,
+    author VARCHAR(255),
+    category VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -55,12 +58,17 @@ DROP TABLE IF EXISTS case_studies;
 CREATE TABLE IF NOT EXISTS case_studies (
     id VARCHAR(255) PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    client VARCHAR(255),
-    description TEXT,
-    image VARCHAR(255),
-    video VARCHAR(255),
+    subtitle VARCHAR(255),
+    client_name VARCHAR(255),
+    client_type VARCHAR(255),
     category VARCHAR(255),
-    results TEXT[],
+    description TEXT,
+    problem_statement TEXT,
+    solution TEXT,
+    results TEXT,
+    features TEXT[],
+    hero_image TEXT,
+    hero_video TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -70,6 +78,7 @@ CREATE TABLE IF NOT EXISTS partners (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     logo TEXT,
+    website VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
