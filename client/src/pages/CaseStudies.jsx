@@ -238,12 +238,11 @@ const CaseStudies = () => {
                                             dangerouslySetInnerHTML={{ __html: study.subtitle || study.problem_statement }}
                                         />
 
-                                        {study.features && study.features.length > 0 && (
-                                            <ul className="case-features">
-                                                {study.features.slice(0, 5).map((feature, idx) => (
-                                                    <li key={idx}>{feature}</li>
-                                                ))}
-                                            </ul>
+                                        {study.features && (
+                                            <div
+                                                className="case-features"
+                                                dangerouslySetInnerHTML={{ __html: study.features }}
+                                            />
                                         )}
 
                                         <button className="case-arrow-btn">

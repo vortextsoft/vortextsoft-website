@@ -9,7 +9,7 @@ const storage = multer.memoryStorage();
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 20 * 1024 * 1024 }, // 20MB limit for videos
+    limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit for videos
     fileFilter: function (req, file, cb) {
         const allowedTypes = /jpeg|jpg|png|gif|webp|svg|pdf|mp4|webm|ogg|mov/;
         const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
