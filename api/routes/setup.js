@@ -145,7 +145,8 @@ CREATE TABLE IF NOT EXISTS meetings (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Reviews/Testimonials
+-- Reviews/Testimonials (drop review_likes first due to foreign key)
+DROP TABLE IF EXISTS review_likes;
 DROP TABLE IF EXISTS reviews;
 CREATE TABLE IF NOT EXISTS reviews (
     id VARCHAR(255) PRIMARY KEY,
@@ -160,7 +161,6 @@ CREATE TABLE IF NOT EXISTS reviews (
 );
 
 -- Review Likes
-DROP TABLE IF EXISTS review_likes;
 CREATE TABLE IF NOT EXISTS review_likes (
     id SERIAL PRIMARY KEY,
     review_id VARCHAR(255) REFERENCES reviews(id) ON DELETE CASCADE,
