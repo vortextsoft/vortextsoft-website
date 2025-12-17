@@ -308,19 +308,27 @@ const ReviewsManagement = () => {
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label>Profile Image URL</label>
+                                <label>Profile Image</label>
                                 <input
-                                    type="text"
-                                    value={formData.profile_image}
-                                    onChange={e => setFormData({ ...formData, profile_image: e.target.value })}
-                                    placeholder="Enter image URL or base64"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageUpload}
                                 />
                                 {formData.profile_image && (
-                                    <img
-                                        src={formData.profile_image}
-                                        alt="Preview"
-                                        style={{ marginTop: '0.5rem', maxWidth: '100px', borderRadius: '50%' }}
-                                    />
+                                    <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                        <img
+                                            src={formData.profile_image}
+                                            alt="Preview"
+                                            style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '50%', objectFit: 'cover' }}
+                                        />
+                                        <button
+                                            type="button"
+                                            className="btn btn-secondary"
+                                            onClick={() => setFormData({ ...formData, profile_image: '' })}
+                                        >
+                                            Remove
+                                        </button>
+                                    </div>
                                 )}
                             </div>
                             <div className="form-actions">
