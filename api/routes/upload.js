@@ -58,4 +58,19 @@ router.post('/document', upload.single('document'), (req, res) => {
     }
 });
 
+// Error handling middleware for multer errors
+router.use((error, req, res, next) => {
+    if (error instanceof multer.MulterError) {
+        // Multer-specific errors
+        if (error.code === 'LIMIT_FILE_SIZE') {
+            return res.status(400).json({ error: 'File size too large. Maximum size is 100MB.' });
+        }
+        return res.status(400).json({ error: error.message });
+    } else if (error) {
+        // Other errors
+        return res.status(500).json({ error: error.message || 'Upload failed' });
+    }
+    next();
+});
+
 module.exports = router;
