@@ -99,7 +99,7 @@ const CaseStudiesManagement = () => {
             });
             const data = await response.json();
             if (data.fileUrl) {
-                setFormData({ ...formData, heroImage: data.fileUrl });
+                setFormData(prev => ({ ...prev, heroImage: data.fileUrl }));
             }
         } catch (error) {
             console.error('Error uploading image:', error);
@@ -131,7 +131,7 @@ const CaseStudiesManagement = () => {
             });
             const data = await response.json();
             if (data.fileUrl) {
-                setFormData({ ...formData, heroVideo: data.fileUrl });
+                setFormData(prev => ({ ...prev, heroVideo: data.fileUrl }));
             }
         } catch (error) {
             console.error('Error uploading video:', error);

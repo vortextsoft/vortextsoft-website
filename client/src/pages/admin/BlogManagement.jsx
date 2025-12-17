@@ -199,10 +199,9 @@ const BlogManagement = () => {
                             </div>
                             <div className="form-group">
                                 <label>Content</label>
-                                <ReactQuill
-                                    theme="snow"
+                                <Editor
                                     value={formData.content}
-                                    onChange={(value) => setFormData({ ...formData, content: value })}
+                                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                                     style={{ height: '300px', marginBottom: '50px' }}
                                 />
                             </div>

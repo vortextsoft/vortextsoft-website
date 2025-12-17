@@ -62,22 +62,33 @@ router.post('/', async (req, res) => {
 // PUT
 router.put('/:id', async (req, res) => {
     try {
-        const { title, client, description, image, video, category, results } = req.body;
+        const {
+            title, subtitle, clientName, clientType, category,
+            description, problemStatement, solution, results, features,
+            heroImage, heroVideo
+        } = req.body;
 
         const query = `
             UPDATE case_studies 
-            SET title = $1, client = $2, description = $3, image = $4, video = $5, category = $6, results = $7
-            WHERE id = $8
+            SET title = $1, subtitle = $2, client_name = $3, client_type = $4, category = $5,
+                description = $6, problem_statement = $7, solution = $8, results = $9, features = $10,
+                hero_image = $11, hero_video = $12
+            WHERE id = $13
             RETURNING *
         `;
-        const values = [title, client, description, image, video, category, results, req.params.id];
+        const values = [
+            title, subtitle, clientName, clientType, category,
+            description, problemStatement, solution, results, features,
+            heroImage, heroVideo, req.params.id
+        ];
 
         const result = await db.query(query, values);
         if (result.rows.length === 0) return res.status(404).json({ error: 'Item not found' });
 
         res.json(result.rows[0]);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to update item' });
+        console.error('SQL Error:', error);
+        res.status(500).json({ error: 'Failed to update item', details: error.message });
     }
 });
 

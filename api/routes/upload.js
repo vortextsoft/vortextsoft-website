@@ -9,15 +9,15 @@ const storage = multer.memoryStorage();
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    limits: { fileSize: 20 * 1024 * 1024 }, // 20MB limit for videos
     fileFilter: function (req, file, cb) {
-        const allowedTypes = /jpeg|jpg|png|gif|webp|svg|pdf/;
+        const allowedTypes = /jpeg|jpg|png|gif|webp|svg|pdf|mp4|webm|ogg|mov/;
         const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
         // Simple mime check
         if (extname) {
             return cb(null, true);
         } else {
-            cb(new Error('Only images and PDFs are allowed!'));
+            cb(new Error('Only images, PDFs, and videos are allowed!'));
         }
     }
 });
