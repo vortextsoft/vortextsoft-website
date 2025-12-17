@@ -9,6 +9,7 @@ import '../styles/CaseStudies.css';
 const CaseStudies = () => {
     const [caseStudies, setCaseStudies] = useState([]);
     const [reviews, setReviews] = useState([]);
+    const [likedReviews, setLikedReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [videoModalOpen, setVideoModalOpen] = useState(false);
@@ -67,6 +68,13 @@ const CaseStudies = () => {
                 body: JSON.stringify({ userIdentifier: getUserId() })
             });
             const data = await response.json();
+
+            // Update like status
+            if (data.liked) {
+                setLikedReviews([...likedReviews, reviewId]);
+            } else {
+                setLikedReviews(likedReviews.filter(id => id !== reviewId));
+            }
 
             // Update local state
             setReviews(reviews.map(r =>
@@ -273,10 +281,14 @@ const CaseStudies = () => {
                         What Our Clients Say
                     </h2>
                     <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                        gap: '2rem',
-                        marginBottom: '3rem'
+                        display: 'flex',
+                        gap: '1.5rem',
+                        overflowX: 'auto',
+                        paddingBottom: '1rem',
+                        scrollSnapType: 'x mandatory',
+                        WebkitOverflowScrolling: 'touch',
+                        scrollbarWidth: 'thin',
+                        scrollbarColor: '#00C8CC #e0e0e0'
                     }}>
                         {reviews.map(review => (
                             <div key={review.id} style={{
@@ -284,7 +296,11 @@ const CaseStudies = () => {
                                 padding: '2rem',
                                 borderRadius: '16px',
                                 boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                                transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                minWidth: '300px',
+                                maxWidth: '300px',
+                                flexShrink: 0,
+                                scrollSnapAlign: 'start'
                             }}>
                                 {/* Profile */}
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
@@ -355,16 +371,16 @@ const CaseStudies = () => {
                                         alignItems: 'center',
                                         gap: '0.5rem',
                                         background: 'none',
-                                        border: '1px solid #e0e0e0',
+                                        border: likedReviews.includes(review.id) ? '1px solid #e74c3c' : '1px solid #e0e0e0',
                                         borderRadius: '20px',
                                         padding: '0.5rem 1rem',
-                                        color: '#666',
+                                        color: likedReviews.includes(review.id) ? '#e74c3c' : '#666',
                                         cursor: 'pointer',
                                         fontSize: '0.9rem',
                                         transition: 'all 0.3s ease'
                                     }}
                                 >
-                                    <Heart size={18} />
+                                    <Heart size={18} fill={likedReviews.includes(review.id) ? '#e74c3c' : 'none'} />
                                     <span>{review.likes_count || 0} {review.likes_count === 1 ? 'like' : 'likes'}</span>
                                 </button>
                             </div>
