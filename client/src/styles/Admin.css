@@ -184,6 +184,28 @@
     background-color: #ffcdd2;
 }
 
+/* Dashboard Stats Grid - Responsive */
+.dashboard-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Quick Actions Section */
+.quick-actions {
+    margin-top: 3rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.quick-actions h3 {
+    margin-bottom: 0.5rem;
+    color: var(--color-dark-bg);
+}
+
 /* Modal */
 .modal-overlay {
     position: fixed;
@@ -213,10 +235,11 @@
     color: var(--color-dark-bg);
 }
 
-display: flex;
-justify-content: flex-end;
-gap: 1rem;
-margin-top: 1.5rem;
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 /* Responsive Admin Styles */
@@ -290,6 +313,14 @@ margin-top: 1.5rem;
     min-width: 600px;
 }
 
+/* Large Desktop */
+@media (max-width: 1200px) {
+    .dashboard-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablet and Below */
 @media (max-width: 1024px) {
     .admin-layout {
         flex-direction: column;
@@ -297,6 +328,7 @@ margin-top: 1.5rem;
 
     .mobile-header {
         display: flex;
+        background-color: #1e1e2d;
     }
 
     /* Sidebar Hidden by Default */
@@ -329,7 +361,33 @@ margin-top: 1.5rem;
     /* Main Content Adjustments */
     .admin-main {
         margin-top: 60px;
-        /* Space for mobile header */
+        padding: 1.5rem;
+    }
+
+    .admin-card {
+        padding: 1rem;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem;
+    }
+
+    .admin-header h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+    .dashboard-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .admin-main {
         padding: 1rem;
     }
 
@@ -342,19 +400,55 @@ margin-top: 1.5rem;
         padding: 1.5rem;
     }
 
-    .admin-card {
+    .data-table th,
+    .data-table td {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .quick-actions {
         padding: 1rem;
-        overflow-x: auto;
-        /* Allow tables to scroll */
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .admin-main {
+        padding: 0.75rem;
     }
 
     .admin-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
+        padding: 1rem;
     }
 
     .admin-header h2 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+    }
+
+    .admin-card {
+        padding: 0.75rem;
+    }
+
+    .modal-content {
+        padding: 1rem;
+    }
+
+    .data-table {
+        font-size: 0.85rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 0.5rem;
+    }
+
+    .action-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .sidebar {
+        width: 240px;
+        left: -260px;
     }
 }

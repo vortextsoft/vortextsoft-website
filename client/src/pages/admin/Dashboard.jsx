@@ -45,7 +45,7 @@ const AdminDashboard = () => {
                 <h2>Dashboard Overview</h2>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+            <div className="dashboard-stats-grid">
                 <StatCard title="Services" count={stats.services} color="#0094FF" />
                 <StatCard title="Case Studies" count={stats.caseStudies} color="#00E89F" />
                 <StatCard title="Blog Posts" count={stats.posts} color="#FFD700" />
@@ -54,7 +54,7 @@ const AdminDashboard = () => {
                 <StatCard title="Messages" count={stats.messages} color="#34495E" />
             </div>
 
-            <div style={{ marginTop: '3rem' }}>
+            <div className="quick-actions">
                 <h3>Quick Actions</h3>
                 <p>Use the sidebar to manage content.</p>
             </div>
