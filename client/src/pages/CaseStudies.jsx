@@ -266,6 +266,113 @@ const CaseStudies = () => {
                 )}
             </div>
 
+            {/* Reviews/Testimonials Section */}
+            {reviews.length > 0 && (
+                <div className="container section" style={{ paddingTop: '4rem' }}>
+                    <h2 style={{ textAlign: 'center', marginBottom: '3rem', fontSize: '2.5rem', color: '#1a1a1a' }}>
+                        What Our Clients Say
+                    </h2>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                        gap: '2rem',
+                        marginBottom: '3rem'
+                    }}>
+                        {reviews.map(review => (
+                            <div key={review.id} style={{
+                                background: 'white',
+                                padding: '2rem',
+                                borderRadius: '16px',
+                                boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                            }}>
+                                {/* Profile */}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                                    {review.profile_image ? (
+                                        <img
+                                            src={review.profile_image}
+                                            alt={review.name}
+                                            style={{
+                                                width: '60px',
+                                                height: '60px',
+                                                borderRadius: '50%',
+                                                objectFit: 'cover',
+                                                border: '3px solid #00C8CC'
+                                            }}
+                                        />
+                                    ) : (
+                                        <div style={{
+                                            width: '60px',
+                                            height: '60px',
+                                            borderRadius: '50%',
+                                            background: 'linear-gradient(135deg, #00C8CC, #0094FF)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: 'white',
+                                            fontSize: '1.5rem',
+                                            fontWeight: 'bold'
+                                        }}>
+                                            {review.name.charAt(0).toUpperCase()}
+                                        </div>
+                                    )}
+                                    <div>
+                                        <div style={{ fontWeight: '600', fontSize: '1.1rem', color: '#1a1a1a' }}>{review.name}</div>
+                                        {review.company_name && (
+                                            <div style={{ color: '#666', fontSize: '0.9rem' }}>{review.company_name}</div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Stars */}
+                                <div style={{ display: 'flex', gap: '4px', marginBottom: '1rem' }}>
+                                    {[...Array(5)].map((_, i) => (
+                                        <Star
+                                            key={i}
+                                            size={20}
+                                            fill={i < review.star_rating ? '#FFD700' : 'none'}
+                                            stroke={i < review.star_rating ? '#FFD700' : '#ddd'}
+                                        />
+                                    ))}
+                                </div>
+
+                                {/* Review Text */}
+                                <p style={{
+                                    color: '#444',
+                                    lineHeight: '1.7',
+                                    marginBottom: '1.5rem',
+                                    fontSize: '1rem',
+                                    fontStyle: 'italic'
+                                }}>
+                                    "{review.review}"
+                                </p>
+
+                                {/* Like Button */}
+                                <button
+                                    onClick={() => handleLike(review.id)}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem',
+                                        background: 'none',
+                                        border: '1px solid #e0e0e0',
+                                        borderRadius: '20px',
+                                        padding: '0.5rem 1rem',
+                                        color: '#666',
+                                        cursor: 'pointer',
+                                        fontSize: '0.9rem',
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                >
+                                    <Heart size={18} />
+                                    <span>{review.likes_count || 0} {review.likes_count === 1 ? 'like' : 'likes'}</span>
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             {/* Video Modal */}
             {videoModalOpen && currentVideo && (
                 <div className="video-modal-overlay" onClick={() => setVideoModalOpen(false)}>
