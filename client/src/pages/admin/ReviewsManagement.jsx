@@ -92,6 +92,17 @@ const ReviewsManagement = () => {
         }
     };
 
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData({ ...formData, profile_image: reader.result });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -99,15 +110,22 @@ const ReviewsManagement = () => {
         const method = editing ? 'PUT' : 'POST';
 
         try {
-            await fetch(url, {
+            const response = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Failed to save review');
+            }
+
             setIsFormOpen(false);
             fetchReviews();
         } catch (error) {
             console.error(error);
+            alert(`Error: ${error.message}. Make sure you've run /api/setup to create the database tables.`);
         } finally {
             setLoading(false);
         }

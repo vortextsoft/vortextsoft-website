@@ -1,11 +1,14 @@
 
+
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
-import { API_BASE_URL } from '../config';
+import { API_BASE_URL, API_URL } from '../config';
+import { Star, Heart } from 'lucide-react';
 import '../styles/CaseStudies.css';
 
 const CaseStudies = () => {
     const [caseStudies, setCaseStudies] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [videoModalOpen, setVideoModalOpen] = useState(false);
@@ -45,6 +48,37 @@ const CaseStudies = () => {
         });
     };
 
+    // Get/set user identifier for likes
+    const getUserId = () => {
+        let userId = localStorage.getItem('userId');
+        if (!userId) {
+            userId = 'user_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('userId', userId);
+        }
+        return userId;
+    };
+
+    // Handle like toggle
+    const handleLike = async (reviewId) => {
+        try {
+            const response = await fetch(`${API_URL}/reviews/${reviewId}/like`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userIdentifier: getUserId() })
+            });
+            const data = await response.json();
+
+            // Update local state
+            setReviews(reviews.map(r =>
+                r.id === reviewId
+                    ? { ...r, likes_count: data.likes_count }
+                    : r
+            ));
+        } catch (error) {
+            console.error('Like failed:', error);
+        }
+    };
+
     // Get unique categories
     const getUniqueCategories = () => {
         const categories = caseStudies.map(study => study.category || study.client_type || 'Other');
@@ -76,12 +110,19 @@ const CaseStudies = () => {
     };
 
     useEffect(() => {
+        // Fetch case studies
         api.getCaseStudies()
             .then(data => {
                 setCaseStudies(data);
                 setLoading(false);
             })
             .catch(err => setLoading(false));
+
+        // Fetch reviews
+        fetch(`${API_URL}/reviews`)
+            .then(res => res.json())
+            .then(data => setReviews(data))
+            .catch(err => console.error('Failed to fetch reviews:', err));
     }, []);
 
     return (
