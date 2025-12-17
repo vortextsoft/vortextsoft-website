@@ -70,11 +70,16 @@ const CaseStudies = () => {
             const data = await response.json();
 
             // Update like status
+            let updatedLikes;
             if (data.liked) {
-                setLikedReviews([...likedReviews, reviewId]);
+                updatedLikes = [...likedReviews, reviewId];
             } else {
-                setLikedReviews(likedReviews.filter(id => id !== reviewId));
+                updatedLikes = likedReviews.filter(id => id !== reviewId);
             }
+
+            // Save to state and localStorage
+            setLikedReviews(updatedLikes);
+            localStorage.setItem('likedReviews', JSON.stringify(updatedLikes));
 
             // Update local state
             setReviews(reviews.map(r =>
@@ -118,6 +123,12 @@ const CaseStudies = () => {
     };
 
     useEffect(() => {
+        // Load liked reviews from localStorage
+        const savedLikes = localStorage.getItem('likedReviews');
+        if (savedLikes) {
+            setLikedReviews(JSON.parse(savedLikes));
+        }
+
         // Fetch case studies
         api.getCaseStudies()
             .then(data => {

@@ -154,7 +154,7 @@ const Home = () => {
             <section className="section stats-section">
                 <div className="container stats-grid">
                     <div className="stat-card">
-                        <h3>500+</h3>
+                        <h3>15+</h3>
                         <p>Projects Completed</p>
                     </div>
                     <div className="stat-card">
@@ -162,11 +162,11 @@ const Home = () => {
                         <p>Client Satisfaction</p>
                     </div>
                     <div className="stat-card">
-                        <h3>10+</h3>
+                        <h3>2+</h3>
                         <p>Years of Experience</p>
                     </div>
                     <div className="stat-card">
-                        <h3>50+</h3>
+                        <h3>10+</h3>
                         <p>Expert Team Members</p>
                     </div>
                 </div>
