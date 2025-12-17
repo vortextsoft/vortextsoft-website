@@ -29,6 +29,7 @@ const emailRoutes = require('./routes/email');
 const partnersRoutes = require('./routes/partners');
 const meetingsRoutes = require('./routes/meetings');
 const reviewsRoutes = require('./routes/reviews');
+const cloudinaryUploadRoutes = require('./routes/cloudinaryUpload');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/services', servicesRoutes);
@@ -39,6 +40,7 @@ app.use('/api/careers', careersRoutes);
 app.use('/api/applications', applicationsRoutes);
 app.use('/api/contact', messagesRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/cloudinary', cloudinaryUploadRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/partners', partnersRoutes);
 app.use('/api/meetings', meetingsRoutes);

@@ -90,16 +90,19 @@ const CaseStudiesManagement = () => {
 
         setUploadingImage(true);
         const formDataUpload = new FormData();
-        formDataUpload.append('document', file);
+        formDataUpload.append('image', file);
 
         try {
-            const response = await fetch(`${API_URL}/upload/document`, {
+            const response = await fetch(`${API_URL}/cloudinary/image`, {
                 method: 'POST',
                 body: formDataUpload
             });
             const data = await response.json();
-            if (data.fileUrl) {
-                setFormData(prev => ({ ...prev, heroImage: data.fileUrl }));
+
+            if (response.ok && data.success) {
+                setFormData(prev => ({ ...prev, heroImage: data.url }));
+            } else {
+                alert('Failed to upload image: ' + (data.error || 'Unknown error'));
             }
         } catch (error) {
             console.error('Error uploading image:', error);
@@ -120,22 +123,32 @@ const CaseStudiesManagement = () => {
             return;
         }
 
+        // Validate file size (100MB max)
+        const maxSize = 100 * 1024 * 1024; // 100MB
+        if (file.size > maxSize) {
+            alert('Video file is too large. Maximum size is 100MB.');
+            return;
+        }
+
         setUploadingVideo(true);
         const formDataUpload = new FormData();
-        formDataUpload.append('document', file);
+        formDataUpload.append('video', file);
 
         try {
-            const response = await fetch(`${API_URL}/upload/document`, {
+            const response = await fetch(`${API_URL}/cloudinary/video`, {
                 method: 'POST',
                 body: formDataUpload
             });
             const data = await response.json();
-            if (data.fileUrl) {
-                setFormData(prev => ({ ...prev, heroVideo: data.fileUrl }));
+
+            if (response.ok && data.success) {
+                setFormData(prev => ({ ...prev, heroVideo: data.url }));
+            } else {
+                alert('Failed to upload video: ' + (data.error || 'Unknown error'));
             }
         } catch (error) {
             console.error('Error uploading video:', error);
-            alert('Failed to upload video');
+            alert('Failed to upload video. Please check your internet connection and try again.');
         } finally {
             setUploadingVideo(false);
         }

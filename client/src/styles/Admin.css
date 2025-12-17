@@ -313,6 +313,33 @@
     min-width: 600px;
 }
 
+/* Mobile table improvements */
+@media (max-width: 768px) {
+    .admin-card {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .data-table {
+        font-size: 0.85rem;
+        min-width: 600px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    .data-table th {
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa;
+        z-index: 10;
+    }
+}
+
 /* Large Desktop */
 @media (max-width: 1200px) {
     .dashboard-stats-grid {
@@ -456,13 +483,15 @@
 /* Mobile Card Layout for Tables */
 @media (max-width: 768px) {
 
-    /* Hide table on mobile, use card layout */
-    .data-table {
-        display: none;
-    }
-
+    /* Don't hide tables on mobile - make them scrollable instead */
+    /* Only show mobile-card-list if it exists (for pages that have it) */
     .mobile-card-list {
         display: block;
+    }
+
+    /* For pages without mobile-card-list, hide it and show scrollable table */
+    .admin-card:has(.mobile-card-list) .data-table {
+        display: none;
     }
 
     .mobile-service-card {

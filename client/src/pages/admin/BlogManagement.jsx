@@ -65,19 +65,19 @@ const BlogManagement = () => {
         if (!file) return;
 
         const data = new FormData();
-        data.append('document', file);
+        data.append('image', file);
 
         setUploadingImage(true);
         try {
-            const res = await fetch(`${API_URL}/upload/document`, {
+            const res = await fetch(`${API_URL}/cloudinary/image`, {
                 method: 'POST',
                 body: data
             });
             const result = await res.json();
-            if (res.ok) {
-                setFormData(prev => ({ ...prev, imageUrl: result.fileUrl }));
+            if (res.ok && result.success) {
+                setFormData(prev => ({ ...prev, imageUrl: result.url }));
             } else {
-                alert('Upload failed: ' + result.message);
+                alert('Upload failed: ' + (result.error || 'Unknown error'));
             }
         } catch (error) {
             console.error(error);
