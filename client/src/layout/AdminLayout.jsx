@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, NavLink, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, Settings, FileText, Users, Briefcase, Mail, LogOut, Layers, CalendarCheck } from 'lucide-react';
+import { LayoutDashboard, Settings, FileText, Users, Briefcase, Mail, LogOut, Layers, CalendarCheck, Star } from 'lucide-react';
 import { api } from '../api';
 import '../styles/Admin.css';
 
@@ -92,6 +92,9 @@ const AdminLayout = () => {
                     <NavLink to="/admin/meetings" className={({ isActive }) => isActive ? 'active' : ''}>
                         <CalendarCheck size={20} /> Meetings
                         {meetingCount > 0 && <span className="sidebar-badge">{meetingCount}</span>}
+                    </NavLink>
+                    <NavLink to="/admin/reviews" className={({ isActive }) => isActive ? 'active' : ''}>
+                        <Star size={20} /> Reviews
                     </NavLink>
                 </nav>
                 <div className="sidebar-footer">

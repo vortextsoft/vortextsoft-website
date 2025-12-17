@@ -3,19 +3,8 @@ const router = express.Router();
 const db = require('../utils/sql');
 const { v4: uuidv4 } = require('uuid');
 
-// GET all reviews (public - only visible)
+// GET all reviews
 router.get('/', async (req, res) => {
-    try {
-        const result = await db.query('SELECT * FROM reviews WHERE is_visible = true ORDER BY order_position ASC, created_at DESC');
-        res.json(result.rows);
-    } catch (error) {
-        console.error('SQL Error:', error);
-        res.status(500).json({ error: 'Failed to fetch reviews' });
-    }
-});
-
-// GET all reviews (admin - including hidden)
-router.get('/admin', async (req, res) => {
     try {
         const result = await db.query('SELECT * FROM reviews ORDER BY order_position ASC, created_at DESC');
         res.json(result.rows);
@@ -39,7 +28,7 @@ router.get('/:id', async (req, res) => {
 // POST (Create) review
 router.post('/', async (req, res) => {
     try {
-        const { name, company_name, profile_image, review_text, star_rating, is_visible } = req.body;
+        const { name, company_name, review, star_rating, profile_image } = req.body;
         const id = uuidv4();
 
         // Get the max position and add 1 for new review
@@ -47,11 +36,11 @@ router.post('/', async (req, res) => {
         const nextPosition = maxPosResult.rows[0].max + 1;
 
         const query = `
-            INSERT INTO reviews (id, name, company_name, profile_image, review_text, star_rating, is_visible, order_position)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            INSERT INTO reviews (id, name, company_name, review, star_rating, profile_image, order_position)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING *
         `;
-        const values = [id, name, company_name || null, profile_image || null, review_text, star_rating || 5, is_visible !== false, nextPosition];
+        const values = [id, name, company_name || null, review, star_rating, profile_image || null, nextPosition];
 
         const result = await db.query(query, values);
         res.status(201).json(result.rows[0]);
@@ -64,27 +53,26 @@ router.post('/', async (req, res) => {
 // PUT (Update) review
 router.put('/:id', async (req, res) => {
     try {
-        const { name, company_name, profile_image, review_text, star_rating, is_visible } = req.body;
+        const { name, company_name, review, star_rating, profile_image } = req.body;
 
         const query = `
             UPDATE reviews 
-            SET name = $1, company_name = $2, profile_image = $3, review_text = $4, star_rating = $5, is_visible = $6
-            WHERE id = $7
+            SET name = $1, company_name = $2, review = $3, star_rating = $4, profile_image = $5
+            WHERE id = $6
             RETURNING *
         `;
-        const values = [name, company_name || null, profile_image || null, review_text, star_rating || 5, is_visible !== false, req.params.id];
+        const values = [name, company_name || null, review, star_rating, profile_image || null, req.params.id];
 
         const result = await db.query(query, values);
         if (result.rows.length === 0) return res.status(404).json({ error: 'Review not found' });
 
         res.json(result.rows[0]);
     } catch (error) {
-        console.error('SQL Error:', error);
         res.status(500).json({ error: 'Failed to update review' });
     }
 });
 
-// PATCH - Reorder reviews (for drag-drop)
+// PATCH - Reorder reviews (swap positions)
 router.patch('/reorder', async (req, res) => {
     try {
         const { reviewId, targetPosition } = req.body;
@@ -117,69 +105,61 @@ router.patch('/reorder', async (req, res) => {
     }
 });
 
-// POST - Like a review
+// POST - Like/Unlike review
 router.post('/:id/like', async (req, res) => {
     try {
         const reviewId = req.params.id;
-        const ipAddress = req.ip || req.connection.remoteAddress;
-        const userAgent = req.get('user-agent');
-        const likeId = uuidv4();
+        const { userIdentifier } = req.body;
 
-        // Check if already liked
+        if (!userIdentifier) {
+            return res.status(400).json({ error: 'User identifier required' });
+        }
+
+        // Check if user already liked this review
         const existingLike = await db.query(
-            'SELECT id FROM review_likes WHERE review_id = $1 AND ip_address = $2',
-            [reviewId, ipAddress]
+            'SELECT id FROM review_likes WHERE review_id = $1 AND user_identifier = $2',
+            [reviewId, userIdentifier]
         );
 
         if (existingLike.rows.length > 0) {
-            return res.status(400).json({ error: 'Already liked this review' });
+            // Unlike - remove the like
+            await db.query('DELETE FROM review_likes WHERE review_id = $1 AND user_identifier = $2', [reviewId, userIdentifier]);
+            await db.query('UPDATE reviews SET likes_count = likes_count - 1 WHERE id = $1', [reviewId]);
+        } else {
+            // Like - add the like
+            await db.query('INSERT INTO review_likes (review_id, user_identifier) VALUES ($1, $2)', [reviewId, userIdentifier]);
+            await db.query('UPDATE reviews SET likes_count = likes_count + 1 WHERE id = $1', [reviewId]);
         }
 
-        // Add like
-        await db.query(
-            'INSERT INTO review_likes (id, review_id, ip_address, user_agent) VALUES ($1, $2, $3, $4)',
-            [likeId, reviewId, ipAddress, userAgent]
-        );
+        // Get updated like count
+        const result = await db.query('SELECT likes_count FROM reviews WHERE id = $1', [reviewId]);
+        const likesCount = result.rows[0]?.likes_count || 0;
 
-        // Increment likes_count
-        const result = await db.query(
-            'UPDATE reviews SET likes_count = likes_count + 1 WHERE id = $1 RETURNING likes_count',
-            [reviewId]
-        );
-
-        res.json({ likes_count: result.rows[0].likes_count, liked: true });
+        res.json({ likes_count: likesCount, liked: existingLike.rows.length === 0 });
     } catch (error) {
         console.error('SQL Error:', error);
-        res.status(500).json({ error: 'Failed to like review' });
+        res.status(500).json({ error: 'Failed to process like' });
     }
 });
 
-// DELETE - Unlike a review
-router.delete('/:id/like', async (req, res) => {
+// GET - Check if user liked a review
+router.get('/:id/like-status', async (req, res) => {
     try {
         const reviewId = req.params.id;
-        const ipAddress = req.ip || req.connection.remoteAddress;
+        const { userIdentifier } = req.query;
 
-        // Remove like
-        const deleteResult = await db.query(
-            'DELETE FROM review_likes WHERE review_id = $1 AND ip_address = $2 RETURNING id',
-            [reviewId, ipAddress]
-        );
-
-        if (deleteResult.rows.length === 0) {
-            return res.status(400).json({ error: 'Like not found' });
+        if (!userIdentifier) {
+            return res.json({ liked: false });
         }
 
-        // Decrement likes_count
         const result = await db.query(
-            'UPDATE reviews SET likes_count = GREATEST(likes_count - 1, 0) WHERE id = $1 RETURNING likes_count',
-            [reviewId]
+            'SELECT id FROM review_likes WHERE review_id = $1 AND user_identifier = $2',
+            [reviewId, userIdentifier]
         );
 
-        res.json({ likes_count: result.rows[0].likes_count, liked: false });
+        res.json({ liked: result.rows.length > 0 });
     } catch (error) {
-        console.error('SQL Error:', error);
-        res.status(500).json({ error: 'Failed to unlike review' });
+        res.status(500).json({ error: 'Failed to check like status' });
     }
 });
 
@@ -191,7 +171,6 @@ router.delete('/:id', async (req, res) => {
 
         res.json({ message: 'Review deleted successfully' });
     } catch (error) {
-        console.error('SQL Error:', error);
         res.status(500).json({ error: 'Failed to delete review' });
     }
 });

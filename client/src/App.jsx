@@ -29,6 +29,7 @@ import ApplicationsList from './pages/admin/ApplicationsList'
 import MessagesList from './pages/admin/MessagesList'
 import PartnersManagement from './pages/admin/PartnersManagement'
 import MeetingManagement from './pages/admin/MeetingManagement'
+import ReviewsManagement from './pages/admin/ReviewsManagement'
 
 const Placeholder = ({ title }) => <div className="admin-card"><h2>{title} Management</h2><p>Coming Soon</p></div>
 
@@ -72,10 +73,11 @@ function App() {
             <Route path="messages" element={<MessagesList />} />
             <Route path="partners" element={<PartnersManagement />} />
             <Route path="meetings" element={<MeetingManagement />} />
+            <Route path="reviews" element={<ReviewsManagement />} />
           </Route>
         </Routes>
-      </AuthProvider >
-    </ErrorBoundary >
+      </AuthProvider>
+    </ErrorBoundary>
   )
 }
 
