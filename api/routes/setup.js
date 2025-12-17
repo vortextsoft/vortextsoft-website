@@ -145,6 +145,32 @@ CREATE TABLE IF NOT EXISTS meetings (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Reviews/Testimonials Table
+DROP TABLE IF EXISTS review_likes;
+DROP TABLE IF EXISTS reviews;
+CREATE TABLE IF NOT EXISTS reviews (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    company_name VARCHAR(255),
+    profile_image TEXT,
+    review_text TEXT NOT NULL,
+    star_rating INTEGER DEFAULT 5 CHECK (star_rating >= 1 AND star_rating <= 5),
+    likes_count INTEGER DEFAULT 0,
+    is_visible BOOLEAN DEFAULT true,
+    order_position INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Review Likes Table
+CREATE TABLE IF NOT EXISTS review_likes (
+    id VARCHAR(255) PRIMARY KEY,
+    review_id VARCHAR(255) REFERENCES reviews(id) ON DELETE CASCADE,
+    ip_address VARCHAR(50),
+    user_agent TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(review_id, ip_address)
+);
+
 -- Initial Admin User
 INSERT INTO users (email, password) 
 VALUES ('admin@vortextsoft.com', 'admin')

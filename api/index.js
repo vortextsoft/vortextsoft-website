@@ -28,6 +28,7 @@ const uploadRoutes = require('./routes/upload');
 const emailRoutes = require('./routes/email');
 const partnersRoutes = require('./routes/partners');
 const meetingsRoutes = require('./routes/meetings');
+const reviewsRoutes = require('./routes/reviews');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/services', servicesRoutes);
@@ -41,6 +42,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/partners', partnersRoutes);
 app.use('/api/meetings', meetingsRoutes);
+app.use('/api/reviews', reviewsRoutes);
 app.use('/api/setup', require('./routes/setup'));
 
 app.get('/', (req, res) => {

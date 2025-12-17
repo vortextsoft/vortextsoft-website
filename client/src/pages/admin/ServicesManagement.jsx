@@ -105,6 +105,7 @@ const ServicesManagement = () => {
             </div>
 
             <div className="admin-card">
+                {/* Desktop Table View */}
                 <table className="data-table">
                     <thead>
                         <tr>
@@ -150,6 +151,51 @@ const ServicesManagement = () => {
                         ))}
                     </tbody>
                 </table>
+
+                {/* Mobile Card View */}
+                <div className="mobile-card-list">
+                    {services.map((s, index) => (
+                        <div key={s.id} className="mobile-service-card">
+                            <div className="mobile-card-header">
+                                <div className="mobile-card-title">{s.title}</div>
+                                <div className="mobile-card-order">
+                                    <button
+                                        className="action-btn"
+                                        onClick={() => handleMoveUp(s, index)}
+                                        disabled={index === 0}
+                                        style={{ opacity: index === 0 ? 0.3 : 1 }}
+                                        title="Move up"
+                                    >
+                                        <ArrowUp size={16} />
+                                    </button>
+                                    <button
+                                        className="action-btn"
+                                        onClick={() => handleMoveDown(s, index)}
+                                        disabled={index === services.length - 1}
+                                        style={{ opacity: index === services.length - 1 ? 0.3 : 1 }}
+                                        title="Move down"
+                                    >
+                                        <ArrowDown size={16} />
+                                    </button>
+                                    <div className="mobile-card-position">#{index + 1}</div>
+                                </div>
+                            </div>
+                            <div className="mobile-card-body">
+                                <div className="mobile-card-description">
+                                    {s.description || s.shortDescription}
+                                </div>
+                            </div>
+                            <div className="mobile-card-actions">
+                                <button className="action-btn edit-btn" onClick={() => handleEdit(s)}>
+                                    <Pencil size={14} style={{ marginRight: '5px' }} /> Edit
+                                </button>
+                                <button className="action-btn delete-btn" onClick={() => handleDelete(s.id)}>
+                                    <Trash2 size={14} style={{ marginRight: '5px' }} /> Delete
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             {isFormOpen && (
