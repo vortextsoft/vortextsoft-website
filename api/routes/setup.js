@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS services (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     icon VARCHAR(255),
+    order_position INTEGER DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

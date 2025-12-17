@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../../api';
 import { API_URL } from '../../config';
-import { Pencil, Trash2, Plus } from 'lucide-react';
+import { Pencil, Trash2, Plus, ArrowUp, ArrowDown } from 'lucide-react';
 
 const ServicesManagement = () => {
     const [services, setServices] = useState([]);
@@ -42,6 +42,38 @@ const ServicesManagement = () => {
         setIsFormOpen(true);
     };
 
+    const handleMoveUp = async (service, index) => {
+        if (index === 0) return; // Already at top
+        const targetPosition = services[index - 1].order_position;
+
+        try {
+            await fetch(`${API_URL}/services/reorder`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ serviceId: service.id, targetPosition })
+            });
+            fetchServices();
+        } catch (error) {
+            console.error('Failed to reorder:', error);
+        }
+    };
+
+    const handleMoveDown = async (service, index) => {
+        if (index === services.length - 1) return; // Already at bottom
+        const targetPosition = services[index + 1].order_position;
+
+        try {
+            await fetch(`${API_URL}/services/reorder`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ serviceId: service.id, targetPosition })
+            });
+            fetchServices();
+        } catch (error) {
+            console.error('Failed to reorder:', error);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -76,14 +108,38 @@ const ServicesManagement = () => {
                 <table className="data-table">
                     <thead>
                         <tr>
+                            <th style={{ width: '80px' }}>Order</th>
                             <th>Title</th>
                             <th>Description</th>
-                            <th>Actions</th>
+                            <th style={{ width: '120px' }}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {services.map(s => (
+                        {services.map((s, index) => (
                             <tr key={s.id}>
+                                <td>
+                                    <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                                        <button
+                                            className="action-btn"
+                                            onClick={() => handleMoveUp(s, index)}
+                                            disabled={index === 0}
+                                            style={{ opacity: index === 0 ? 0.3 : 1, cursor: index === 0 ? 'not-allowed' : 'pointer' }}
+                                            title="Move up"
+                                        >
+                                            <ArrowUp size={14} />
+                                        </button>
+                                        <button
+                                            className="action-btn"
+                                            onClick={() => handleMoveDown(s, index)}
+                                            disabled={index === services.length - 1}
+                                            style={{ opacity: index === services.length - 1 ? 0.3 : 1, cursor: index === services.length - 1 ? 'not-allowed' : 'pointer' }}
+                                            title="Move down"
+                                        >
+                                            <ArrowDown size={14} />
+                                        </button>
+                                        <span style={{ fontSize: '0.85rem', color: '#666', minWidth: '20px' }}>#{index + 1}</span>
+                                    </div>
+                                </td>
                                 <td>{s.title}</td>
                                 <td>{(s.description || s.shortDescription)?.substring(0, 50)}...</td>
                                 <td>
