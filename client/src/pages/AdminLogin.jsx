@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../styles/AdminLogin.css';
+import '../styles/Admin.css';
 
 const AdminLogin = () => {
     const [step, setStep] = useState(1); // 1 = email, 2 = OTP
