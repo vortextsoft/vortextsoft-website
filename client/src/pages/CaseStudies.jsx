@@ -196,15 +196,59 @@ const CaseStudies = () => {
                                     style={{ display: index === currentIndex ? 'flex' : 'none' }}
                                 >
                                     <div className="case-study-image">
-                                        {study.hero_video ? (
+                                        {study.hero_image && study.hero_video ? (
+                                            // Both image and video: Show image with play button
+                                            <div className="image-container">
+                                                <img
+                                                    src={study.hero_image.startsWith('http') ? study.hero_image : `${API_BASE_URL}${study.hero_image}`}
+                                                    alt={study.title}
+                                                    loading="lazy"
+                                                />
+                                                <button
+                                                    className="video-play-overlay"
+                                                    onClick={(e) => {
+                                                        const container = e.currentTarget.parentElement;
+                                                        const img = container.querySelector('img');
+                                                        const playBtn = e.currentTarget;
+
+                                                        // Hide image and play button
+                                                        img.style.display = 'none';
+                                                        playBtn.style.display = 'none';
+
+                                                        // Create and show video
+                                                        const video = document.createElement('video');
+                                                        video.src = study.hero_video.startsWith('http') ? study.hero_video : `${API_BASE_URL}${study.hero_video}`;
+                                                        video.controls = true;
+                                                        video.autoplay = true;
+                                                        video.className = 'case-video';
+                                                        container.appendChild(video);
+                                                    }}
+                                                    aria-label="Play video"
+                                                >
+                                                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                                                        <circle cx="40" cy="40" r="40" fill="rgba(0, 200, 204, 0.9)" />
+                                                        <path d="M32 25L55 40L32 55V25Z" fill="white" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        ) : study.hero_video ? (
+                                            // Only video: Autoplay muted
                                             <video
                                                 src={study.hero_video.startsWith('http') ? study.hero_video : `${API_BASE_URL}${study.hero_video}`}
                                                 controls
+                                                autoPlay
+                                                muted
+                                                loop
+                                                playsInline
                                                 className="case-video"
-                                                poster={study.hero_image ? (study.hero_image.startsWith('http') ? study.hero_image : `${API_BASE_URL}${study.hero_image}`) : undefined}
                                             />
                                         ) : study.hero_image ? (
-                                            <img src={study.hero_image.startsWith('http') ? study.hero_image : `${API_BASE_URL}${study.hero_image}`} alt={study.title} />
+                                            // Only image
+                                            <img
+                                                src={study.hero_image.startsWith('http') ? study.hero_image : `${API_BASE_URL}${study.hero_image}`}
+                                                alt={study.title}
+                                                loading="lazy"
+                                            />
                                         ) : (
                                             <div className="placeholder-image">
                                                 <span>No Media</span>

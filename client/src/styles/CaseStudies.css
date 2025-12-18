@@ -182,6 +182,52 @@
     font-weight: 500;
 }
 
+/* Image container for video play overlay */
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Video play button overlay */
+.video-play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.video-play-overlay:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-play-overlay svg {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    transition: all 0.3s ease;
+}
+
+.video-play-overlay:hover svg circle {
+    fill: rgba(0, 200, 204, 1);
+}
+
+.video-play-overlay:active {
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
 .case-study-content-horizontal {
     flex: 1;
     padding: 3.5rem 3rem;
