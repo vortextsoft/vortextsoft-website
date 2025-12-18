@@ -34,7 +34,7 @@ const AdminLayout = () => {
         // Fetch unread messages count
         const fetchMessageCount = async () => {
             try {
-                const response = await fetch('/api/messages/unread-count');
+                const response = await fetch('/api/contact/unread-count');
                 const data = await response.json();
                 setMessageCount(data.count || 0);
             } catch (error) {
