@@ -48,12 +48,11 @@
 }
 
 .login-logo {
-    width: 280px;
+    width: 120px;
     height: auto;
-    max-height: 140px;
+    max-height: 100px;
     margin-bottom: 24px;
     object-fit: contain;
-    border-radius: 12px;
 }
 
 .login-title {
