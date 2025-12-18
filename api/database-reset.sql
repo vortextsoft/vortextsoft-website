@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS review_likes (
 
 -- Initial Admin User
 INSERT INTO users (email, password) 
-VALUES ('admin@vortextsoft.com', 'admin')
+VALUES ('vortextsoft.info@gmail.com', 'admin')
 ON CONFLICT (email) DO NOTHING;
 
 -- ================================================
