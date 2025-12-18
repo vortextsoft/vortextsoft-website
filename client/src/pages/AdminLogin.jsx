@@ -110,7 +110,7 @@ const AdminLogin = () => {
                     {/* Header */}
                     <div className="login-header">
                         <img
-                            src="/vortextsoft-3d-logo.png"
+                            src="/favicon.svg"
                             alt="VortextSoft"
                             className="login-logo"
                         />
