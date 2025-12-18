@@ -110,10 +110,9 @@ const AdminLogin = () => {
                     {/* Header */}
                     <div className="login-header">
                         <img
-                            src="/logo.png"
+                            src="/vortextsoft-logo.jpg"
                             alt="VortextSoft"
                             className="login-logo"
-                            onError={(e) => e.target.style.display = 'none'}
                         />
                         <h1 className="login-title">Admin Portal</h1>
                         <p className="login-subtitle">
