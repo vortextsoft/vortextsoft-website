@@ -109,11 +109,6 @@ const AdminLogin = () => {
                 <div className="login-card">
                     {/* Header */}
                     <div className="login-header">
-                        <img
-                            src="/vortextsoft-logo.jpg"
-                            alt="VortextSoft"
-                            className="login-logo"
-                        />
                         <h1 className="login-title">Admin Portal</h1>
                         <p className="login-subtitle">
                             {step === 1
