@@ -216,6 +216,9 @@ const PartnersManagement = () => {
                     border: 1px solid #ddd;
                     border-radius: 8px;
                     margin-top: 0.5rem;
+                    color: #333;
+                    background: #fff;
+                    font-size: 1rem;
                 }
 
                 .file-upload-wrapper {
