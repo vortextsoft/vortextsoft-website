@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../styles/Admin.css';
+import '../styles/AdminLogin.css';
 
 const AdminLogin = () => {
-    const [step, setStep] = useState(1); // 1 = email, 2 = OTP
+    const [step, setStep] = useState(1);
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [error, setError] = useState('');
@@ -16,7 +16,6 @@ const AdminLogin = () => {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    // Request OTP - Step 1
     const handleRequestOTP = async (e) => {
         e.preventDefault();
         setError('');
@@ -34,8 +33,7 @@ const AdminLogin = () => {
 
             if (response.ok) {
                 setStep(2);
-                setMessage('OTP sent to registered phone numbers. Please check your phone.');
-                // Start 60 second countdown for resend
+                setMessage('Verification code sent to your email');
                 setCanResend(false);
                 setCountdown(60);
                 const timer = setInterval(() => {
@@ -49,12 +47,11 @@ const AdminLogin = () => {
                     });
                 }, 1000);
 
-                // FOR DEVELOPMENT: show OTP in console
                 if (data.otp) {
                     console.log('Development OTP:', data.otp);
                 }
             } else {
-                setError(data.error || 'Failed to send OTP');
+                setError(data.error || 'Failed to send verification code');
             }
         } catch (err) {
             setError('Network error. Please try again.');
@@ -64,7 +61,6 @@ const AdminLogin = () => {
         }
     };
 
-    // Verify OTP - Step 2
     const handleVerifyOTP = async (e) => {
         e.preventDefault();
         setError('');
@@ -83,8 +79,8 @@ const AdminLogin = () => {
                 login(data.user, data.token);
                 navigate('/admin');
             } else {
-                setError(data.error || 'Invalid OTP');
-                setOtp(''); // Clear OTP field
+                setError(data.error || 'Invalid verification code');
+                setOtp('');
             }
         } catch (err) {
             setError('Network error. Please try again.');
@@ -108,98 +104,145 @@ const AdminLogin = () => {
     };
 
     return (
-        <div className="admin-login-container">
-            <div className="login-card">
-                <h2>Admin Login</h2>
-                <p className="login-subtitle">
-                    {step === 1 ? 'Enter your email to receive OTP' : 'Enter the 6-digit code sent to your phone'}
-                </p>
+        <div className="admin-login-page">
+            <div className="login-container">
+                <div className="login-card">
+                    {/* Header */}
+                    <div className="login-header">
+                        <img
+                            src="/logo.png"
+                            alt="VortextSoft"
+                            className="login-logo"
+                            onError={(e) => e.target.style.display = 'none'}
+                        />
+                        <h1 className="login-title">Admin Portal</h1>
+                        <p className="login-subtitle">
+                            {step === 1
+                                ? 'Enter your email to receive a verification code'
+                                : 'Enter the 6-digit code sent to your email'
+                            }
+                        </p>
+                    </div>
 
-                {error && <div className="error-message">{error}</div>}
-                {message && <div className="success-message">{message}</div>}
+                    {/* Step Indicator */}
+                    <div className="step-indicator">
+                        <div className={`step-dot ${step >= 1 ? 'active' : ''}`}></div>
+                        <div className={`step-line ${step >= 2 ? 'completed' : ''}`}></div>
+                        <div className={`step-dot ${step >= 2 ? 'active' : ''}`}></div>
+                    </div>
 
-                {step === 1 ? (
-                    <form onSubmit={handleRequestOTP}>
-                        <div className="form-group">
-                            <label htmlFor="email">Email Address</label>
-                            <input
-                                id="email"
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                placeholder="admin@vortextsoft.com"
-                                autoFocus
-                            />
+                    {/* Messages */}
+                    {error && (
+                        <div className="message-box error">
+                            <span className="message-icon">⚠️</span>
+                            {error}
                         </div>
-
-                        <button type="submit" className="login-btn" disabled={loading}>
-                            {loading ? 'Sending...' : 'Request OTP'}
-                        </button>
-                    </form>
-                ) : (
-                    <form onSubmit={handleVerifyOTP}>
-                        <div className="form-group">
-                            <label htmlFor="otp">OTP Code</label>
-                            <input
-                                id="otp"
-                                type="text"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                required
-                                placeholder="000000"
-                                maxLength="6"
-                                autoFocus
-                                style={{
-                                    fontSize: '24px',
-                                    letterSpacing: '8px',
-                                    textAlign: 'center',
-                                    fontFamily: 'monospace'
-                                }}
-                            />
-                            <small style={{ display: 'block', marginTop: '8px', color: '#666' }}>
-                                OTP sent to: {email}
-                            </small>
+                    )}
+                    {message && (
+                        <div className="message-box success">
+                            <span className="message-icon">✓</span>
+                            {message}
                         </div>
+                    )}
 
-                        <button type="submit" className="login-btn" disabled={loading}>
-                            {loading ? 'Verifying...' : 'Verify OTP'}
-                        </button>
+                    {/* Step 1: Email */}
+                    {step === 1 ? (
+                        <form onSubmit={handleRequestOTP} className="login-form">
+                            <div className="form-group">
+                                <label className="form-label">Email Address</label>
+                                <input
+                                    type="email"
+                                    className="form-input"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    placeholder="admin@vortextsoft.com"
+                                    autoFocus
+                                    autoComplete="email"
+                                />
+                            </div>
 
-                        <div style={{ marginTop: '16px', textAlign: 'center' }}>
-                            <button
-                                type="button"
-                                onClick={handleResendOTP}
-                                disabled={!canResend || loading}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    color: canResend ? '#00C8CC' : '#999',
-                                    cursor: canResend ? 'pointer' : 'not-allowed',
-                                    textDecoration: 'underline',
-                                    fontSize: '14px'
-                                }}
-                            >
-                                {canResend ? 'Resend OTP' : `Resend in ${countdown}s`}
+                            <button type="submit" className="submit-btn" disabled={loading}>
+                                {loading ? (
+                                    <>
+                                        <div className="btn-spinner"></div>
+                                        Sending...
+                                    </>
+                                ) : (
+                                    <>
+                                        Continue
+                                        <span>→</span>
+                                    </>
+                                )}
                             </button>
-                            <span style={{ margin: '0 8px', color: '#ccc' }}>|</span>
-                            <button
-                                type="button"
-                                onClick={handleBackToEmail}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    color: '#00C8CC',
-                                    cursor: 'pointer',
-                                    textDecoration: 'underline',
-                                    fontSize: '14px'
-                                }}
-                            >
-                                Change Email
+                        </form>
+                    ) : (
+                        /* Step 2: OTP Verification */
+                        <form onSubmit={handleVerifyOTP} className="login-form">
+                            <div className="email-display">
+                                <span className="email-display-text">
+                                    Code sent to <span className="email-display-address">{email}</span>
+                                </span>
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">Verification Code</label>
+                                <input
+                                    type="text"
+                                    className="form-input otp-input"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                                    required
+                                    placeholder="000000"
+                                    maxLength="6"
+                                    autoFocus
+                                    autoComplete="one-time-code"
+                                />
+                                <span className="otp-hint">Check your email inbox and spam folder</span>
+                            </div>
+
+                            <button type="submit" className="submit-btn" disabled={loading || otp.length !== 6}>
+                                {loading ? (
+                                    <>
+                                        <div className="btn-spinner"></div>
+                                        Verifying...
+                                    </>
+                                ) : (
+                                    <>
+                                        Verify & Login
+                                        <span>🔐</span>
+                                    </>
+                                )}
                             </button>
-                        </div>
-                    </form>
-                )}
+
+                            <div className="secondary-actions">
+                                <button
+                                    type="button"
+                                    onClick={handleResendOTP}
+                                    disabled={!canResend || loading}
+                                    className="link-btn"
+                                >
+                                    {canResend ? 'Resend Code' : `Resend in ${countdown}s`}
+                                </button>
+                                <div className="action-separator"></div>
+                                <button
+                                    type="button"
+                                    onClick={handleBackToEmail}
+                                    className="link-btn primary"
+                                >
+                                    Change Email
+                                </button>
+                            </div>
+                        </form>
+                    )}
+
+                    {/* Footer */}
+                    <div className="login-footer">
+                        <p className="login-footer-text">
+                            © 2024 VortextSoft. Secure Admin Access.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );
