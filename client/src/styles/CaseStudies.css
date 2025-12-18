@@ -596,4 +596,21 @@
     }
 }
 
+/* Case Features List */
+.case-features {
+    margin-top: 0.5rem;
+}
+
+.case-features ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    list-style-type: disc;
+}
+
+.case-features li {
+    margin-bottom: 0.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+}
+
 /* Old styles removed */
