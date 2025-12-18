@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { api } from '../api';
 
 const AuthContext = createContext(null);
 
@@ -10,33 +9,37 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         // Check for token on mount
         const token = localStorage.getItem('token');
-        if (token) {
-            // ideally verify token with backend, for now assume valid if present
-            // and decode or just set dummy user state
-            setUser({ email: 'admin@vortextsoft.com' });
+        const savedUser = localStorage.getItem('user');
+        if (token && savedUser) {
+            try {
+                setUser(JSON.parse(savedUser));
+            } catch (e) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+            }
         }
         setLoading(false);
     }, []);
 
-    const login = async (email, password) => {
-        try {
-            const data = await api.login({ email, password });
-            localStorage.setItem('token', data.token);
-            setUser(data.user);
-            return true;
-        } catch (error) {
-            console.error(error);
-            return false;
-        }
+    // New OTP-based login - called after OTP verification
+    const login = (userData, token) => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(userData));
+        setUser(userData);
     };
 
     const logout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         setUser(null);
     };
 
+    const isAuthenticated = () => {
+        return !!user && !!localStorage.getItem('token');
+    };
+
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, login, logout, loading, isAuthenticated }}>
             {!loading && children}
         </AuthContext.Provider>
     );
