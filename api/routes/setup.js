@@ -177,11 +177,32 @@ ON CONFLICT (email) DO NOTHING;
 
 router.get('/', async (req, res) => {
     try {
+        // Check if database URL is configured
+        const dbUrl = process.env.NETLIFY_DATABASE_URL || process.env.DATABASE_URL;
+
+        if (!dbUrl) {
+            return res.status(500).send(`
+                Setup failed: Database URL not configured.
+                Please set NETLIFY_DATABASE_URL or DATABASE_URL environment variable.
+                
+                Current environment variables available:
+                ${Object.keys(process.env).filter(k => k.includes('DATABASE') || k.includes('NETLIFY')).join(', ')}
+            `);
+        }
+
+        console.log('Database URL configured:', dbUrl.substring(0, 30) + '...');
+
         await db.query(schemaSql);
         res.send('Database RESET and initialized successfully! Table structures matched to DB.json.');
     } catch (error) {
         console.error('Setup Error:', error);
-        res.status(500).send(`Setup failed: ${error.message}`);
+        res.status(500).send(`
+            Setup failed: ${error.message}
+            
+            Stack: ${error.stack}
+            
+            Database URL configured: ${process.env.NETLIFY_DATABASE_URL ? 'Yes' : 'No'}
+        `);
     }
 });
 
