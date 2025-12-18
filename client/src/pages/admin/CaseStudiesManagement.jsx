@@ -175,9 +175,15 @@ const CaseStudiesManagement = () => {
         const method = editing ? 'PUT' : 'POST';
 
         try {
+            // Convert features from string (newline-separated) to array
+            let featuresList = formData.features;
+            if (typeof featuresList === 'string') {
+                featuresList = featuresList.split('\n').map(f => f.trim()).filter(f => f);
+            }
+
             const payload = {
                 ...formData,
-                features: Array.isArray(formData.features) ? formData.features : [formData.features]
+                features: featuresList
             };
             await fetch(url, {
                 method,
@@ -269,11 +275,14 @@ const CaseStudiesManagement = () => {
                                 ></textarea>
                             </div>
                             <div className="form-group">
-                                <label>Features</label>
-                                <Editor
-                                    value={Array.isArray(formData.features) ? '<ul>' + formData.features.map(f => `<li>${f}</li>`).join('') + '</ul>' : formData.features}
+                                <label>Features (one per line)</label>
+                                <textarea
+                                    rows="5"
+                                    placeholder="Enter features, one per line:&#10;Feature 1&#10;Feature 2&#10;Feature 3"
+                                    value={Array.isArray(formData.features) ? formData.features.join('\n') : (formData.features || '')}
                                     onChange={(e) => setFormData({ ...formData, features: e.target.value })}
-                                />
+                                ></textarea>
+                                <small style={{ color: '#666', fontSize: '12px' }}>Enter each feature on a new line. They will display as bullet points.</small>
                             </div>
                             <div className="form-group">
                                 <label>Problem Statement</label>

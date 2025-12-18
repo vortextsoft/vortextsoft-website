@@ -264,10 +264,43 @@ const CaseStudies = () => {
                                         />
 
                                         {study.features && (
-                                            <div
-                                                className="case-features"
-                                                dangerouslySetInnerHTML={{ __html: study.features }}
-                                            />
+                                            <div className="case-features">
+                                                {(() => {
+                                                    // Handle features - could be array, JSON string, or HTML string
+                                                    let featureList = study.features;
+
+                                                    // If it's a string, try to parse as JSON
+                                                    if (typeof featureList === 'string') {
+                                                        // If it already contains HTML tags, render as HTML
+                                                        if (featureList.includes('<ul>') || featureList.includes('<li>')) {
+                                                            return <div dangerouslySetInnerHTML={{ __html: featureList }} />;
+                                                        }
+                                                        // Try parsing as JSON array
+                                                        try {
+                                                            const parsed = JSON.parse(featureList);
+                                                            if (Array.isArray(parsed)) {
+                                                                featureList = parsed;
+                                                            }
+                                                        } catch (e) {
+                                                            // Not JSON, treat as comma-separated or single item
+                                                            featureList = featureList.split(',').map(f => f.trim()).filter(f => f);
+                                                        }
+                                                    }
+
+                                                    // Render as list if array
+                                                    if (Array.isArray(featureList) && featureList.length > 0) {
+                                                        return (
+                                                            <ul>
+                                                                {featureList.map((feature, idx) => (
+                                                                    <li key={idx}>{feature}</li>
+                                                                ))}
+                                                            </ul>
+                                                        );
+                                                    }
+
+                                                    return null;
+                                                })()}
+                                            </div>
                                         )}
 
                                         <button className="case-arrow-btn">
