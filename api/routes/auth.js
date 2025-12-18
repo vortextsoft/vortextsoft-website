@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const db = require('../utils/sql');
-const smsService = require('../utils/smsService');
+const otpService = require('../utils/otpService');
 
 // Request OTP - Step 1 of login
 router.post('/request-otp', async (req, res) => {
@@ -19,7 +19,7 @@ router.post('/request-otp', async (req, res) => {
         }
 
         // Generate OTP
-        const otp = smsService.generateOTP();
+        const otp = otpService.generateOTP();
         const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
 
         // Store OTP in database
@@ -28,19 +28,16 @@ router.post('/request-otp', async (req, res) => {
             [email, otp, expiresAt]
         );
 
-        // Send OTP to predefined admin phones
-        const adminPhones = (process.env.ADMIN_PHONE_NUMBERS || '').split(',');
+        // Send OTP via email (FREE!)
+        const emailResult = await otpService.sendOTP(email, otp);
 
-        if (adminPhones.length > 0 && adminPhones[0]) {
-            const smsResult = await smsService.sendOTP(adminPhones, otp);
-            console.log('SMS Result:', smsResult);
-        } else {
-            console.log('Development mode - OTP:', otp);
+        if (!emailResult.success) {
+            console.error('Failed to send OTP email:', emailResult.error);
         }
 
         res.json({
             success: true,
-            message: 'OTP sent to registered phone numbers',
+            message: 'OTP sent to your email address',
             // FOR DEVELOPMENT ONLY - remove in production
             ...(process.env.NODE_ENV === 'development' && { otp })
         });
