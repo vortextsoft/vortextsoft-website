@@ -7,6 +7,9 @@
 [functions]
   directory = "api"
   node_bundler = "esbuild"
+  # Include all node_modules to ensure pg and other deps work
+  included_files = ["api/node_modules/**"]
+  external_node_modules = ["pg", "pg-native"]
 
 # 1. API Rewrite: /api/* -> Function
 [[redirects]]
