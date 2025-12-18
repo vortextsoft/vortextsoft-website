@@ -11,6 +11,7 @@ const AdminLayout = () => {
     const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [meetingCount, setMeetingCount] = useState(0);
+    const [messageCount, setMessageCount] = useState(0);
 
     useEffect(() => {
         // Fetch pending meetings count
@@ -26,6 +27,22 @@ const AdminLayout = () => {
         };
         fetchCount();
         const interval = setInterval(fetchCount, 30000); // Poll every 30s
+        return () => clearInterval(interval);
+    }, [location.pathname]);
+
+    useEffect(() => {
+        // Fetch unread messages count
+        const fetchMessageCount = async () => {
+            try {
+                const response = await fetch('/api/messages/unread-count');
+                const data = await response.json();
+                setMessageCount(data.count || 0);
+            } catch (error) {
+                console.error('Failed to fetch message count:', error);
+            }
+        };
+        fetchMessageCount();
+        const interval = setInterval(fetchMessageCount, 30000); // Poll every 30s
         return () => clearInterval(interval);
     }, [location.pathname]);
 
@@ -88,6 +105,7 @@ const AdminLayout = () => {
                     </NavLink>
                     <NavLink to="/admin/messages" className={({ isActive }) => isActive ? 'active' : ''}>
                         <Mail size={20} /> Messages
+                        {messageCount > 0 && <span className="sidebar-badge">{messageCount}</span>}
                     </NavLink>
                     <NavLink to="/admin/meetings" className={({ isActive }) => isActive ? 'active' : ''}>
                         <CalendarCheck size={20} /> Meetings

@@ -13,6 +13,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET unread message count
+router.get('/unread-count', async (req, res) => {
+    try {
+        const result = await db.query('SELECT COUNT(*) as count FROM messages WHERE replied = false');
+        res.json({ count: parseInt(result.rows[0].count) });
+    } catch (error) {
+        console.error('SQL Error:', error);
+        res.status(500).json({ error: 'Failed to fetch unread count' });
+    }
+});
+
 // POST (Send Message)
 router.post('/', async (req, res) => {
     try {
@@ -25,27 +36,7 @@ router.post('/', async (req, res) => {
 
         const id = uuidv4();
 
-        // 1. Send Email (Optional, non-blocking)
-        try {
-            const { sendEmail } = require('../utils/emailService');
-            await sendEmail({
-                to: process.env.EMAIL_USER,
-                subject: `New Contact from ${name} at ${company || 'No Company'}`,
-                text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone || 'N/A'}\nCompany: ${company || 'N/A'}\n\nMessage:\n${message}`,
-                html: `
-                    <h3>New Contact Message</h3>
-                    <p><strong>From:</strong> ${name} (${email})</p>
-                    <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
-                    <p><strong>Company:</strong> ${company || 'N/A'}</p>
-                    <hr/>
-                    <p>${message.replace(/\n/g, '<br>')}</p>
-                `
-            });
-        } catch (emailError) {
-            console.error('Email sending failed:', emailError);
-        }
-
-        // 2. Save to Postgres DB
+        // Save to Postgres DB
         const query = `
             INSERT INTO messages (id, name, email, phone, company, message)
             VALUES ($1, $2, $3, $4, $5, $6)
@@ -79,11 +70,10 @@ router.patch('/:id/replied', async (req, res) => {
     try {
         const query = `
             UPDATE messages 
-            SET replied = $1
+            SET replied = $1, "repliedAt" = CURRENT_TIMESTAMP
             WHERE id = $2
             RETURNING *
         `;
-        // Assuming this endpoint toggles read status or sets it to true
         const values = [true, req.params.id];
 
         const result = await db.query(query, values);
@@ -92,6 +82,24 @@ router.patch('/:id/replied', async (req, res) => {
         res.json(result.rows[0]);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update message' });
+    }
+});
+
+// Mark message as read (when viewed)
+router.patch('/:id/read', async (req, res) => {
+    try {
+        const query = `
+            UPDATE messages 
+            SET replied = true
+            WHERE id = $1
+            RETURNING *
+        `;
+        const result = await db.query(query, [req.params.id]);
+        if (result.rows.length === 0) return res.status(404).json({ error: 'Message not found' });
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to mark as read' });
     }
 });
 
