@@ -117,9 +117,9 @@ const CaseStudiesManagement = () => {
         if (!file) return;
 
         // Validate file type
-        const validVideoTypes = ['video/mp4', 'video/webm', 'video/ogg'];
+        const validVideoTypes = ['video/mp4', 'video/webm', 'video/ogg', 'video/mov'];
         if (!validVideoTypes.includes(file.type)) {
-            alert('Please upload a valid video file (MP4, WebM, or OGG)');
+            alert('Please upload a valid video file (MP4, WebM, OGG, or MOV)');
             return;
         }
 
@@ -131,20 +131,34 @@ const CaseStudiesManagement = () => {
         }
 
         setUploadingVideo(true);
-        const formDataUpload = new FormData();
-        formDataUpload.append('video', file);
 
         try {
-            const response = await fetch(`${API_URL}/cloudinary/video`, {
-                method: 'POST',
-                body: formDataUpload
-            });
+            const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+            const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+            if (!cloudName || !uploadPreset) {
+                alert('Cloudinary configuration missing.');
+                setUploadingVideo(false);
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', uploadPreset);
+            formData.append('folder', 'vortextsoft/videos');
+
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`,
+                { method: 'POST', body: formData }
+            );
+
             const data = await response.json();
 
-            if (response.ok && data.success) {
-                setFormData(prev => ({ ...prev, heroVideo: data.url }));
+            if (response.ok && data.secure_url) {
+                setFormData(prev => ({ ...prev, heroVideo: data.secure_url }));
+                alert('Video uploaded successfully!');
             } else {
-                alert('Failed to upload video: ' + (data.error || 'Unknown error'));
+                alert('Failed to upload video: ' + (data.error?.message || 'Unknown error'));
             }
         } catch (error) {
             console.error('Error uploading video:', error);

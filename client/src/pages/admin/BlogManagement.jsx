@@ -64,20 +64,38 @@ const BlogManagement = () => {
         const file = e.target.files[0];
         if (!file) return;
 
-        const data = new FormData();
-        data.append('image', file);
-
         setUploadingImage(true);
+
         try {
-            const res = await fetch(`${API_URL}/cloudinary/image`, {
-                method: 'POST',
-                body: data
-            });
-            const result = await res.json();
-            if (res.ok && result.success) {
-                setFormData(prev => ({ ...prev, imageUrl: result.url }));
+            // Direct upload to Cloudinary
+            const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+            const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+            if (!cloudName || !uploadPreset) {
+                alert('Cloudinary configuration missing.');
+                setUploadingImage(false);
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', uploadPreset);
+            formData.append('folder', 'vortextsoft/images');
+
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            );
+
+            const data = await response.json();
+
+            if (response.ok && data.secure_url) {
+                setFormData(prev => ({ ...prev, imageUrl: data.secure_url }));
             } else {
-                alert('Upload failed: ' + (result.error || 'Unknown error'));
+                alert('Upload failed: ' + (data.error?.message || 'Unknown error'));
             }
         } catch (error) {
             console.error(error);
