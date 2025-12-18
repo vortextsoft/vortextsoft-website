@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS case_studies (
     problem_statement TEXT,
     solution TEXT,
     results TEXT,
-    features TEXT[],
+    features TEXT,
     hero_image TEXT,
     hero_video TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
