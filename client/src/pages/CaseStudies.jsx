@@ -12,8 +12,6 @@ const CaseStudies = () => {
     const [likedReviews, setLikedReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [videoModalOpen, setVideoModalOpen] = useState(false);
-    const [currentVideo, setCurrentVideo] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('All');
 
     // Hero Animation Logic
@@ -198,32 +196,15 @@ const CaseStudies = () => {
                                     style={{ display: index === currentIndex ? 'flex' : 'none' }}
                                 >
                                     <div className="case-study-image">
-                                        {study.hero_image ? (
-                                            <div className="image-container">
-                                                <img src={study.hero_image.startsWith('http') ? study.hero_image : `${API_BASE_URL}${study.hero_image}`} alt={study.title} />
-                                                {study.hero_video && (
-                                                    <button
-                                                        className="video-play-overlay"
-                                                        onClick={() => {
-                                                            setCurrentVideo(study.hero_video);
-                                                            setVideoModalOpen(true);
-                                                        }}
-                                                        aria-label="Play video"
-                                                    >
-                                                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                                                            <circle cx="40" cy="40" r="40" fill="rgba(0, 200, 204, 0.9)" />
-                                                            <path d="M32 25L55 40L32 55V25Z" fill="white" />
-                                                        </svg>
-                                                    </button>
-                                                )}
-                                            </div>
-                                        ) : study.hero_video ? (
+                                        {study.hero_video ? (
                                             <video
                                                 src={study.hero_video.startsWith('http') ? study.hero_video : `${API_BASE_URL}${study.hero_video}`}
                                                 controls
-                                                muted
                                                 className="case-video"
+                                                poster={study.hero_image ? (study.hero_image.startsWith('http') ? study.hero_image : `${API_BASE_URL}${study.hero_image}`) : undefined}
                                             />
+                                        ) : study.hero_image ? (
+                                            <img src={study.hero_image.startsWith('http') ? study.hero_image : `${API_BASE_URL}${study.hero_image}`} alt={study.title} />
                                         ) : (
                                             <div className="placeholder-image">
                                                 <span>No Media</span>
@@ -398,26 +379,7 @@ const CaseStudies = () => {
                     </div>
                 </div>
             )}
-
-            {/* Video Modal */}
-            {videoModalOpen && currentVideo && (
-                <div className="video-modal-overlay" onClick={() => setVideoModalOpen(false)}>
-                    <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="modal-close-btn" onClick={() => setVideoModalOpen(false)}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M18 6L6 18M6 6l12 12" />
-                            </svg>
-                        </button>
-                        <video
-                            src={`${API_BASE_URL}${currentVideo} `}
-                            controls
-                            autoPlay
-                            className="modal-video"
-                        />
-                    </div >
-                </div >
-            )}
-        </div >
+        </div>
     );
 };
 
