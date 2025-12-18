@@ -2,6 +2,17 @@ const express = require('express');
 const router = express.Router();
 const db = require('../utils/sql');
 
+// GET unread message count (MUST be before GET /)
+router.get('/unread-count', async (req, res) => {
+    try {
+        const result = await db.query('SELECT COUNT(*) as count FROM messages WHERE replied = false');
+        res.json({ count: parseInt(result.rows[0].count) });
+    } catch (error) {
+        console.error('SQL Error:', error);
+        res.status(500).json({ error: 'Failed to fetch unread count' });
+    }
+});
+
 // GET all messages (Admin)
 router.get('/', async (req, res) => {
     try {
@@ -10,17 +21,6 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.error('SQL Error:', error);
         res.status(500).json({ error: 'Failed to fetch items' });
-    }
-});
-
-// GET unread message count
-router.get('/unread-count', async (req, res) => {
-    try {
-        const result = await db.query('SELECT COUNT(*) as count FROM messages WHERE replied = false');
-        res.json({ count: parseInt(result.rows[0].count) });
-    } catch (error) {
-        console.error('SQL Error:', error);
-        res.status(500).json({ error: 'Failed to fetch unread count' });
     }
 });
 
