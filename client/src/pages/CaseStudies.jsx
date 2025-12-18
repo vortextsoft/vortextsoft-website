@@ -266,28 +266,48 @@ const CaseStudies = () => {
                                         {study.features && (
                                             <div className="case-features">
                                                 {(() => {
-                                                    // Handle features - could be array, JSON string, or HTML string
+                                                    // Handle features - could be array, JSON string, or corrupted data
                                                     let featureList = study.features;
 
-                                                    // If it's a string, try to parse as JSON
-                                                    if (typeof featureList === 'string') {
-                                                        // If it already contains HTML tags, render as HTML
+                                                    // If already an array, use it
+                                                    if (Array.isArray(featureList)) {
+                                                        // Clean each item of any JSON artifacts
+                                                        featureList = featureList.map(f =>
+                                                            String(f).replace(/^[\[{"\s]+|[\]}"\\s]+$/g, '').trim()
+                                                        ).filter(f => f && f.length > 0);
+                                                    }
+                                                    // If it's a string, parse it
+                                                    else if (typeof featureList === 'string') {
+                                                        // If it contains HTML tags, render as HTML
                                                         if (featureList.includes('<ul>') || featureList.includes('<li>')) {
                                                             return <div dangerouslySetInnerHTML={{ __html: featureList }} />;
                                                         }
-                                                        // Try parsing as JSON array
+
+                                                        // Clean up escaped JSON artifacts
+                                                        let cleaned = featureList
+                                                            .replace(/\\"/g, '"')  // unescape quotes
+                                                            .replace(/^\[|\]$/g, '') // remove outer brackets
+                                                            .replace(/^{|}$/g, '') // remove outer braces
+                                                            .replace(/"{/g, '') // remove {"
+                                                            .replace(/}"/g, '') // remove }"
+                                                            .replace(/\\n/g, '\n'); // handle newlines
+
+                                                        // Try parsing as JSON array first
                                                         try {
-                                                            const parsed = JSON.parse(featureList);
+                                                            const parsed = JSON.parse(`[${cleaned}]`);
                                                             if (Array.isArray(parsed)) {
-                                                                featureList = parsed;
+                                                                featureList = parsed.map(f => String(f).trim()).filter(f => f);
                                                             }
                                                         } catch (e) {
-                                                            // Not JSON, treat as comma-separated or single item
-                                                            featureList = featureList.split(',').map(f => f.trim()).filter(f => f);
+                                                            // Split by comma or newline
+                                                            featureList = cleaned
+                                                                .split(/[,\n]/)
+                                                                .map(f => f.replace(/^["'\s]+|["'\s]+$/g, '').trim())
+                                                                .filter(f => f && f.length > 0);
                                                         }
                                                     }
 
-                                                    // Render as list if array
+                                                    // Render as list if array with items
                                                     if (Array.isArray(featureList) && featureList.length > 0) {
                                                         return (
                                                             <ul>
