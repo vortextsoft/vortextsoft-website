@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS applications (
 );
 
 -- Meetings
-DROP TABLE IF EXISTS meetings;
+DROP TABLE IF EXISTS meetings CASCADE;
 CREATE TABLE IF NOT EXISTS meetings (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -143,6 +143,17 @@ CREATE TABLE IF NOT EXISTS meetings (
     meeting_link VARCHAR(255),
     cancellation_reason TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- OTP Codes (for admin authentication)
+DROP TABLE IF EXISTS otp_codes CASCADE;
+CREATE TABLE IF NOT EXISTS otp_codes (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    otp_code VARCHAR(6) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP NOT NULL,
+    used BOOLEAN DEFAULT false
 );
 
 -- Reviews/Testimonials (drop review_likes first due to foreign key)
