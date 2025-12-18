@@ -182,6 +182,36 @@
     font-weight: 500;
 }
 
+/* Case Features List */
+.case-features {
+    margin-top: 0.5rem;
+}
+
+.case-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.case-features li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.3rem;
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.case-features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 6px;
+    height: 6px;
+    background: #00C8CC;
+    border-radius: 50%;
+}
+
 /* Image container for video play overlay */
 .image-container {
     position: relative;
@@ -596,23 +626,4 @@
     }
 }
 
-/* Case Features Styling */
-.case-features {
-    margin-top: 0.5rem;
-}
-
-.case-features ul {
-    margin: 0;
-    padding-left: 1.2rem;
-    list-style: disc;
-}
-
-.case-features li {
-    margin: 0.25rem 0;
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.case-description {
-    margin-bottom: 0.5rem;
-}
+/* Old styles removed */
