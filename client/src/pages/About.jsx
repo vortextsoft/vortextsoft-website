@@ -1,21 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { API_BASE_URL } from '../config';
 import { api } from '../api';
+import { useScrollFade } from '../utils/useParallax';
 import '../styles/About.css';
 
 const About = () => {
     const [team, setTeam] = useState([]);
 
+    // Parallax: hero background moves slower than page scroll
+    const heroRef = useRef(null);
+    const [heroBgY, setHeroBgY] = useState(0);
+
+    // Scroll-fade hooks
+    const mvFade   = useScrollFade(0.1);
+    const teamFade = useScrollFade(0.1);
+
     useEffect(() => {
         api.getTeam().then(data => setTeam(data)).catch(console.error);
+
+        const handleScroll = () => {
+            if (!heroRef.current) return;
+            const scrollY = window.scrollY;
+            setHeroBgY(scrollY * 0.3);
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
         <div className="page-container">
-            {/* Intro Section */}
-            {/* Hero Section */}
-            <section className="about-hero">
-                <div className="container hero-container">
+            {/* Hero Section with parallax background */}
+            <section className="about-hero" ref={heroRef}>
+                {/* Parallax layer */}
+                <div className="about-hero-parallax" style={{ transform: `translateY(${heroBgY}px)` }} />
+
+                <div className="container hero-container" style={{ position: 'relative', zIndex: 1 }}>
                     <div className="hero-content">
                         <h1>Driving Digital Transformation</h1>
                         <p className="lead">
@@ -36,7 +55,11 @@ const About = () => {
 
             {/* Mission & Vision */}
             <section className="section mv-section">
-                <div className="container mv-grid">
+                <div
+                    className="container mv-grid"
+                    ref={mvFade.ref}
+                    style={{ ...mvFade.style, transition: 'opacity 0.8s ease, transform 0.8s ease' }}
+                >
                     <div className="mv-card">
                         <h3>Our Mission</h3>
                         <p>To deliver intelligent, future-ready technology solutions that empower businesses to thrive in the digital age.</p>
@@ -59,7 +82,11 @@ const About = () => {
 
             {/* Team Section */}
             <section className="section team-section">
-                <div className="container">
+                <div
+                    className="container"
+                    ref={teamFade.ref}
+                    style={{ ...teamFade.style, transition: 'opacity 0.9s ease, transform 0.9s ease' }}
+                >
                     <div className="section-header">
                         <h2>OUR TEAM</h2>
                         <p>Our professional experts</p>
