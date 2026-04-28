@@ -1,50 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as LucideIcons from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 import { api } from '../api';
-import { useParallax, useScrollFade } from '../utils/useParallax';
 import '../styles/Home.css';
 
 const Home = () => {
     const [services, setServices] = useState([]);
     const [partners, setPartners] = useState([]);
 
-    // ── Parallax refs ──────────────────────────────────────────
-    const heroBgRef = useRef(null);
-    const [heroBgY, setHeroBgY] = useState(0);
-
-    // Floating orbs in hero
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-    // Scroll-fade sections
-    const servicesFade = useScrollFade(0.1);
-    const statsFade    = useScrollFade(0.1);
-    const ctaFade      = useScrollFade(0.1);
-
     useEffect(() => {
+        // Fetch Services (max 8)
         api.getServices().then(data => setServices(data.slice(0, 8))).catch(err => console.log(err));
+        // Fetch All Partners
         api.getPartners().then(data => setPartners(data)).catch(err => console.log(err));
-
-        // Hero background parallax on scroll
-        const handleScroll = () => {
-            if (!heroBgRef.current) return;
-            const scrollY = window.scrollY;
-            setHeroBgY(scrollY * 0.35);
-        };
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // Mouse parallax effect for hero orbs
-    useEffect(() => {
-        const handleMouse = (e) => {
-            const x = (e.clientX / window.innerWidth  - 0.5) * 30;
-            const y = (e.clientY / window.innerHeight - 0.5) * 30;
-            setMousePos({ x, y });
-        };
-        window.addEventListener('mousemove', handleMouse);
-        return () => window.removeEventListener('mousemove', handleMouse);
     }, []);
 
     // Dynamic icon lookup
@@ -54,6 +23,7 @@ const Home = () => {
             const IconComponent = LucideIcons[formattedName] || LucideIcons[iconName];
             if (IconComponent) return <IconComponent />;
         }
+
         const t = title.toLowerCase();
         if (t.includes('web')) return <LucideIcons.Globe />;
         if (t.includes('ai') || t.includes('intelligence')) return <LucideIcons.Cpu />;
@@ -65,46 +35,13 @@ const Home = () => {
 
     return (
         <div className="home-page">
-
-            {/* ── Hero Section ──────────────────────────────── */}
-            <section className="hero-section" ref={heroBgRef}>
-                {/* Parallax background image layer */}
-                <div
-                    className="hero-bg-parallax"
-                    style={{ transform: `translateY(${heroBgY}px)` }}
-                />
-
-                {/* Floating decorative orbs that react to mouse */}
-                <div
-                    className="hero-orb orb-1"
-                    style={{
-                        transform: `translate(${mousePos.x * 1.2}px, ${mousePos.y * 1.2}px)`,
-                    }}
-                />
-                <div
-                    className="hero-orb orb-2"
-                    style={{
-                        transform: `translate(${mousePos.x * -0.8}px, ${mousePos.y * -0.8}px)`,
-                    }}
-                />
-                <div
-                    className="hero-orb orb-3"
-                    style={{
-                        transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)`,
-                    }}
-                />
-
+            {/* Hero Section */}
+            <section className="hero-section">
                 <div className="container">
                     <div className="hero-content">
-                        <div className="hero-badge">✦ Next-Gen Software Studio</div>
-                        <h1>
-                            Empower Your Business with{' '}
-                            <span className="hero-brand">Vortextsoft</span>
-                            <span style={{ color: '#00C8CC' }}>.</span>
-                        </h1>
+                        <h1>Empower Your Business with Vortextsoft<span style={{ color: '#00C8CC' }}>.</span></h1>
                         <p className="hero-subtitle">
-                            Delivering cutting-edge, scalable, and high-performance software solutions
-                            tailored to your business needs.
+                            Delivering cutting-edge, scalable, and high-performance software solutions tailored to your business needs.
                         </p>
                         <div className="hero-buttons">
                             <Link to="/contact" className="btn btn-primary">Contact Us</Link>
@@ -112,27 +49,15 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* Scrolling indicator */}
-                <div className="hero-scroll-hint">
-                    <span>Scroll</span>
-                    <div className="scroll-line" />
-                </div>
             </section>
 
-            {/* ── Intro / Partners Section ──────────────────── */}
+            {/* Intro Section */}
             <section className="section services-preview-section">
                 <div className="container">
-                    <div
-                        className="section-header"
-                        ref={servicesFade.ref}
-                        style={{ ...servicesFade.style, transition: 'opacity 0.8s ease, transform 0.8s ease' }}
-                    >
+                    <div className="section-header">
                         <h2>Your Trusted Tech Partner</h2>
                         <p>
-                            Vortextsoft is a cutting-edge technology company specializing in AI/ML, mobile,
-                            web, and enterprise solutions. We combine technical expertise with business acumen
-                            to deliver solutions that drive growth, efficiency, and innovation.
+                            Vortextsoft is a cutting-edge technology company specializing in AI/ML, mobile, web, and enterprise solutions. We combine technical expertise with business acumen to deliver solutions that drive growth, efficiency, and innovation.
                         </p>
                     </div>
 
@@ -146,6 +71,7 @@ const Home = () => {
                                             <img src={partner.logo} alt={partner.name} title={partner.name} />
                                         </div>
                                     ))}
+                                    {/* Duplicate for infinite scroll effect */}
                                     {partners.map((partner, index) => (
                                         <div key={`dup-${index}`} className="partner-logo-item">
                                             <img src={partner.logo} alt={partner.name} title={partner.name} />
@@ -158,7 +84,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* ── Services Overview ─────────────────────────── */}
+            {/* Services Overview */}
             <section className="section services-preview-section">
                 <div className="container">
                     <div className="section-header">
@@ -167,20 +93,53 @@ const Home = () => {
                     </div>
 
                     <div className="services-grid">
+                        {/* If API has no data yet, show static placeholders as fallback/demo */}
                         {services.length === 0 ? (
                             <>
-                                <ServiceCard title="Custom Software Solutions"           icon={<LucideIcons.Code />}       description="Tailor-made software development to meet your unique business requirements and workflows." delay={0} />
-                                <ServiceCard title="Web & Mobile Application Development" icon={<LucideIcons.Layout />}     description="Create responsive, user-friendly websites and powerful cross-platform mobile applications." delay={80} />
-                                <ServiceCard title="AI, Machine Learning & Data Science"  icon={<LucideIcons.Cpu />}        description="Intelligent AI and ML-driven solutions to automate processes and extract valuable insights." delay={160} />
-                                <ServiceCard title="Consulting & Virtual Reality"          icon={<LucideIcons.Globe />}      description="Immersive AR/VR experiences that revolutionize training, marketing, and user engagement." delay={240} />
-                                <ServiceCard title="IoT & Embedded Systems"               icon={<LucideIcons.Layers />}     description="Connect and automate devices and systems for real-time monitoring, control, and efficiency." delay={320} />
-                                <ServiceCard title="Enterprise Resource Planning (ERP)"   icon={<LucideIcons.Layers />}     description="Integrated ERP solutions to streamline and automate all your business operations." delay={400} />
-                                <ServiceCard title="Quality Assurance & Testing"          icon={<LucideIcons.ShieldCheck />} description="Ensure your software is secure, reliable, and performs flawlessly with our comprehensive QA services." delay={480} />
-                                <ServiceCard title="DevOps, Deployment & Optimization"   icon={<LucideIcons.Code />}       description="Optimized deployment, CI/CD automation, and infrastructure management for peak performance." delay={560} />
+                                <ServiceCard
+                                    title="Custom Software Solutions"
+                                    icon={<LucideIcons.Code />}
+                                    description="Tailor-made software development to meet your unique business requirements and workflows."
+                                />
+                                <ServiceCard
+                                    title="Web & Mobile Application Development"
+                                    icon={<LucideIcons.Layout />}
+                                    description="Create responsive, user-friendly websites and powerful cross-platform mobile applications."
+                                />
+                                <ServiceCard
+                                    title="AI, Machine Learning & Data Science"
+                                    icon={<LucideIcons.Cpu />}
+                                    description="Intelligent AI and ML-driven solutions to automate processes and extract valuable insights from your data."
+                                />
+                                <ServiceCard
+                                    title="Consulting & Virtual Reality Solutions"
+                                    icon={<LucideIcons.Globe />}
+                                    description="Immersive AR/VR experiences that revolutionize training, marketing, and user engagement."
+                                />
+                                <ServiceCard
+                                    title="IoT & Embedded Systems"
+                                    icon={<LucideIcons.Layers />}
+                                    description="Connect and automate devices and systems for real-time monitoring, control, and efficiency."
+                                />
+                                <ServiceCard
+                                    title="Enterprise Resource Planning (ERP) Systems"
+                                    icon={<LucideIcons.Layers />}
+                                    description="Integrated ERP solutions to streamline and automate all your business operations."
+                                />
+                                <ServiceCard
+                                    title="Quality Assurance & Testing"
+                                    icon={<LucideIcons.ShieldCheck />}
+                                    description="Ensure your software is secure, reliable, and performs flawlessly with our comprehensive QA services."
+                                />
+                                <ServiceCard
+                                    title="DevOps, Deployment & Optimization"
+                                    icon={<LucideIcons.Code />}
+                                    description="Achieve optimized deployment, CI/CD automation, and infrastructure management for peak performance."
+                                />
                             </>
                         ) : (
-                            services.map((s, i) => (
-                                <ServiceCard key={s.id} title={s.title} icon={getIcon(s.icon, s.title)} description={s.description} delay={i * 80} />
+                            services.map(s => (
+                                <ServiceCard key={s.id} title={s.title} icon={getIcon(s.icon, s.title)} description={s.description} />
                             ))
                         )}
                     </div>
@@ -191,31 +150,31 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* ── Stats Section ─────────────────────────────── */}
+            {/* Metrics / Highlights */}
             <section className="section stats-section">
-                <div
-                    className="container stats-grid"
-                    ref={statsFade.ref}
-                    style={{ ...statsFade.style, transition: 'opacity 0.9s ease, transform 0.9s ease' }}
-                >
-                    <StatCard value="15+" label="Projects Completed" delay={0} />
-                    <StatCard value="98%" label="Client Satisfaction"  delay={100} />
-                    <StatCard value="2+"  label="Years of Experience"  delay={200} />
-                    <StatCard value="10+" label="Expert Team Members"  delay={300} />
+                <div className="container stats-grid">
+                    <div className="stat-card">
+                        <h3>15+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div className="stat-card">
+                        <h3>98%</h3>
+                        <p>Client Satisfaction</p>
+                    </div>
+                    <div className="stat-card">
+                        <h3>2+</h3>
+                        <p>Years of Experience</p>
+                    </div>
+                    <div className="stat-card">
+                        <h3>10+</h3>
+                        <p>Expert Team Members</p>
+                    </div>
                 </div>
             </section>
 
-            {/* ── CTA Section ───────────────────────────────── */}
+            {/* CTA Section */}
             <section className="section cta-section">
-                {/* Parallax decorative blobs */}
-                <div className="cta-blob cta-blob-1" />
-                <div className="cta-blob cta-blob-2" />
-
-                <div
-                    className="container cta-content"
-                    ref={ctaFade.ref}
-                    style={{ ...ctaFade.style, transition: 'opacity 0.9s ease, transform 0.9s ease' }}
-                >
+                <div className="container cta-content">
                     <h2>Ready to Start Your Project?</h2>
                     <p>Let's innovate together. Share your requirements and our team will get back to you shortly.</p>
                     <Link to="/contact" className="btn btn-primary btn-large">Get in Touch</Link>
@@ -225,41 +184,12 @@ const Home = () => {
     );
 };
 
-/* ── Sub-components ──────────────────────────────────────────── */
-
-const ServiceCard = ({ title, icon, description, delay = 0 }) => {
-    const { ref, style } = useScrollFade(0.05);
-    return (
-        <div
-            className="service-card"
-            ref={ref}
-            style={{
-                ...style,
-                transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
-            }}
-        >
-            <div className="service-icon">{icon}</div>
-            <h3>{title}</h3>
-            <p>{description}</p>
-        </div>
-    );
-};
-
-const StatCard = ({ value, label, delay = 0 }) => {
-    const { ref, style } = useScrollFade(0.1);
-    return (
-        <div
-            className="stat-card"
-            ref={ref}
-            style={{
-                ...style,
-                transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
-            }}
-        >
-            <h3>{value}</h3>
-            <p>{label}</p>
-        </div>
-    );
-};
+const ServiceCard = ({ title, icon, description }) => (
+    <div className="service-card">
+        <div className="service-icon">{icon}</div>
+        <h3>{title}</h3>
+        <p>{description}</p>
+    </div>
+);
 
 export default Home;
