@@ -1,0 +1,10 @@
+# _redirects — Netlify SPA fallback
+# This file is copied to dist/ during `vite build` (public/ → dist/).
+# The netlify.toml already has this rule, but this file acts as an
+# explicit, portable backup that Netlify reads directly from the publish folder.
+
+# API passthrough — must come FIRST so it takes priority
+/api/*  /.netlify/functions/index/:splat  200
+
+# SPA catch-all — any route that is not a real file → serve index.html
+/*  /index.html  200

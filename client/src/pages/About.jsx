@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../config';
 import { api } from '../api';
+import SEO from '../components/SEO';
 import '../styles/About.css';
 
 const About = () => {
@@ -11,6 +12,12 @@ const About = () => {
     }, []);
 
     return (
+        <>
+        <SEO
+            title="About Us"
+            description="Learn about Vortextsoft — our mission, expert team, and our passion for delivering innovative AI, web, mobile and enterprise software solutions."
+            path="/about"
+        />
         <div className="page-container">
             {/* Intro Section */}
             {/* Hero Section */}
@@ -116,6 +123,7 @@ const About = () => {
                 </div>
             </section>
         </div>
+        </>
     );
 };
 

@@ -1,8 +1,15 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import '../styles/About.css'; // Reusing hero styles for consistency
 
 const PrivacyPolicy = () => {
     return (
+        <>
+        <SEO
+            title="Privacy Policy"
+            description="Read Vortextsoft's Privacy Policy to understand how we collect, use, and protect your personal data when you use our website and services."
+            path="/privacy"
+        />
         <div className="page-container">
             {/* Hero Section */}
             <section className="about-hero" style={{ minHeight: '40vh' }}>
@@ -60,6 +67,7 @@ const PrivacyPolicy = () => {
                 </div>
             </section>
         </div>
+        </>
     );
 };
 

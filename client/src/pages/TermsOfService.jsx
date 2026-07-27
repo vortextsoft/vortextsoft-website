@@ -1,8 +1,15 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import '../styles/About.css'; // Reusing hero styles for consistency
 
 const TermsOfService = () => {
     return (
+        <>
+        <SEO
+            title="Terms of Service"
+            description="Review Vortextsoft's Terms of Service. Understand the rules and conditions governing the use of our website, products and software services."
+            path="/terms"
+        />
         <div className="page-container">
             {/* Hero Section */}
             <section className="about-hero" style={{ minHeight: '40vh' }}>
@@ -55,6 +62,7 @@ const TermsOfService = () => {
                 </div>
             </section>
         </div>
+        </>
     );
 };
 

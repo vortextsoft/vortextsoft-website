@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../config';
 import { api } from '../api';
+import SEO from '../components/SEO';
 import '../styles/Blog.css';
 
 const Blog = () => {
@@ -50,6 +51,12 @@ const Blog = () => {
     };
 
     return (
+        <>
+        <SEO
+            title="Blog — Insights & Tech News"
+            description="Read the latest tech insights, software development trends, and Vortextsoft company updates. Stay informed with our expert-written blog posts."
+            path="/blog"
+        />
         <div className="page-container">
             <div
                 className="blog-hero"
@@ -108,6 +115,7 @@ const Blog = () => {
                 )}
             </div>
         </div>
+        </>
     );
 };
 
