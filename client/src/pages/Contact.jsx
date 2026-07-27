@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { api } from '../api';
+import SEO from '../components/SEO';
 import '../styles/Contact.css';
 import { Mail, MapPin, Phone, X } from 'lucide-react';
 
@@ -29,6 +30,12 @@ const Contact = () => {
     };
 
     return (
+        <>
+        <SEO
+            title="Contact Us"
+            description="Get in touch with Vortextsoft. Reach out to our team for project inquiries, software development quotes, or to schedule a free consultation meeting."
+            path="/contact"
+        />
         <div className="page-container">
             {/* Contact Hero */}
             <section className="contact-hero">
@@ -127,6 +134,7 @@ const Contact = () => {
                 </div>
             )}
         </div>
+        </>
     );
 };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
+import SEO from '../components/SEO';
 import '../styles/Services.css';
 import * as LucideIcons from 'lucide-react';
 
@@ -39,6 +40,12 @@ const Services = () => {
     };
 
     return (
+        <>
+        <SEO
+            title="Software Development Services"
+            description="Explore Vortextsoft's full-stack services: AI/ML, web development, mobile apps, ERP, IoT, QA testing and DevOps. Custom solutions for every business."
+            path="/services"
+        />
         <div className="page-container">
             {/* Hero Section */}
             <section className="services-hero">
@@ -80,6 +87,7 @@ const Services = () => {
                 )}
             </div>
         </div>
+        </>
     );
 };
 

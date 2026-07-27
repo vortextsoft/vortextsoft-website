@@ -1,9 +1,9 @@
 
-
 import React, { useEffect, useState } from 'react';
 import { api } from '../api';
 import { API_BASE_URL, API_URL } from '../config';
 import { Star, Heart } from 'lucide-react';
+import SEO from '../components/SEO';
 import '../styles/CaseStudies.css';
 
 const CaseStudies = () => {
@@ -143,6 +143,12 @@ const CaseStudies = () => {
     }, []);
 
     return (
+        <>
+        <SEO
+            title="Case Studies — Client Success Stories"
+            description="Explore Vortextsoft's real-world client success stories. See how we deliver measurable results with AI, web, mobile, and enterprise software solutions."
+            path="/case-studies"
+        />
         <div className="page-container">
             <div
                 className="casestudies-hero"
@@ -472,6 +478,7 @@ const CaseStudies = () => {
                 </div>
             )}
         </div>
+        </>
     );
 };
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../api';
 import { API_URL } from '../config';
 import { Cpu, Users, TrendingUp, Award } from 'lucide-react';
+import SEO from '../components/SEO';
 import '../styles/Careers.css';
 
 const Careers = () => {
@@ -149,6 +150,12 @@ const Careers = () => {
     };
 
     return (
+        <>
+        <SEO
+            title="Careers — Join Our Team"
+            description="Explore exciting career opportunities at Vortextsoft. Join a passionate team building cutting-edge AI, web, and mobile technology solutions."
+            path="/careers"
+        />
         <div
             className="page-container"
             onMouseMove={handleMouseMove}
@@ -326,6 +333,7 @@ const Careers = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
