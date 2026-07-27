@@ -4,6 +4,7 @@ import * as LucideIcons from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 import { api } from '../api';
 import SEO from '../components/SEO';
+import CosmicHero from '../components/CosmicHero';
 import '../styles/Home.css';
 
 const Home = () => {
@@ -47,22 +48,8 @@ const Home = () => {
             {/* ── Page Content ──────────────────────────────────────────────────── */}
             <main id="main-content" className="home-page">
 
-                {/* ── Hero Section ── */}
-                <section className="hero-section" aria-label="Hero — Welcome to Vortextsoft">
-                    <div className="container">
-                        <div className="hero-content">
-                            {/* ✅ Single H1 per page — primary SEO signal */}
-                            <h1>Empower Your Business with Vortextsoft<span style={{ color: '#00C8CC' }}>.</span></h1>
-                            <p className="hero-subtitle">
-                                Delivering cutting-edge, scalable, and high-performance software solutions tailored to your business needs.
-                            </p>
-                            <div className="hero-buttons">
-                                <Link to="/contact" className="btn btn-primary" id="hero-cta-contact">Contact Us</Link>
-                                <Link to="/services" className="btn btn-secondary" id="hero-cta-services">Our Services</Link>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                {/* ── Hero Section — 3D WebGL Interactive Experience ── */}
+                <CosmicHero />
 
                 {/* ── Trusted Partner / Partners Marquee ── */}
                 <section className="section services-preview-section" aria-labelledby="trusted-partner-heading">
