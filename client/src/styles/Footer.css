@@ -1,167 +1,159 @@
-/* Footer.css */
-.footer {
-    background-color: #0d1117;
-    color: #8b949e;
-    padding: 4rem 0 0 0;
-    margin-top: auto;
+/* Footer.css — New UI Design Theme */
+
+.footer-new {
+    background-color: #03060a;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(240, 246, 252, 0.7);
+    padding: 5rem 0 0;
+    font-family: 'Inter', system-ui, sans-serif;
 }
 
-.footer-container {
+.footer-container-new {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
     display: grid;
-    grid-template-columns: 2fr 1.2fr 1fr 1.3fr;
+    grid-template-columns: 2fr 1.2fr 1.2fr 2fr;
     gap: 3rem;
-    padding-bottom: 3rem;
 }
 
-.footer-section h4 {
-    color: var(--color-white);
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
+.footer-col h4 {
+    color: #ffffff;
+    font-size: 0.875rem;
     font-weight: 600;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.05em;
 }
 
-.footer-section ul li {
-    margin-bottom: 0.75rem;
-}
-
-.footer-section .services-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-}
-
-.footer-section ul li a {
-    color: #8b949e;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-}
-
-.footer-section ul li a:hover {
-    color: var(--color-white);
-}
-
-.brand .footer-tagline {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    max-width: 320px;
-    color: #8b949e;
-}
-
-.footer-logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--color-white);
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-}
-
-.highlight-dark {
-    color: var(--color-primary);
-}
-
-.social-icons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.social-icons a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 4px;
-    background-color: rgba(139, 148, 158, 0.1);
-    color: #8b949e;
-    transition: all 0.2s;
-}
-
-.social-icons a:hover {
-    background-color: rgba(139, 148, 158, 0.2);
-    color: var(--color-white);
-}
-
-.contact .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    color: #8b949e;
-}
-
-.contact .contact-item svg {
-    flex-shrink: 0;
-    color: #00C8CC;
-}
-
-.contact .contact-item a {
-    color: #8b949e;
-    transition: color 0.2s;
-}
-
-.contact .contact-item a:hover {
-    color: var(--color-white);
-}
-
-.footer-bottom {
-    background-color: #0a0e14;
-    padding: 1.5rem 0;
-    border-top: 1px solid #21262d;
-}
-
-.footer-bottom-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
-    color: #8b949e;
-}
-
-.footer-bottom-content p {
+.footer-col ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
 }
 
-.footer-links {
+.footer-col ul li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-col ul li a {
+    color: rgba(240, 246, 252, 0.6);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #00C8CC;
+}
+
+/* Brand Column */
+.brand-col .footer-logo-new {
     display: flex;
-    gap: 2rem;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    margin-bottom: 1rem;
 }
 
-.footer-links a {
-    color: #8b949e;
-    transition: color 0.2s;
+.brand-col .logo-text {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
 }
 
-.footer-links a:hover {
-    color: var(--color-white);
+.footer-description {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(240, 246, 252, 0.55);
+    margin-bottom: 1.5rem;
+    max-width: 320px;
 }
 
-@media (max-width: 768px) {
-    .footer-container {
+.social-icons-new {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.social-icons-new a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(240, 246, 252, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.social-icons-new a:hover {
+    background-color: rgba(0, 200, 204, 0.15);
+    border-color: rgba(0, 200, 204, 0.35);
+    color: #00C8CC;
+
+}
+
+/* Newsletter Column */
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.newsletter-form input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.newsletter-form input:focus {
+    border-color: #00C8CC;
+}
+
+.btn-subscribe {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-subscribe:hover {
+    background-color: #00C8CC;
+    border-color: #00C8CC;
+    color: #010409;
+}
+
+/* Bottom Bar */
+.footer-bottom-new {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(240, 246, 252, 0.4);
+}
+
+@media (max-width: 992px) {
+    .footer-container-new {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-container-new {
         grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .brand .footer-tagline {
-        max-width: 100%;
-    }
-
-    .social-icons {
-        justify-content: flex-start;
-    }
-
-    .footer-bottom-content {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
-
-    .footer-links {
-        flex-direction: column;
-        gap: 0.5rem;
     }
 }

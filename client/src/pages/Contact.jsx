@@ -1,159 +1,38 @@
-/**
- * Contact.jsx
- * Pure 2D Professional Contact & Conversion Hub
- *
- * CRITICAL DESIGN COMPLIANCE:
- *  • 100% Excluded from 3D WebGL canvases to ensure 60FPS form stability
- *  • Zero canvas or GPU performance overhead
- *  • Optimized for maximum form conversion rates
- *  • Full WCAG accessibility and semantic HTML structure
- */
-
 import React, { useState } from 'react';
+import {
+    ArrowUpRight,
+    MapPin,
+    Mail,
+    Phone,
+    Rocket,
+    Compass,
+    FileText,
+    Code,
+    X,
+    Calendar,
+    Clock
+} from 'lucide-react';
 import { api } from '../api';
 import SEO from '../components/SEO';
 import '../styles/Contact.css';
-import { Mail, MapPin, Phone, X, Send, Calendar, CheckCircle } from 'lucide-react';
-import { styled, glowPulse, driftIn } from '../stitches.config';
-
-/* ── 2D Stitches Styled Components for Contact Page ────────────── */
-
-const ContactPageWrapper = styled('div', {
-  minHeight: '100vh',
-  background: 'linear-gradient(180deg, #010409 0%, #06090f 50%, #0a0e1a 100%)',
-  color: '$textPrimary',
-  paddingBottom: '$20',
-})
-
-const ContactHeroSection = styled('section', {
-  position: 'relative',
-  padding: '140px 24px 80px',
-  textAlign: 'center',
-  background: 'radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,200,204,0.06) 0%, transparent 70%)',
-})
-
-const HeroBadge = styled('div', {
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: '$2',
-  padding: '6px 16px',
-  borderRadius: '$full',
-  background: 'rgba(0,200,204,0.08)',
-  border: '1px solid rgba(0,200,204,0.25)',
-  color: '#00C8CC',
-  fontSize: '$xs',
-  fontWeight: '$semibold',
-  letterSpacing: '$wider',
-  textTransform: 'uppercase',
-  marginBottom: '$4',
-})
-
-const ContactHeader = styled('h1', {
-  fontSize: '$5xl',
-  fontWeight: '$extrabold',
-  margin: '0 0 $4 0',
-  color: '$textStark',
-  lineHeight: '$tight',
-
-  '@md': { fontSize: '$6xl' },
-})
-
-const ContactSubtitle = styled('p', {
-  fontSize: '$lg',
-  color: '$textSecondary',
-  maxWidth: '600px',
-  margin: '0 auto $8',
-  lineHeight: '$relaxed',
-})
-
-const ContactContainer = styled('div', {
-  maxWidth: '$container',
-  margin: '0 auto',
-  padding: '0 24px',
-  display: 'grid',
-  gridTemplateColumns: '1fr',
-  gap: '$10',
-
-  '@lg': {
-    gridTemplateColumns: '380px 1fr',
-    gap: '$12',
-  },
-})
-
-const InfoCard = styled('aside', {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '$xl',
-  padding: '$8',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$6',
-  boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
-})
-
-const InfoItem = styled('div', {
-  display: 'flex',
-  alignItems: 'flex-start',
-  gap: '$4',
-})
-
-const IconBox = styled('div', {
-  size: '44px',
-  borderRadius: '$md',
-  background: 'rgba(0,200,204,0.1)',
-  border: '1px solid rgba(0,200,204,0.25)',
-  color: '#00C8CC',
-  flexCenter: true,
-  flexShrink: 0,
-})
-
-const FormCard = styled('section', {
-  background: 'rgba(255,255,255,0.03)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '$xl',
-  padding: '$8',
-  boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
-
-  '@md': { padding: '$10' },
-})
-
-const SubmitButton = styled('button', {
-  width: '100%',
-  padding: '16px 32px',
-  borderRadius: '$md',
-  background: 'linear-gradient(135deg, #00C8CC 0%, #3b82f6 100%)',
-  color: '#010409',
-  fontSize:       '$base',
-  fontWeight:     '$bold',
-  border:         'none',
-  cursor:         'pointer',
-  transition:     '$fast',
-  display:        'flex',
-  alignItems:     'center',
-  justifyContent: 'center',
-  gap:            '$2',
-
-  '&:hover': {
-    transform: 'translateY(-2px)',
-    boxShadow: '0 0 24px rgba(0,200,204,0.35)',
-  },
-  '&:disabled': {
-    opacity: 0.6,
-    cursor: 'not-allowed',
-  },
-})
-
-/* ── Main Component ────────────────────────────────────────────── */
 
 const Contact = () => {
     const [formData, setFormData] = useState({
         name: '', email: '', phone: '', company: '', message: ''
     });
-    const [status, setStatus] = useState(null);
+    const [status, setStatus] = useState(null); // 'sending', 'success', 'error'
     const [showModal, setShowModal] = useState(false);
+    const [meetingData, setMeetingData] = useState({
+        name: '', email: '', date: '', time: '', topic: ''
+    });
+    const [meetingStatus, setMeetingStatus] = useState(null);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleMeetingChange = (e) => {
+        setMeetingData({ ...meetingData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
@@ -168,119 +47,356 @@ const Contact = () => {
         }
     };
 
+    const handleMeetingSubmit = async (e) => {
+        e.preventDefault();
+        setMeetingStatus('sending');
+        try {
+            await api.scheduleMeeting(meetingData);
+            setMeetingStatus('success');
+            setMeetingData({ name: '', email: '', date: '', time: '', topic: '' });
+        } catch (error) {
+            setMeetingStatus('error');
+        }
+    };
+
     return (
         <>
+            {/* ── SEO Meta Tags ─────────────────────────────────────────────────── */}
             <SEO
-                title="Contact Us"
-                description="Get in touch with Vortextsoft. Reach out to our team for project inquiries, software development quotes, or to schedule a free consultation meeting."
+                title="Connect with Precision — Contact Us"
+                description="Elevate your operations with Vortextsoft Pentra (Pvt) Ltd. Reach out to our engineering teams for enterprise software solutions, consulting, or technical support."
                 path="/contact"
+                image="/vortextsoft-3d-logo.png"
             />
-            <ContactPageWrapper>
-                {/* Clean 2D Hero */}
-                <ContactHeroSection aria-label="Contact — Let's Innovate Together">
-                    <HeroBadge>
-                        <Mail size={14} /> Direct Inquiries
-                    </HeroBadge>
-                    <ContactHeader>Get In Touch</ContactHeader>
-                    <ContactSubtitle>
-                        Let's innovate together. Share your requirements and our engineering team will respond within 24 hours.
-                    </ContactSubtitle>
-                    <button
-                        className="btn btn-primary"
-                        style={{ padding: '14px 28px', borderRadius: '12px', cursor: 'pointer' }}
-                        onClick={() => setShowModal(true)}
-                        id="contact-schedule-meeting"
-                    >
-                        <Calendar size={18} style={{ marginRight: '8px' }} /> Schedule a Consultation
-                    </button>
-                </ContactHeroSection>
 
-                {/* Main Contact Grid */}
-                <ContactContainer>
-                    {/* Information Sidebar */}
-                    <InfoCard aria-label="Contact Details">
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#fff' }}>
-                            Contact Information
-                        </h2>
-                        <p style={{ color: 'rgba(240,246,252,0.65)', margin: 0 }}>
-                            Reach out directly through any of our official channels.
-                        </p>
+            {/* ── Main Page Content ────────────────────────────────────────────── */}
+            <main id="main-content" className="contact-page-new">
 
-                        <InfoItem>
-                            <IconBox><Mail size={20} /></IconBox>
-                            <div>
-                                <h4 style={{ margin: '0 0 4px 0', color: '#fff' }}>Email Us</h4>
-                                <p style={{ margin: 0 }}><a href="mailto:vortextsoft.info@gmail.com" style={{ color: '#00C8CC', textDecoration: 'none' }}>vortextsoft.info@gmail.com</a></p>
+                {/* ── 1. Hero Section ── */}
+                <section className="contact-hero-new" aria-label="Connect with Precision">
+                    <div className="contact-hero-container">
+                        <div className="contact-hero-left">
+                            <div className="contact-badge">
+                                <span className="badge-dot"></span>
+                                CONNECT WITH PRECISION
                             </div>
-                        </InfoItem>
+                            <h1 className="contact-headline">
+                                Elevate Your<br />
+                                <span className="highlight-cyan">Operations</span>
+                            </h1>
+                            <p className="contact-subtitle">
+                                Reach out to our specialist teams for bespoke enterprise solutions, strategic consulting, or technical support. Our engineers are ready to architect your next leap forward.
+                            </p>
+                            <button
+                                className="btn-schedule-hero"
+                                onClick={() => setShowModal(true)}
+                                id="contact-schedule-meeting-btn"
+                            >
+                                <Calendar size={16} /> SCHEDULE A CONSULTATION
+                            </button>
+                        </div>
 
-                        <InfoItem>
-                            <IconBox><Phone size={20} /></IconBox>
-                            <div>
-                                <h4 style={{ margin: '0 0 4px 0', color: '#fff' }}>Call Us</h4>
-                                <p style={{ margin: 0, color: 'rgba(240,246,252,0.8)' }}>0787620583</p>
-                            </div>
-                        </InfoItem>
-
-                        <InfoItem>
-                            <IconBox><MapPin size={20} /></IconBox>
-                            <div>
-                                <h4 style={{ margin: '0 0 4px 0', color: '#fff' }}>Location</h4>
-                                <p style={{ margin: 0, color: 'rgba(240,246,252,0.8)' }}>Colombo, Sri Lanka</p>
-                            </div>
-                        </InfoItem>
-                    </InfoCard>
-
-                    {/* High-Conversion Form */}
-                    <FormCard aria-labelledby="form-heading">
-                        <h2 id="form-heading" style={{ fontSize: '1.75rem', fontWeight: 'bold', margin: '0 0 1.5rem 0', color: '#fff' }}>
-                            Send a Message
-                        </h2>
-
-                        {status === 'success' ? (
-                            <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-                                <CheckCircle size={48} color="#00C8CC" style={{ marginBottom: '1rem' }} />
-                                <h3 style={{ fontSize: '1.5rem', color: '#fff', marginBottom: '0.5rem' }}>Thank You!</h3>
-                                <p style={{ color: 'rgba(240,246,252,0.7)', marginBottom: '1.5rem' }}>Your message has been sent successfully. We will get back to you shortly.</p>
-                                <button className="btn btn-secondary" onClick={() => setStatus(null)}>Send Another Message</button>
-                            </div>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="contact-form" id="contact-main-form">
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
-                                    <div className="form-group">
-                                        <label style={{ display: 'block', color: 'rgba(240,246,252,0.8)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>Name *</label>
-                                        <input required type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Full Name" style={{ width: '100%', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff' }} />
+                        {/* Right Floating Response Time Card Visual */}
+                        <div className="contact-hero-right" aria-hidden="true">
+                            <div className="response-time-card">
+                                <div className="card-mockup-header">
+                                    <span className="card-mockup-dot"></span>
+                                    <span className="card-mockup-title">Direct Engineer Pipeline</span>
+                                </div>
+                                <div className="card-mockup-body">
+                                    <div className="mockup-line line-wide"></div>
+                                    <div className="mockup-line line-mid"></div>
+                                    <div className="mockup-line line-short"></div>
+                                </div>
+                                <div className="response-time-badge">
+                                    <div className="response-icon">
+                                        <Rocket size={18} color="#010409" />
                                     </div>
-                                    <div className="form-group">
-                                        <label style={{ display: 'block', color: 'rgba(240,246,252,0.8)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>Email *</label>
-                                        <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="name@company.com" style={{ width: '100%', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff' }} />
+                                    <div className="response-text">
+                                        <span className="response-label">RESPONSE TIME</span>
+                                        <span className="response-value">&lt; 4 HOURS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── 2. Form & Headquarters Grid Section ── */}
+                <section className="contact-grid-section" aria-label="Send a Message or Locate Headquarters">
+                    <div className="contact-grid-container">
+
+                        {/* Left Column: Form */}
+                        <div className="contact-form-card">
+                            <h2 className="form-card-title">Send a Message</h2>
+                            {status === 'success' && (
+                                <div className="form-status-alert success">
+                                    ✅ Message sent successfully! Our engineers will respond within 4 hours.
+                                </div>
+                            )}
+                            {status === 'error' && (
+                                <div className="form-status-alert error">
+                                    ❌ Failed to send message. Please try again or email us directly.
+                                </div>
+                            )}
+
+                            <form onSubmit={handleSubmit} className="contact-form-new">
+                                <div className="form-row-2col">
+                                    <div className="form-field">
+                                        <label htmlFor="name">FULL NAME</label>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            placeholder="John Doe"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-field">
+                                        <label htmlFor="email">EMAIL ADDRESS</label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            placeholder="john@enterprise.com"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            required
+                                        />
                                     </div>
                                 </div>
 
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
-                                    <div className="form-group">
-                                        <label style={{ display: 'block', color: 'rgba(240,246,252,0.8)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>Phone</label>
-                                        <input type="text" name="phone" value={formData.phone} onChange={handleChange} placeholder="+94 77 123 4567" style={{ width: '100%', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff' }} />
+                                <div className="form-row-2col">
+                                    <div className="form-field">
+                                        <label htmlFor="phone">PHONE NUMBER</label>
+                                        <input
+                                            type="tel"
+                                            id="phone"
+                                            name="phone"
+                                            placeholder="+1 (555) 000-0000"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                        />
                                     </div>
-                                    <div className="form-group">
-                                        <label style={{ display: 'block', color: 'rgba(240,246,252,0.8)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>Company</label>
-                                        <input type="text" name="company" value={formData.company} onChange={handleChange} placeholder="Company Name" style={{ width: '100%', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff' }} />
+                                    <div className="form-field">
+                                        <label htmlFor="company">COMPANY</label>
+                                        <input
+                                            type="text"
+                                            id="company"
+                                            name="company"
+                                            placeholder="Global Corp"
+                                            value={formData.company}
+                                            onChange={handleChange}
+                                        />
                                     </div>
                                 </div>
 
-                                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                                    <label style={{ display: 'block', color: 'rgba(240,246,252,0.8)', marginBottom: '0.5rem', fontSize: '0.875rem' }}>Message *</label>
-                                    <textarea required rows="5" name="message" value={formData.message} onChange={handleChange} placeholder="Tell us about your project or requirement..." style={{ width: '100%', padding: '12px 16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', resize: 'vertical' }}></textarea>
+                                <div className="form-field">
+                                    <label htmlFor="message">MESSAGE</label>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        rows="5"
+                                        placeholder="Tell us about your requirements..."
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        required
+                                    ></textarea>
                                 </div>
 
-                                <SubmitButton type="submit" disabled={status === 'sending'} id="contact-submit-btn">
-                                    {status === 'sending' ? 'Sending...' : <>Send Message <Send size={16} /></>}
-                                </SubmitButton>
+                                <button
+                                    type="submit"
+                                    className="btn-submit-connection"
+                                    disabled={status === 'sending'}
+                                    id="contact-form-submit-btn"
+                                >
+                                    {status === 'sending' ? 'SENDING...' : 'INITIATE CONNECTION'} <ArrowUpRight size={18} />
+                                </button>
                             </form>
-                        )}
-                    </FormCard>
-                </ContactContainer>
-            </ContactPageWrapper>
+                        </div>
+
+                        {/* Right Column: Headquarters */}
+                        <div className="headquarters-column">
+                            <h2 className="headquarters-title">Headquarters</h2>
+
+                            {/* Location */}
+                            <div className="hq-info-item">
+                                <div className="hq-icon-box">
+                                    <MapPin size={22} color="#00C8CC" />
+                                </div>
+                                <div className="hq-info-text">
+                                    <h3>Colombo, Sri Lanka</h3>
+                                    <p>Level 32, West Tower, Echelon Square, Colombo 01, 00100</p>
+                                </div>
+                            </div>
+
+                            {/* Email */}
+                            <div className="hq-info-item">
+                                <div className="hq-icon-box">
+                                    <Mail size={22} color="#00C8CC" />
+                                </div>
+                                <div className="hq-info-text">
+                                    <span className="hq-label">EMAIL US</span>
+                                    <a href="mailto:vortextsoft.info@gmail.com" className="hq-value">
+                                        vortextsoft.info@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            {/* Phone */}
+                            <div className="hq-info-item">
+                                <div className="hq-icon-box">
+                                    <Phone size={22} color="#00C8CC" />
+                                </div>
+                                <div className="hq-info-text">
+                                    <span className="hq-label">CALL US</span>
+                                    <a href="tel:0787620583" className="hq-value">
+                                        +94 (78) 762 0583
+                                    </a>
+                                </div>
+                            </div>
+
+                            {/* Regional Hubs */}
+                            <div className="regional-hubs-box">
+                                <div className="hubs-label">REGIONAL HUBS</div>
+                                <div className="hubs-badges">
+                                    <span className="hub-badge">London, UK</span>
+                                    <span className="hub-badge">Singapore</span>
+                                    <span className="hub-badge">New York, USA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── 3. Digital Command Center Map Section ── */}
+                <section className="command-center-section" aria-label="Digital Command Center Location">
+                    <div className="command-center-container">
+                        <div className="map-frame">
+                            <iframe
+                                title="Vortextsoft Headquarters Map"
+                                src="https://maps.google.com/maps?q=Colombo,%20Sri%20Lanka&t=m&z=12&output=embed&iwloc=near"
+                                width="100%"
+                                height="340"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                            ></iframe>
+                            <div className="map-overlay-badge">
+                                <Compass size={16} color="#00C8CC" />
+                                <span>OUR DIGITAL COMMAND CENTER</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── 4. Instant Technical Documentation CTA Section ── */}
+                <section className="docs-cta-section" aria-labelledby="docs-cta-heading">
+                    <div className="docs-cta-container">
+                        <h2 id="docs-cta-heading" className="docs-cta-title">
+                            Seeking Instant Technical Documentation?
+                        </h2>
+                        <p className="docs-cta-subtitle">
+                            Access our knowledge base or developer portal for immediate specifications and integration guides.
+                        </p>
+                        <div className="docs-cta-buttons">
+                            <a href="#docs" className="btn-docs-secondary">
+                                <FileText size={16} /> Documentation
+                            </a>
+                            <a href="#portal" className="btn-docs-secondary">
+                                <Code size={16} /> Developer Portal
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── Schedule Meeting Modal ── */}
+                {showModal && (
+                    <div className="meeting-modal-overlay" onClick={() => setShowModal(false)}>
+                        <div className="meeting-modal-content" onClick={(e) => e.stopPropagation()}>
+                            <div className="modal-header">
+                                <h3>Schedule a Consultation Meeting</h3>
+                                <button className="btn-close-modal" onClick={() => setShowModal(false)}>
+                                    <X size={20} />
+                                </button>
+                            </div>
+                            {meetingStatus === 'success' ? (
+                                <div className="form-status-alert success">
+                                    ✅ Consultation scheduled! We will send an invite to your email shortly.
+                                </div>
+                            ) : (
+                                <form onSubmit={handleMeetingSubmit} className="modal-body-form">
+                                    <div className="form-group">
+                                        <label>Your Name</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder="Jane Doe"
+                                            value={meetingData.name}
+                                            onChange={handleMeetingChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Email Address</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            placeholder="jane@company.com"
+                                            value={meetingData.email}
+                                            onChange={handleMeetingChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-row-2col">
+                                        <div className="form-group">
+                                            <label>Date</label>
+                                            <input
+                                                type="date"
+                                                name="date"
+                                                value={meetingData.date}
+                                                onChange={handleMeetingChange}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Time</label>
+                                            <input
+                                                type="time"
+                                                name="time"
+                                                value={meetingData.time}
+                                                onChange={handleMeetingChange}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Topic / Requirements</label>
+                                        <textarea
+                                            name="topic"
+                                            rows="3"
+                                            placeholder="Briefly describe what you'd like to discuss..."
+                                            value={meetingData.topic}
+                                            onChange={handleMeetingChange}
+                                            required
+                                        ></textarea>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        className="btn-submit-connection"
+                                        disabled={meetingStatus === 'sending'}
+                                    >
+                                        {meetingStatus === 'sending' ? 'CONFIRMING...' : 'CONFIRM CONSULTATION'}
+                                    </button>
+                                </form>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+            </main>
         </>
     );
 };

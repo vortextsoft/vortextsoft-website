@@ -1,259 +1,429 @@
-/* Services.css */
-/* Services.css */
-/* Hero Section */
-.services-hero {
-    padding: 180px 0 80px 0;
-    /* Increased top padding to avoid navbar overlap */
-    background: linear-gradient(135deg, #f8f9fa 0%, #eef1f5 100%);
-    text-align: center;
-    margin-bottom: 2rem;
+/* Services.css — Redesigned Theme for Services - Vortextsoft.png */
+
+.services-page-new {
+    background-color: #06090e;
+    color: #ffffff;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
 }
 
-.hero-content-center h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    line-height: 1.2;
-    color: var(--color-dark-bg);
-    margin-bottom: 1.5rem;
-    background: -webkit-linear-gradient(45deg, var(--color-dark-bg), var(--color-primary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* ── 1. Services Hero Section ───────────────────────────────────────── */
+.services-hero-new {
+    padding: 7rem 0 5rem;
+    background: radial-gradient(ellipse 70% 60% at 80% 20%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
+                linear-gradient(180deg, #06090e 0%, #030508 100%);
     position: relative;
-    z-index: 2;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.hero-content-center p {
-    font-size: 1.25rem;
-    color: #555;
-    max-width: 700px;
+.services-hero-container {
+    max-width: 900px;
     margin: 0 auto;
-    line-height: 1.6;
-    position: relative;
-    z-index: 2;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-/* Motion Background */
-.services-hero {
+.services-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(240, 246, 252, 0.85);
+    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+}
+
+.services-hero-title {
+    font-size: 3.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #ffffff;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+.title-italic-cyan {
+    font-style: italic;
+    color: #00C8CC;
+    text-shadow: 0 0 30px rgba(0, 200, 204, 0.35);
+}
+
+.services-hero-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(240, 246, 252, 0.65);
+    max-width: 680px;
+    margin: 0 0 2.5rem 0;
+}
+
+.services-hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.btn-services-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    background-color: #c2f5f7;
+    color: #010409;
+    font-size: 0.825rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.3);
+}
+
+.btn-services-primary:hover {
+    background-color: #00C8CC;
+    transform: translateY(-2px);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.5);
+}
+
+.btn-services-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 0.825rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.btn-services-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+/* ── 2. Core 8 Services Grid ───────────────────────────────────────── */
+.services-grid-section {
+    padding: 5rem 0 6rem;
+    background-color: #06090e;
+}
+
+.services-grid-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.service-card-new {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 2.25rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+}
+
+.service-card-new:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    border-color: rgba(0, 200, 204, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.service-card-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(0, 200, 204, 0.08);
+    border: 1px solid rgba(0, 200, 204, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.service-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.85rem 0;
+}
+
+.service-card-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgba(240, 246, 252, 0.55);
+    margin: 0;
+}
+
+/* ── 3. Performance Audit Section ("Precision by the Numbers") ─────── */
+.audit-section-new {
+    padding: 6rem 0;
+    background-color: #030508;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     position: relative;
     overflow: hidden;
 }
 
-.hero-motion-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
+.audit-container-new {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
 }
 
-.motion-icon {
-    position: absolute;
-    color: var(--color-primary);
-    opacity: 0.15;
+.audit-header-content {
+    margin-bottom: 4rem;
 }
 
-.icon-1 {
-    top: 10%;
-    left: 10%;
-    width: 80px;
-    height: 80px;
-    animation: float-1 10s ease-in-out infinite;
-}
-
-.icon-2 {
-    top: 20%;
-    right: 15%;
-    width: 100px;
-    height: 100px;
-    animation: float-2 15s ease-in-out infinite;
-    color: var(--color-secondary);
-}
-
-.icon-3 {
-    bottom: 15%;
-    left: 20%;
-    width: 60px;
-    height: 60px;
-    animation: float-3 12s ease-in-out infinite;
-}
-
-.icon-4 {
-    bottom: 25%;
-    right: 10%;
-    width: 90px;
-    height: 90px;
-    animation: float-1 18s ease-in-out infinite reverse;
-    color: var(--color-secondary);
-}
-
-.icon-5 {
-    top: 40%;
-    left: 5%;
-    width: 50px;
-    height: 50px;
-    animation: float-2 20s ease-in-out infinite;
-}
-
-.icon-6 {
-    top: 40%;
-    right: 5%;
-    width: 70px;
-    height: 70px;
-    animation: float-3 14s ease-in-out infinite;
-}
-
-@keyframes float-1 {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(0deg);
-    }
-
-    50% {
-        transform: translateY(-40px) rotate(10deg);
-    }
-}
-
-@keyframes float-2 {
-
-    0%,
-    100% {
-        transform: translateX(0) scale(1);
-    }
-
-    50% {
-        transform: translateX(30px) scale(1.1);
-    }
-}
-
-@keyframes float-3 {
-
-    0%,
-    100% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-
-    25% {
-        transform: translate(20px, -20px) rotate(90deg);
-    }
-
-    50% {
-        transform: translate(0, -40px) rotate(180deg);
-    }
-
-    75% {
-        transform: translate(-20px, -20px) rotate(270deg);
-    }
-}
-
-
-.services-list {
+.audit-stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
 }
 
-.service-item {
+.audit-stat-item {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    background: var(--color-white);
-    padding: 2.5rem 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    align-items: center;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
 }
 
-.service-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+.audit-stat-value {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
 }
 
-.service-icon-large {
-    color: var(--color-primary);
-    background-color: rgba(0, 200, 204, 0.1);
-    /* Updated to brand teal color */
-    padding: 1.5rem;
+.unit-ms {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgba(240, 246, 252, 0.6);
+    margin-left: 0.25rem;
+}
+
+.audit-stat-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(240, 246, 252, 0.5);
+}
+
+/* Radar circle backdrop */
+.radar-circles-backdrop {
+    position: absolute;
+    top: 50%;
+    right: -100px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.25;
+}
+
+.radar-ring {
+    border: 1px dashed rgba(0, 200, 204, 0.4);
     border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ring-a { width: 350px; height: 350px; }
+.ring-b { width: 500px; height: 500px; }
+.ring-c { width: 650px; height: 650px; }
+
+/* ── 4. Client Testimonial / Executive Quote ────────────────────────── */
+.testimonial-section-new {
+    padding: 6rem 0;
+    background-color: #06090e;
+}
+
+.testimonial-container-new {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.testimonial-card-new {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.testimonial-image-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(20%) contrast(110%);
+}
+
+.testimonial-content-col {
+    padding: 4rem 3.5rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
-    margin-bottom: 0.5rem;
-}
-
-.service-icon-large svg {
-    width: 40px;
-    height: 40px;
-}
-
-.service-content h2 {
-    color: var(--color-dark-bg);
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
-    line-height: 1.4;
-    min-height: 3.5rem;
-    /* Ensure consistent height for titles */
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
 }
 
-.service-short {
+.quote-mark-icon {
+    color: rgba(240, 246, 252, 0.2);
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-quote-text {
+    font-size: 1.4rem;
     font-weight: 500;
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    display: none;
-    /* Hide short description in box layout to save space */
-}
-
-.service-details {
-    color: #666;
     line-height: 1.6;
+    color: #ffffff;
+    margin: 0 0 2.5rem 0;
+    letter-spacing: -0.01em;
+}
+
+.testimonial-author-box .author-name {
     font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
 }
 
-@media (max-width: 1200px) {
-    .services-list {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.testimonial-author-box .author-company {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(240, 246, 252, 0.45);
 }
 
-@media (max-width: 900px) {
-    .services-list {
+/* ── 5. CTA Section ────────────────────────────────────────────────── */
+.services-cta-section-new {
+    padding: 6rem 0 8rem;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
+                #06090e;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.services-cta-container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.services-cta-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 1.25rem 0;
+    line-height: 1.2;
+}
+
+.services-cta-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: rgba(240, 246, 252, 0.65);
+    margin: 0 0 2.5rem 0;
+}
+
+.services-cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.btn-services-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.9rem 2.25rem;
+    border-radius: 50px;
+    background-color: #c2f5f7;
+    color: #010409;
+    font-size: 0.825rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
+}
+
+.btn-services-cta-primary:hover {
+    background-color: #00C8CC;
+    transform: translateY(-2px);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
+}
+
+.btn-services-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2.25rem;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 0.825rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.btn-services-cta-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+    .services-grid-container {
         grid-template-columns: repeat(2, 1fr);
     }
-}
-
-@media (max-width: 600px) {
-    .services-list {
+    .audit-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .testimonial-card-new {
         grid-template-columns: 1fr;
     }
-
-    .page-header h1 {
-        font-size: 2.5rem;
+    .services-hero-title {
+        font-size: 3rem;
     }
+}
 
-    .services-hero {
-        padding: 120px 1rem 60px 1rem;
+@media (max-width: 640px) {
+    .services-grid-container {
+        grid-template-columns: 1fr;
     }
-
-    .hero-content-center h1 {
+    .audit-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    .services-hero-title {
+        font-size: 2.25rem;
+    }
+    .services-cta-title {
         font-size: 2rem;
-        padding: 0 1rem;
-        word-wrap: break-word;
-    }
-
-    .hero-content-center p {
-        font-size: 1rem;
-        padding: 0 1rem;
     }
 }

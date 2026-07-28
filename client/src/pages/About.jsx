@@ -1,171 +1,251 @@
-import React, { useEffect, useState } from 'react';
-import { API_BASE_URL } from '../config';
-import { api } from '../api';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, Rocket, Eye, Shield, CheckCircle2 } from 'lucide-react';
 import SEO from '../components/SEO';
 import '../styles/About.css';
 
+const TEAM_MEMBERS = [
+    {
+        id: 1,
+        name: "Mathanamohan Madhunicka",
+        role: "CO-FOUNDER / SOFTWARE ENGINEER",
+        roleColor: "cyan-pill",
+        bio: "Passionate about exploring new technologies, quick learner with a knack for innovation. Let's connect and innovate...",
+        image: "/vortextsoft-3d-logo.png"
+    },
+    {
+        id: 2,
+        name: "Sivasothy Tharsi",
+        role: "CO-FOUNDER / SOFTWARE ENGINEER",
+        roleColor: "cyan-pill",
+        bio: "Passionate about exploring new technologies, quick learner with a knack for innovation. Eager to contribute to dynamic...",
+        image: "/vortextsoft-3d-logo.png"
+    },
+    {
+        id: 3,
+        name: "Sivasothy Tharsa",
+        role: "CO-FOUNDER / SOFTWARE ENGINEER",
+        roleColor: "cyan-pill",
+        bio: "Exploring new technologies with a knack for innovation. Let's connect and innovate together for digital excellence.",
+        image: "/vortextsoft-3d-logo.png"
+    },
+    {
+        id: 4,
+        name: "Sukumar Anujan",
+        role: "CO-FOUNDER / SOFTWARE ENGINEER",
+        roleColor: "cyan-pill",
+        bio: "Technical specialist focused on high-performance back-end systems and cloud architecture. Built for scale.",
+        image: "/vortextsoft-3d-logo.png"
+    },
+    {
+        id: 5,
+        name: "Sathakaran Thisenthan",
+        role: "CO-FOUNDER / ELECTRONIC ENGINEER",
+        roleColor: "cyan-pill",
+        bio: "Bridging the gap between hardware and software through innovative electronic engineering solutions.",
+        image: "/vortextsoft-3d-logo.png"
+    },
+    {
+        id: 6,
+        name: "Tharshan Selvarasa",
+        role: "FRONTEND DEVELOPER / UI/UX DESIGNER",
+        roleColor: "blue-pill",
+        bio: "Crafting seamless digital experiences through modern UI/UX design and bleeding-edge frontend development.",
+        image: "/vortextsoft-3d-logo.png"
+    }
+];
+
 const About = () => {
-    const [team, setTeam] = useState([]);
-
-    useEffect(() => {
-        api.getTeam().then(data => setTeam(data)).catch(console.error);
-    }, []);
-
     return (
         <>
-        <SEO
-            title="About Us"
-            description="Learn about Vortextsoft — our mission, expert team, and our passion for delivering innovative AI, web, mobile and enterprise software solutions."
-            path="/about"
-        />
-        <div className="page-container">
-            {/* Intro Section */}
-            {/* Hero Section */}
-            <section className="about-hero">
-                <div className="container hero-container">
-                    <div className="hero-content">
-                        <h1>Driving Digital Transformation</h1>
-                        <p className="lead">
-                            We are a collective force of top talents, experts, and visionaries from diverse fields,
-                            united by a passion for technology and innovation.
+            {/* ── SEO Meta Tags ─────────────────────────────────────────────────── */}
+            <SEO
+                title="Driving Digital Transformation"
+                description="Learn about Vortextsoft Pentra (Pvt) Ltd — our mission, vision, core values, and architects of innovation."
+                path="/about"
+                image="/vortextsoft-3d-logo.png"
+            />
+
+            {/* ── Main Page Content ────────────────────────────────────────────── */}
+            <main id="main-content" className="about-page-new">
+
+                {/* ── 1. About Hero Section ── */}
+                <section className="about-hero-new" aria-label="Driving Digital Transformation">
+                    <div className="about-hero-container">
+                        <div className="about-hero-left">
+                            <div className="about-badge">
+                                <span className="badge-dot"></span>
+                                PRECISION ENGINEERING
+                            </div>
+                            <h1 className="about-headline">
+                                Driving Digital<br />
+                                <span className="highlight-cyan">Transformation</span>
+                            </h1>
+                            <p className="about-subtitle">
+                                We are a collective force of top talents, experts, and visionaries from diverse fields, united by a passion for technology and innovation. Vortextsoft serves as the silent partner for high-performance enterprise operations globally.
+                            </p>
+                            <div className="about-hero-cta">
+                                <Link to="/services" className="btn-about-primary">
+                                    EXPLORE OUR SOLUTIONS <ArrowUpRight size={18} />
+                                </Link>
+                                <Link to="/case-studies" className="btn-about-secondary">
+                                    VIEW CASE STUDIES
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Right Orbital Radar Visual */}
+                        <div className="about-hero-right" aria-hidden="true">
+                            <div className="orbital-radar-box">
+                                <div className="radar-circle circle-1"></div>
+                                <div className="radar-circle circle-2"></div>
+                                <div className="radar-circle circle-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── 2. Ethos / Our Philosophy Section ── */}
+                <section className="ethos-section-new" aria-labelledby="ethos-heading">
+                    <div className="ethos-container-new">
+                        <div className="ethos-header-row">
+                            <div>
+                                <div className="section-tag-new">ETHOS</div>
+                                <h2 id="ethos-heading" className="ethos-title-new">Our Philosophy</h2>
+                            </div>
+                            <p className="ethos-header-desc">
+                                Rooted in technical excellence and human-centric design, we build software that isn't just functional, but transformative.
+                            </p>
+                        </div>
+
+                        {/* 3 Philosophy Cards */}
+                        <div className="philosophy-grid">
+                            <div className="philosophy-card">
+                                <div className="philosophy-icon-box">
+                                    <Rocket size={22} color="#00C8CC" />
+                                </div>
+                                <h3>Our Mission</h3>
+                                <p>To deliver intelligent, future-ready technology solutions that empower businesses to thrive in the digital age through precision engineering.</p>
+                            </div>
+
+                            <div className="philosophy-card">
+                                <div className="philosophy-icon-box">
+                                    <Eye size={22} color="#00C8CC" />
+                                </div>
+                                <h3>Our Vision</h3>
+                                <p>To drive global innovation, efficiency, and digital growth through accessible and scalable software engineering that sets new industry standards.</p>
+                            </div>
+
+                            <div className="philosophy-card">
+                                <div className="philosophy-icon-box">
+                                    <Shield size={22} color="#00C8CC" />
+                                </div>
+                                <h3>Core Values</h3>
+                                <ul className="values-list">
+                                    <li><CheckCircle2 size={14} color="#00C8CC" /> Quality &amp; Excellence</li>
+                                    <li><CheckCircle2 size={14} color="#00C8CC" /> Reliability &amp; Trust</li>
+                                    <li><CheckCircle2 size={14} color="#00C8CC" /> Continuous Innovation</li>
+                                    <li><CheckCircle2 size={14} color="#00C8CC" /> Customer-Centricity</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── 3. Architects of Innovation (OUR TEAM) ── */}
+                <section className="team-section-new" aria-labelledby="team-heading">
+                    <div className="team-container-new">
+                        <div className="team-header-center">
+                            <div className="section-tag-new center-tag">OUR TEAM</div>
+                            <h2 id="team-heading" className="team-title-new">Architects of Innovation</h2>
+                            <p className="team-subtitle-new">
+                                Our professional experts. Our team is a collective force of top talents, experts, and visionaries from diverse fields.
+                            </p>
+                        </div>
+
+                        <div className="team-grid-new">
+                            {TEAM_MEMBERS.map(m => (
+                                <div key={m.id} className="team-card-new">
+                                    <div className="team-avatar-frame">
+                                        <img src={m.image} alt={m.name} loading="lazy" />
+                                    </div>
+                                    <div className={`role-pill-new ${m.roleColor}`}>
+                                        {m.role}
+                                    </div>
+                                    <h3 className="team-name-new">{m.name}</h3>
+                                    <p className="team-bio-new">{m.bio}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── 4. Culture Section ("Collaborative Innovation is our DNA") ── */}
+                <section className="dna-section-new" aria-labelledby="dna-heading">
+                    <div className="dna-container-new">
+                        <div className="dna-content-col">
+                            <div className="section-tag-new">CULTURE</div>
+                            <h2 id="dna-heading" className="dna-title-new">
+                                Collaborative Innovation is our DNA
+                            </h2>
+                            <p className="dna-description">
+                                At Vortextsoft, we've fostered an environment where unconventional thinking meets technical rigor. We believe that the best solutions arise when diverse perspectives are allowed to collide in a culture of radical transparency and trust.
+                            </p>
+                            <div className="dna-stats-grid">
+                                <div className="dna-stat-item">
+                                    <div className="stat-value">24/7</div>
+                                    <div className="stat-label">GLOBAL SUPPORT OPERATIONS</div>
+                                </div>
+                                <div className="dna-stat-item">
+                                    <div className="stat-value">100+</div>
+                                    <div className="stat-label">ENTERPRISE PROJECTS DELIVERED</div>
+                                </div>
+                                <div className="dna-stat-item">
+                                    <div className="stat-value">100%</div>
+                                    <div className="stat-label">AGILE WORKFLOW ADOPTION</div>
+                                </div>
+                                <div className="dna-stat-item">
+                                    <div className="stat-value">0%</div>
+                                    <div className="stat-label">DEBT FROM LEGACY TECH</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Right Workstation Image */}
+                        <div className="dna-image-col">
+                            <div className="workstation-image-frame">
+                                <img
+                                    src="/corporate-team-formal.png"
+                                    alt="Vortextsoft Collaborative Engineering Workspace"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── 5. CTA Section ("Ready to define the next frontier?") ── */}
+                <section className="about-cta-section" aria-labelledby="about-cta-heading">
+                    <div className="about-cta-container">
+                        <h2 id="about-cta-heading" className="about-cta-title">
+                            Ready to define the next frontier?
+                        </h2>
+                        <p className="about-cta-subtitle">
+                            Whether you're a potential partner or looking to join our elite team of engineers and visionaries, let's start a conversation that leads to the future.
                         </p>
-                    </div>
-                    <div className="hero-visual">
-                        <div className="future-gyro">
-                            <div className="gyro-ring ring-1"></div>
-                            <div className="gyro-ring ring-2"></div>
-                            <div className="gyro-ring ring-3"></div>
-                            <div className="gyro-core"></div>
+                        <div className="about-cta-buttons">
+                            <Link to="/careers" className="btn-about-cta-primary">
+                                JOIN OUR TEAM
+                            </Link>
+                            <Link to="/contact" className="btn-about-cta-secondary">
+                                CONTACT US
+                            </Link>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* Mission & Vision */}
-            <section className="section mv-section">
-                <div className="container mv-grid">
-                    <div className="mv-card">
-                        <h3>Our Mission</h3>
-                        <p>To deliver intelligent, future-ready technology solutions that empower businesses to thrive in the digital age.</p>
-                    </div>
-                    <div className="mv-card">
-                        <h3>Our Vision</h3>
-                        <p>To drive global innovation, efficiency, and digital growth through accessible and scalable software engineering.</p>
-                    </div>
-                    <div className="mv-card">
-                        <h3>Core Values</h3>
-                        <ul>
-                            <li>Quality & Excellence</li>
-                            <li>Reliability & Trust</li>
-                            <li>Continuous Innovation</li>
-                            <li>Customer-Centricity</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            {/* Team Section */}
-            <section className="section team-section">
-                <div className="container">
-                    <div className="section-header">
-                        <h2>OUR TEAM</h2>
-                        <p>Our professional experts</p>
-                        <div className="section-desc">
-                            Our team is a collective force of top talents, experts, and visionaries from diverse fields.
-                        </div>
-                    </div>
-
-                    <div className="team-grid">
-                        {team.length === 0 ? (
-                            // Fallback if no data in API
-                            <>
-                                <TeamCard
-                                    name="Sivasothy Tharsa"
-                                    role="Co-founder and Software Engineer"
-                                    email="tharsa@vortextsoft.com"
-                                />
-                                <TeamCard
-                                    name="Sivasothy Tharsi"
-                                    role="Co-founder and Software Engineer"
-                                    email="tharsi@vortextsoft.com"
-                                />
-                                <TeamCard
-                                    name="Madunicka"
-                                    role="Co-founder and Software Engineer"
-                                    email="madunicka@vortextsoft.com"
-                                />
-                                <TeamCard
-                                    name="Sukumar Anujan"
-                                    role="Software Engineer"
-                                    email="anujan@vortextsoft.com"
-                                />
-                                <TeamCard
-                                    name="Sathakaran Thisenthan"
-                                    role="Project Manager, Business Analyst"
-                                    email="thisenthan@vortextsoft.com"
-                                />
-                            </>
-                        ) : (
-                            team.map(member => (
-                                <TeamCard
-                                    key={member.id}
-                                    name={member.name}
-                                    role={member.role}
-                                    email={member.email}
-                                    shortDescription={member.shortDescription}
-                                    profileImage={member.profileImage}
-                                    linkedin={member.linkedin}
-                                    github={member.github}
-                                />
-                            ))
-                        )}
-                    </div>
-                </div>
-            </section>
-        </div>
+            </main>
         </>
-    );
-};
-
-const TeamCard = ({ name, role, email, shortDescription, profileImage, linkedin, github }) => {
-    const getImageUrl = (img) => {
-        if (!img) return null;
-        if (img.startsWith('http') || img.startsWith('data:')) return img;
-        return `${API_BASE_URL}${img}`;
-    };
-
-    return (
-        <div className="team-card">
-            {profileImage ? (
-                <img src={getImageUrl(profileImage)} alt={name} className="team-avatar-image" />
-            ) : (
-                <div className="team-avatar-placeholder">
-                    {name.charAt(0)}
-                </div>
-            )}
-            <h3>{name}</h3>
-            <p className="team-role">{role}</p>
-            {shortDescription && <p className="team-description">{shortDescription}</p>}
-            {email && <p className="team-email"><a href={`mailto:${email}`}>{email}</a></p>}
-            {(linkedin || github) && (
-                <div className="team-social-links">
-                    {linkedin && (
-                        <a href={linkedin} target="_blank" rel="noopener noreferrer" className="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                            </svg>
-                        </a>
-                    )}
-                    {github && (
-                        <a href={github} target="_blank" rel="noopener noreferrer" className="social-link">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                            </svg>
-                        </a>
-                    )}
-                </div>
-            )}
-        </div>
     );
 };
 

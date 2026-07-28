@@ -1,52 +1,60 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Layers, User } from 'lucide-react';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const closeMenu = () => {
-        setIsOpen(false);
-    };
+    const toggleMenu = () => setIsOpen(!isOpen);
+    const closeMenu = () => setIsOpen(false);
 
     return (
-        <nav className="navbar">
-            <div className="container navbar-container">
-                <Link to="/" className="navbar-logo" onClick={closeMenu}>
-                    Vorte<span className="highlight">Xt</span>soft
+        <nav className="navbar-new">
+            <div className="navbar-container">
+                {/* Brand Logo */}
+                <Link to="/" className="navbar-logo-new" onClick={closeMenu}>
+                    <div className="logo-icon-box">
+                        <Layers size={18} color="#010409" />
+                    </div>
+                    <span className="logo-text">VORTEXTSOFT</span>
                 </Link>
 
-                {/* Desktop Menu */}
-                <ul className="nav-links desktop-nav">
-                    <li><NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''} end>Home</NavLink></li>
-                    <li><NavLink to="/services" className={({ isActive }) => isActive ? 'active' : ''}>Services</NavLink></li>
-                    <li><NavLink to="/case-studies" className={({ isActive }) => isActive ? 'active' : ''}>Case Studies</NavLink></li>
-                    <li><NavLink to="/blog" className={({ isActive }) => isActive ? 'active' : ''}>Blog</NavLink></li>
-                    <li><NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>About Us</NavLink></li>
-                    <li><NavLink to="/careers" className={({ isActive }) => isActive ? 'active' : ''}>Careers</NavLink></li>
-                    <li><NavLink to="/contact" className={({ isActive }) => isActive ? 'active' : ''}>Contact Us</NavLink></li>
+                {/* Desktop Navigation Links */}
+                <ul className="nav-links-new desktop-nav">
+                    <li><NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''} end>HOME</NavLink></li>
+                    <li><NavLink to="/services" className={({ isActive }) => isActive ? 'active' : ''}>SERVICES</NavLink></li>
+                    <li><NavLink to="/case-studies" className={({ isActive }) => isActive ? 'active' : ''}>CASE STUDIES</NavLink></li>
+                    <li><NavLink to="/blog" className={({ isActive }) => isActive ? 'active' : ''}>BLOG</NavLink></li>
+                    <li><NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>ABOUT US</NavLink></li>
+                    <li><NavLink to="/careers" className={({ isActive }) => isActive ? 'active' : ''}>CAREERS</NavLink></li>
                 </ul>
 
-                {/* Mobile Menu Icon */}
-                <div className="menu-icon" onClick={toggleMenu}>
-                    {isOpen ? <X size={28} /> : <Menu size={28} />}
+                {/* Right Action Controls */}
+                <div className="navbar-actions">
+                    <Link to="/contact" className="btn-nav-contact" id="nav-contact-btn">
+                        CONTACT US
+                    </Link>
+                    <Link to="/admin/login" className="btn-nav-user" aria-label="Admin Portal" id="nav-admin-btn">
+                        <User size={18} />
+                    </Link>
                 </div>
 
-                {/* Mobile Overlay Menu */}
-                <div className={`mobile-menu ${isOpen ? 'active' : ''}`}>
+                {/* Mobile Hamburger Toggle */}
+                <div className="menu-icon-new" onClick={toggleMenu}>
+                    {isOpen ? <X size={26} /> : <Menu size={26} />}
+                </div>
+
+                {/* Mobile Navigation Drawer */}
+                <div className={`mobile-menu-new ${isOpen ? 'active' : ''}`}>
                     <ul className="nav-links-mobile">
-                        <li><NavLink to="/" onClick={closeMenu}>Home</NavLink></li>
-                        <li><NavLink to="/services" onClick={closeMenu}>Services</NavLink></li>
-                        <li><NavLink to="/case-studies" onClick={closeMenu}>Case Studies</NavLink></li>
-                        <li><NavLink to="/blog" onClick={closeMenu}>Blog</NavLink></li>
-                        <li><NavLink to="/about" onClick={closeMenu}>About Us</NavLink></li>
-                        <li><NavLink to="/careers" onClick={closeMenu}>Careers</NavLink></li>
-                        <li><NavLink to="/contact" onClick={closeMenu}>Contact Us</NavLink></li>
+                        <li><NavLink to="/" onClick={closeMenu}>HOME</NavLink></li>
+                        <li><NavLink to="/services" onClick={closeMenu}>SERVICES</NavLink></li>
+                        <li><NavLink to="/case-studies" onClick={closeMenu}>CASE STUDIES</NavLink></li>
+                        <li><NavLink to="/blog" onClick={closeMenu}>BLOG</NavLink></li>
+                        <li><NavLink to="/about" onClick={closeMenu}>ABOUT US</NavLink></li>
+                        <li><NavLink to="/careers" onClick={closeMenu}>CAREERS</NavLink></li>
+                        <li><NavLink to="/contact" onClick={closeMenu} className="mobile-contact-link">CONTACT US</NavLink></li>
                     </ul>
                 </div>
             </div>
