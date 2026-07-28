@@ -4,7 +4,6 @@ import * as LucideIcons from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
 import { api } from '../api';
 import SEO from '../components/SEO';
-import CosmicHero from '../components/CosmicHero';
 import '../styles/Home.css';
 
 const Home = () => {
@@ -48,14 +47,26 @@ const Home = () => {
             {/* ── Page Content ──────────────────────────────────────────────────── */}
             <main id="main-content" className="home-page">
 
-                {/* ── Hero Section — 3D WebGL Interactive Experience ── */}
-                <CosmicHero />
+                {/* ── 2D Professional Hero Section ── */}
+                <section className="hero-section" aria-label="Hero — Welcome to Vortextsoft">
+                    <div className="container">
+                        <div className="hero-content">
+                            <h1>Empower Your Business with Vortextsoft<span style={{ color: '#00C8CC' }}>.</span></h1>
+                            <p className="hero-subtitle">
+                                Delivering cutting-edge, scalable, and high-performance software solutions tailored to your business needs.
+                            </p>
+                            <div className="hero-buttons">
+                                <Link to="/contact" className="btn btn-primary" id="hero-cta-contact">Contact Us</Link>
+                                <Link to="/services" className="btn btn-secondary" id="hero-cta-services">Our Services</Link>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 {/* ── Trusted Partner / Partners Marquee ── */}
                 <section className="section services-preview-section" aria-labelledby="trusted-partner-heading">
                     <div className="container">
                         <div className="section-header">
-                            {/* ✅ H2 — secondary heading under the H1 */}
                             <h2 id="trusted-partner-heading">Your Trusted Tech Partner</h2>
                             <p>
                                 Vortextsoft is a cutting-edge technology company specializing in AI/ML, mobile, web, and enterprise solutions. We combine technical expertise with business acumen to deliver solutions that drive growth, efficiency, and innovation.
