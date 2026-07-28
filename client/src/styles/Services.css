@@ -1,4 +1,4 @@
-/* Services.css — Exact Vector Match for Services - Vortextsoft.svg */
+/* Services.css — Custom Design Match for User HTML */
 
 .services-page-new {
     background-color: #0B141C;
@@ -7,42 +7,53 @@
     overflow-x: hidden;
 }
 
-/* ── 1. Services Hero Section ───────────────────────────────────────── */
+/* ── 1. Hero Section ────────────────────────────────────────────────── */
 .services-hero-new {
     padding: 7rem 0 5rem;
-    background: radial-gradient(ellipse 70% 60% at 80% 20%, rgba(0, 200, 204, 0.09) 0%, transparent 75%),
+    background: radial-gradient(ellipse 65% 55% at 75% 35%, rgba(0, 200, 204, 0.1) 0%, transparent 70%),
                 linear-gradient(180deg, #0B141C 0%, #060F16 100%);
-    position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
 }
 
 .services-hero-container {
-    max-width: 900px;
+    max-width: 1320px;
     margin: 0 auto;
     padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.hero-left-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.services-hero-badge {
-    display: inline-flex;
+.hero-badge-row {
+    display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 1rem;
-    border-radius: 50px;
-    background-color: rgba(195, 245, 255, 0.08);
-    border: 1px solid rgba(195, 245, 255, 0.18);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: #C3F5FF;
-    margin-bottom: 2rem;
-    backdrop-filter: blur(8px);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
 }
 
-.services-hero-title {
-    font-size: 3.85rem;
+.cyan-line-indicator {
+    width: 48px;
+    height: 2px;
+    background-color: #00C8CC;
+}
+
+.hero-badge-text {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: #C3F5FF;
+}
+
+.services-headline {
+    font-size: 4rem;
     font-weight: 800;
     line-height: 1.1;
     color: #ffffff;
@@ -50,28 +61,27 @@
     letter-spacing: -0.02em;
 }
 
-.title-italic-cyan {
+.highlight-cyan-italic {
+    color: #C3F5FF;
     font-style: italic;
-    color: #00C8CC;
-    text-shadow: 0 0 32px rgba(0, 200, 204, 0.4);
+    text-shadow: 0 0 30px rgba(0, 200, 204, 0.4);
 }
 
-.services-hero-subtitle {
+.services-subtitle {
     font-size: 1.05rem;
-    line-height: 1.7;
+    line-height: 1.65;
     color: rgba(186, 201, 204, 0.75);
-    max-width: 680px;
+    max-width: 560px;
     margin: 0 0 2.5rem 0;
 }
 
-.services-hero-buttons {
+.hero-cta-buttons {
     display: flex;
     align-items: center;
     gap: 1.25rem;
-    flex-wrap: wrap;
 }
 
-.btn-services-primary {
+.btn-explore-ecosystems {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -80,20 +90,20 @@
     background-color: #C3F5FF;
     color: #0B141C;
     font-size: 0.825rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
     box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
-.btn-services-primary:hover {
+.btn-explore-ecosystems:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
     box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
-.btn-services-secondary {
+.btn-view-cases-glass {
     display: inline-flex;
     align-items: center;
     padding: 0.9rem 2.25rem;
@@ -102,67 +112,89 @@
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #ffffff;
     font-size: 0.825rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
 }
 
-.btn-services-secondary:hover {
+.btn-view-cases-glass:hover {
     background-color: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
 }
 
-/* ── 2. Core 8 Services Grid ───────────────────────────────────────── */
-.services-grid-section {
-    padding: 5rem 0 6rem;
+/* Right Vertical Branding Ribbon */
+.hero-right-vertical-ribbon {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+.hero-right-vertical-ribbon span {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    color: rgba(186, 201, 204, 0.35);
+    text-transform: uppercase;
+}
+
+/* ── 2. Service Grid (8 Cards) ──────────────────────────────────────── */
+.service-grid-section {
+    padding: 6rem 0;
     background-color: #0B141C;
 }
 
-.services-grid-container {
+.service-grid-container {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 2rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    gap: 1.75rem;
 }
 
-.service-card-new {
+.service-card-item {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 20px;
     padding: 2.25rem 1.75rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    transition: all 0.3s ease;
+    transition: all 0.35s ease;
 }
 
-.service-card-new:hover {
+.service-card-item:hover {
     background-color: rgba(255, 255, 255, 0.04);
-    border-color: rgba(0, 200, 204, 0.3);
-    transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(0, 200, 204, 0.35);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
 }
 
-.service-card-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+.service-icon-box {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
     background: rgba(0, 200, 204, 0.08);
     border: 1px solid rgba(0, 200, 204, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    transition: background-color 0.3s ease;
+}
+
+.service-card-item:hover .service-icon-box {
+    background: rgba(0, 200, 204, 0.18);
 }
 
 .service-card-title {
-    font-size: 1.2rem;
+    font-size: 1.35rem;
     font-weight: 700;
     color: #ffffff;
-    margin: 0 0 0.85rem 0;
+    margin: 0 0 1rem 0;
 }
 
 .service-card-desc {
@@ -172,8 +204,8 @@
     margin: 0;
 }
 
-/* ── 3. Performance Audit Section ("Precision by the Numbers") ─────── */
-.audit-section-new {
+/* ── 3. Precision by the Numbers Section ────────────────────────────── */
+.numbers-audit-section {
     padding: 6rem 0;
     background-color: #060F16;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -182,7 +214,14 @@
     overflow: hidden;
 }
 
-.audit-container-new {
+.numbers-radar-backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+}
+
+.numbers-audit-container {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 2rem;
@@ -190,71 +229,76 @@
     z-index: 2;
 }
 
-.audit-header-content {
+.numbers-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
     margin-bottom: 4rem;
 }
 
-.audit-stats-grid {
+.numbers-tag-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: #C3F5FF;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.numbers-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+}
+
+.header-divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
+}
+
+.numbers-stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
 }
 
-.audit-stat-item {
-    display: flex;
-    flex-direction: column;
+.number-stat-card {
+    padding: 2rem;
+    border-left: 2px solid rgba(0, 200, 204, 0.4);
+    background: linear-gradient(90deg, rgba(0, 200, 204, 0.05) 0%, transparent 100%);
+    border-radius: 0 16px 16px 0;
 }
 
-.audit-stat-value {
-    font-size: 4rem;
+.stat-value-text {
+    font-size: 3.5rem;
     font-weight: 800;
-    color: #ffffff;
+    color: #C3F5FF;
     line-height: 1;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    font-variant-numeric: tabular-nums;
 }
 
 .unit-ms {
     font-size: 1.5rem;
-    font-weight: 700;
-    color: rgba(186, 201, 204, 0.65);
-    margin-left: 0.25rem;
+    font-weight: 400;
+    color: rgba(186, 201, 204, 0.7);
+    margin-left: 4px;
 }
 
-.audit-stat-label {
+.stat-label-text {
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(186, 201, 204, 0.55);
+    color: rgba(186, 201, 204, 0.6);
 }
 
-/* Radar circle backdrop */
-.radar-circles-backdrop {
-    position: absolute;
-    top: 50%;
-    right: -100px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.25;
-}
-
-.radar-ring {
-    border: 1px dashed rgba(0, 200, 204, 0.4);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.ring-a { width: 350px; height: 350px; }
-.ring-b { width: 500px; height: 500px; }
-.ring-c { width: 650px; height: 650px; }
-
-/* ── 4. Client Testimonial / Executive Quote ────────────────────────── */
+/* ── 4. Executive Testimonial Section ──────────────────────────────── */
 .testimonial-section-new {
-    padding: 6rem 0;
+    padding: 7rem 0;
     background-color: #0B141C;
 }
 
@@ -267,84 +311,96 @@
 .testimonial-card-new {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
+    border-radius: 36px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
-.testimonial-image-col img {
+.testimonial-grid-new {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.executive-img-frame {
+    position: relative;
+    min-height: 400px;
+}
+
+.executive-img-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
-    filter: grayscale(20%) contrast(110%);
+    filter: grayscale(80%);
+    opacity: 0.65;
 }
 
-.testimonial-content-col {
-    padding: 4rem 3.5rem;
+.img-overlay-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 50%, rgba(24, 32, 40, 0.9) 100%);
+}
+
+.quote-content-side {
+    padding: 4.5rem 3.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.quote-mark-icon {
-    color: rgba(186, 201, 204, 0.25);
+.quote-icon-box {
     margin-bottom: 1.5rem;
+    opacity: 0.4;
 }
 
-.testimonial-quote-text {
-    font-size: 1.4rem;
-    font-weight: 500;
-    line-height: 1.6;
+.quote-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.45;
     color: #ffffff;
     margin: 0 0 2.5rem 0;
-    letter-spacing: -0.01em;
 }
 
-.testimonial-author-box .author-name {
-    font-size: 0.95rem;
+.author-title {
+    font-size: 1.15rem;
     font-weight: 700;
     color: #ffffff;
     margin-bottom: 0.25rem;
 }
 
-.testimonial-author-box .author-company {
+.author-company {
     font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: rgba(186, 201, 204, 0.5);
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #C3F5FF;
 }
 
-/* ── 5. CTA Section ────────────────────────────────────────────────── */
-.services-cta-section-new {
+/* ── 5. Enterprise CTA Banner Section ───────────────────────────────── */
+.services-cta-section {
     padding: 6rem 0 8rem;
     background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
-                #0B141C;
+                #060F16;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .services-cta-container {
-    max-width: 850px;
+    max-width: 840px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
 .services-cta-title {
-    font-size: 2.75rem;
+    font-size: 3rem;
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 1.25rem 0;
-    line-height: 1.2;
+    line-height: 1.15;
 }
 
 .services-cta-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(186, 201, 204, 0.7);
-    margin: 0 0 2.5rem 0;
+    color: rgba(186, 201, 204, 0.75);
+    margin: 0 0 3rem 0;
 }
 
 .services-cta-buttons {
@@ -352,75 +408,83 @@
     justify-content: center;
     align-items: center;
     gap: 1.25rem;
-    flex-wrap: wrap;
 }
 
-.btn-services-cta-primary {
+.btn-cta-consultation {
     display: inline-flex;
     align-items: center;
-    padding: 0.9rem 2.25rem;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
     background-color: #C3F5FF;
     color: #0B141C;
     font-size: 0.825rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
     box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
-.btn-services-cta-primary:hover {
+.btn-cta-consultation:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
     box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
-.btn-services-cta-secondary {
+.btn-cta-download {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.9rem 2.25rem;
+    padding: 1rem 2.25rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #ffffff;
     font-size: 0.825rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.08em;
-    text-decoration: none;
+    cursor: pointer;
     transition: all 0.25s ease;
 }
 
-.btn-services-cta-secondary:hover {
+.btn-cta-download:hover {
     background-color: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
 }
 
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
-    .services-grid-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .audit-stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .testimonial-card-new {
+    .services-hero-container {
         grid-template-columns: 1fr;
     }
-    .services-hero-title {
+    .hero-right-vertical-ribbon {
+        display: none;
+    }
+    .service-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .numbers-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .testimonial-grid-new {
+        grid-template-columns: 1fr;
+    }
+    .services-headline {
         font-size: 3rem;
     }
 }
 
 @media (max-width: 640px) {
-    .services-grid-container {
+    .service-grid-container {
         grid-template-columns: 1fr;
     }
-    .audit-stats-grid {
+    .numbers-stats-grid {
         grid-template-columns: 1fr;
     }
-    .services-hero-title {
+    .services-cta-buttons {
+        flex-direction: column;
+    }
+    .services-headline {
         font-size: 2.25rem;
     }
     .services-cta-title {

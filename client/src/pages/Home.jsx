@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Rocket, ThumbsUp, Calendar, Users, Cpu, Shield, Cloud, Terminal, Code, Layers } from 'lucide-react';
+import {
+    ArrowUpRight,
+    Rocket,
+    ThumbsUp,
+    Calendar,
+    Users,
+    Cpu,
+    Shield,
+    Cloud,
+    Terminal,
+    Code,
+    Layers,
+    Box,
+    CheckCircle,
+    Smile,
+    Award
+} from 'lucide-react';
 import { api } from '../api';
 import SEO from '../components/SEO';
 import '../styles/Home.css';
@@ -15,6 +31,7 @@ const DEFAULT_FEATURED = {
 
 const Home = () => {
     const [featuredStudy, setFeaturedStudy] = useState(DEFAULT_FEATURED);
+    const [counters, setCounters] = useState({ projects: 0, satisfaction: 0, years: 0, team: 0 });
 
     useEffect(() => {
         api.getCaseStudies()
@@ -33,6 +50,27 @@ const Home = () => {
             .catch(err => {
                 console.log("Featured case study database fetch offline, using default:", err);
             });
+
+        // Animated counter effect on mount
+        const duration = 1500;
+        const steps = 30;
+        const stepTime = duration / steps;
+
+        let currentStep = 0;
+        const timer = setInterval(() => {
+            currentStep++;
+            const progress = currentStep / steps;
+            setCounters({
+                projects: Math.min(15, Math.floor(15 * progress)),
+                satisfaction: Math.min(98, Math.floor(98 * progress)),
+                years: Math.min(2, Math.floor(2 * progress)),
+                team: Math.min(10, Math.floor(10 * progress))
+            });
+
+            if (currentStep >= steps) clearInterval(timer);
+        }, stepTime);
+
+        return () => clearInterval(timer);
     }, []);
 
     return (
@@ -96,7 +134,7 @@ const Home = () => {
                     </div>
                 </section>
 
-                {/* ── 2. Tech Stack Ticker Band ── */}
+                {/* ── 2. Tech Stack Marquee Band ── */}
                 <section className="tech-ticker-section" aria-label="Our Technology Stack">
                     <div className="tech-ticker-track">
                         <div className="tech-ticker-content">
@@ -104,6 +142,7 @@ const Home = () => {
                             <span className="ticker-item"><Cloud size={16} /> AWS CLOUD</span>
                             <span className="ticker-item"><Layers size={16} /> NODE.JS</span>
                             <span className="ticker-item"><Code size={16} /> PYTHON</span>
+                            <span className="ticker-item"><Box size={16} /> DOCKER</span>
                             <span className="ticker-item"><Cpu size={16} /> AI/ML</span>
                             <span className="ticker-item"><Shield size={16} /> CYBER SECURITY</span>
                             {/* Duplicated for seamless marquee loop */}
@@ -111,6 +150,7 @@ const Home = () => {
                             <span className="ticker-item"><Cloud size={16} /> AWS CLOUD</span>
                             <span className="ticker-item"><Layers size={16} /> NODE.JS</span>
                             <span className="ticker-item"><Code size={16} /> PYTHON</span>
+                            <span className="ticker-item"><Box size={16} /> DOCKER</span>
                             <span className="ticker-item"><Cpu size={16} /> AI/ML</span>
                             <span className="ticker-item"><Shield size={16} /> CYBER SECURITY</span>
                         </div>
@@ -126,8 +166,8 @@ const Home = () => {
                             <div className="stat-icon-wrapper">
                                 <Rocket size={20} color="#00C8CC" />
                             </div>
-                            <Rocket className="watermark-icon" size={80} />
-                            <div className="stat-number">15</div>
+                            <CheckCircle className="watermark-icon" size={80} />
+                            <div className="stat-number">{counters.projects}</div>
                             <div className="stat-label">PROJECTS COMPLETED</div>
                             <div className="stat-underline"></div>
                         </div>
@@ -137,8 +177,8 @@ const Home = () => {
                             <div className="stat-icon-wrapper">
                                 <ThumbsUp size={20} color="#00C8CC" />
                             </div>
-                            <ThumbsUp className="watermark-icon" size={80} />
-                            <div className="stat-number">98%</div>
+                            <Smile className="watermark-icon" size={80} />
+                            <div className="stat-number">{counters.satisfaction}%</div>
                             <div className="stat-label">CLIENT SATISFACTION</div>
                             <div className="stat-underline"></div>
                         </div>
@@ -149,7 +189,7 @@ const Home = () => {
                                 <Calendar size={20} color="#00C8CC" />
                             </div>
                             <Calendar className="watermark-icon" size={80} />
-                            <div className="stat-number">2+</div>
+                            <div className="stat-number">{counters.years}+</div>
                             <div className="stat-label">YEARS OF EXPERIENCE</div>
                             <div className="stat-underline"></div>
                         </div>
@@ -160,14 +200,14 @@ const Home = () => {
                                 <Users size={20} color="#00C8CC" />
                             </div>
                             <Users className="watermark-icon" size={80} />
-                            <div className="stat-number">10+</div>
+                            <div className="stat-number">{counters.team}+</div>
                             <div className="stat-label">EXPERT TEAM MEMBERS</div>
                             <div className="stat-underline"></div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── 4. Featured Case Study Section (Dynamic Data Connected) ── */}
+                {/* ── 4. Featured Case Study Section ── */}
                 <section className="featured-case-section" aria-labelledby="case-study-heading">
                     <div className="featured-case-container">
                         <div className="section-tag-new">SUCCESS STORIES</div>

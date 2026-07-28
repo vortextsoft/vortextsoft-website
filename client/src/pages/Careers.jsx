@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    ArrowUpRight,
+    ArrowRight,
     Play,
     CheckCircle2,
     Cpu,
@@ -11,7 +11,10 @@ import {
     Filter,
     Rocket,
     Shield,
-    X
+    X,
+    Briefcase,
+    Zap,
+    CreditCard
 } from 'lucide-react';
 import { api } from '../api';
 import SEO from '../components/SEO';
@@ -20,21 +23,21 @@ import '../styles/Careers.css';
 const DEFAULT_JOBS = [
     {
         id: 'job-1',
-        title: 'Intern – Software Engineer (SE)',
+        title: 'Senior Full Stack Engineer',
         reqId: 'Requisition #24-0891',
         dept: 'CORE ENGINEERING',
-        deptColor: 'dept-navy',
-        location: 'Colombo / Hybrid',
+        deptColor: 'dept-cyan',
+        location: 'London / Remote',
         type: 'Full-time'
     },
     {
         id: 'job-2',
-        title: 'Senior Full Stack Engineer',
+        title: 'AI Researcher (LLM Ops)',
         reqId: 'Requisition #24-0742',
         dept: 'VORTEXT LABS',
-        deptColor: 'dept-cyan',
-        location: 'Remote',
-        type: 'Full-time'
+        deptColor: 'dept-purple',
+        location: 'San Francisco',
+        type: 'Contract'
     },
     {
         id: 'job-3',
@@ -42,7 +45,7 @@ const DEFAULT_JOBS = [
         reqId: 'Requisition #24-0912',
         dept: 'INFRASTRUCTURE',
         deptColor: 'dept-blue',
-        location: 'Singapore / Remote',
+        location: 'Singapore',
         type: 'Full-time'
     },
     {
@@ -51,7 +54,7 @@ const DEFAULT_JOBS = [
         reqId: 'Requisition #24-0888',
         dept: 'PRODUCT & DESIGN',
         deptColor: 'dept-dark',
-        location: 'Hybrid',
+        location: 'New York / Hybrid',
         type: 'Full-time'
     }
 ];
@@ -121,123 +124,140 @@ const Careers = () => {
                                 GLOBAL ENGINEERING TEAM
                             </div>
                             <h1 className="careers-headline">
-                                Architect the Future of<br />
-                                <span className="highlight-cyan">Enterprise Systems.</span>
+                                Build the Future of<br />
+                                <span className="highlight-cyan">Precision.</span>
                             </h1>
                             <p className="careers-subtitle">
-                                We solve impossible software engineering challenges. Join a multi-disciplinary team of creators, engineers, and researchers working on distributed systems that process billions of events.
+                                Vortextsoft is where elite engineering meets enterprise scale. Join a team dedicated to architecting the infrastructure of the next industrial revolution.
                             </p>
                             <div className="hero-cta-buttons">
                                 <a href="#open-positions" className="btn-careers-primary">
-                                    VIEW OPEN POSITIONS <ArrowUpRight size={18} />
+                                    VIEW OPENINGS <ArrowRight size={18} />
                                 </a>
                                 <a href="#ethos" className="btn-careers-secondary">
-                                    OUR ETHOS
+                                    OUR MISSION
                                 </a>
                             </div>
                         </div>
 
-                        {/* Right 2x2 Stats Grid */}
-                        <div className="hero-right-stats">
+                        {/* Right 2x2 Stats Glass Grid */}
+                        <div className="hero-right-stats-grid">
                             <div className="careers-stat-card">
-                                <div className="careers-stat-val">100%</div>
-                                <div className="careers-stat-lbl">REMOTE-FIRST</div>
-                            </div>
-                            <div className="careers-stat-card">
-                                <div className="careers-stat-val">4.9/5</div>
-                                <div className="careers-stat-lbl">CULTURE SCORE</div>
-                            </div>
-                            <div className="careers-stat-card">
-                                <div className="careers-stat-val">92%</div>
+                                <div className="careers-stat-val">94%</div>
                                 <div className="careers-stat-lbl">RETENTION RATE</div>
                             </div>
                             <div className="careers-stat-card">
-                                <div className="careers-stat-val">15+</div>
-                                <div className="careers-stat-lbl">NATIONS</div>
+                                <div className="careers-stat-val">12+</div>
+                                <div className="careers-stat-lbl">GLOBAL HUBS</div>
+                            </div>
+                            <div className="careers-stat-card">
+                                <div className="careers-stat-val">400+</div>
+                                <div className="careers-stat-lbl">ACTIVE PATENTS</div>
+                            </div>
+                            <div className="careers-stat-card">
+                                <div className="careers-stat-val">24/7</div>
+                                <div className="careers-stat-lbl">RAPID DEPLOY</div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── 2. Culture & Purpose Section ── */}
+                {/* ── 2. Culture & Purpose Section ("Where Passion Meets Purpose") ── */}
                 <section id="ethos" className="purpose-section-new" aria-labelledby="purpose-heading">
                     <div className="purpose-container-new">
-                        <div className="purpose-left-media">
-                            <img
-                                src="/corporate-team-formal.png"
-                                alt="Vortextsoft Global Engineering Culture"
-                                loading="lazy"
-                            />
-                            <div className="media-play-overlay">
-                                <div className="play-circle-btn">
-                                    <Play size={24} color="#010409" style={{ marginLeft: '4px' }} />
+                        <div className="section-tag-new center-tag">THE VORTEXT CULTURE</div>
+                        <h2 id="purpose-heading" className="purpose-title center-title">
+                            Where Passion Meets Purpose
+                        </h2>
+                        <div className="purple-divider-line"></div>
+
+                        <div className="purpose-content-grid">
+                            {/* Left Video Thumbnail Card */}
+                            <div className="purpose-video-card">
+                                <img
+                                    src="/corporate-team-formal.png"
+                                    alt="Vortextsoft Collaborative Engineering Culture"
+                                    loading="lazy"
+                                />
+                                <div className="video-card-overlay"></div>
+                                <div className="floating-story-badge">
+                                    <div className="play-circle-btn">
+                                        <Play size={20} color="#00C8CC" style={{ marginLeft: '3px' }} />
+                                    </div>
+                                    <span>WATCH OUR STORY</span>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="purpose-right-content">
-                            <div className="purpose-tag">ENGINEERING CULTURE</div>
-                            <h2 id="purpose-heading" className="purpose-title">
-                                Where Passion Meets Purpose
-                            </h2>
-                            <p className="purpose-desc">
-                                At Vortextsoft, we value extreme technical autonomy, continuous peer learning, and uncompromised software craft. We build small, elite squads equipped with full ownership from concept to production deployment.
-                            </p>
+                            {/* Right Pillars & Quote */}
+                            <div className="purpose-right-details">
+                                <blockquote className="culture-quote-italic">
+                                    "At Vortextsoft, we don't just solve problems; we redefine what's possible in the enterprise landscape."
+                                </blockquote>
+                                <p className="culture-description-text">
+                                    Our engineering culture is built on the pillars of radical transparency, extreme ownership, and continuous learning. We foster an environment where every voice matters—from our interns to our chief architects.
+                                </p>
 
-                            <div className="purpose-checklist">
-                                <div className="purpose-check-item">
-                                    <div className="purpose-icon-box">
-                                        <CheckCircle2 size={14} color="#00C8CC" />
+                                <div className="culture-pillars-list">
+                                    <div className="pillar-item">
+                                        <CheckCircle2 size={20} color="#00C8CC" className="pillar-icon" />
+                                        <div>
+                                            <h4 className="pillar-title">Asynchronous Mastery</h4>
+                                            <p className="pillar-desc">Focus time is sacred. We minimize meetings and maximize deep work through robust documentation.</p>
+                                        </div>
                                     </div>
-                                    <span>Zero Micromanagement: Full Technical Autonomy</span>
-                                </div>
-                                <div className="purpose-check-item">
-                                    <div className="purpose-icon-box">
-                                        <CheckCircle2 size={14} color="#00C8CC" />
+
+                                    <div className="pillar-item">
+                                        <CheckCircle2 size={20} color="#00C8CC" className="pillar-icon" />
+                                        <div>
+                                            <h4 className="pillar-title">Innovation Sprints</h4>
+                                            <p className="pillar-desc">10% of your time dedicated to personal R&amp;D projects that could become our next flagship product.</p>
+                                        </div>
                                     </div>
-                                    <span>Unlimited Budget for R&amp;D, Books &amp; Conferences</span>
-                                </div>
-                                <div className="purpose-check-item">
-                                    <div className="purpose-icon-box">
-                                        <CheckCircle2 size={14} color="#00C8CC" />
-                                    </div>
-                                    <span>Quarterly Global Team Engineering Retreats</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── 3. Benefits Grid Section ── */}
+                {/* ── 3. Core Benefits Grid ("The Vortext Advantage") ── */}
                 <section className="benefits-section-new" aria-labelledby="benefits-heading">
                     <div className="benefits-container-new">
-                        <div className="benefit-card-new">
-                            <div className="benefit-icon-box">
-                                <Award size={22} color="#00C8CC" />
+                        <h2 id="benefits-heading" className="benefits-section-title">
+                            The Vortext Advantage
+                        </h2>
+
+                        <div className="benefits-4cards-grid">
+                            <div className="benefit-card-new">
+                                <div className="benefit-icon-box">
+                                    <Cpu size={24} color="#00C8CC" />
+                                </div>
+                                <h3 className="benefit-card-title">Cutting-Edge Tech</h3>
+                                <p className="benefit-card-desc">Access the latest silicon and distributed computing paradigms months before they hit the general market.</p>
                             </div>
-                            <h3 className="benefit-card-title">Competitive Equity &amp; Pay</h3>
-                            <p className="benefit-card-desc">Top 10% market rates with generous equity packages for all full-time roles.</p>
-                        </div>
-                        <div className="benefit-card-new">
-                            <div className="benefit-icon-box">
-                                <TrendingUp size={22} color="#00C8CC" />
+
+                            <div className="benefit-card-new">
+                                <div className="benefit-icon-box">
+                                    <TrendingUp size={24} color="#00C8CC" />
+                                </div>
+                                <h3 className="benefit-card-title">Growth Velocity</h3>
+                                <p className="benefit-card-desc">Clear career paths and $5k annual learning stipends for certifications, conferences, and books.</p>
                             </div>
-                            <h3 className="benefit-card-title">Learning Stipend</h3>
-                            <p className="benefit-card-desc">$3,000 annual personal budget for courses, certifications, and technical books.</p>
-                        </div>
-                        <div className="benefit-card-new">
-                            <div className="benefit-icon-box">
-                                <Users size={22} color="#00C8CC" />
+
+                            <div className="benefit-card-new">
+                                <div className="benefit-icon-box">
+                                    <Users size={24} color="#00C8CC" />
+                                </div>
+                                <h3 className="benefit-card-title">Inclusive Pulse</h3>
+                                <p className="benefit-card-desc">A truly global workforce with active ERGs and a commitment to radical diversity in leadership.</p>
                             </div>
-                            <h3 className="benefit-card-title">Flexible Autonomy</h3>
-                            <p className="benefit-card-desc">Asynchronous work culture across global timezones built on high trust.</p>
-                        </div>
-                        <div className="benefit-card-new">
-                            <div className="benefit-icon-box">
-                                <Rocket size={22} color="#00C8CC" />
+
+                            <div className="benefit-card-new">
+                                <div className="benefit-icon-box">
+                                    <CreditCard size={24} color="#00C8CC" />
+                                </div>
+                                <h3 className="benefit-card-title">Tier-1 Benefits</h3>
+                                <p className="benefit-card-desc">Top-percentile equity packages, comprehensive health for you and yours, and flexible remote options.</p>
                             </div>
-                            <h3 className="benefit-card-title">Global Team Retreats</h3>
-                            <p className="benefit-card-desc">Bi-annual fully funded international retreats for team collaboration and fun.</p>
                         </div>
                     </div>
                 </section>
@@ -245,28 +265,64 @@ const Careers = () => {
                 {/* ── 4. Open Positions Table Section ── */}
                 <section id="open-positions" className="positions-section-new" aria-labelledby="positions-heading">
                     <div className="positions-container-new">
-                        <div className="positions-header-new">
-                            <div className="section-tag-new">OPEN REQUISITIONS</div>
-                            <h2 id="positions-heading" className="positions-title-new">Open Positions</h2>
+                        <div className="positions-top-bar">
+                            <div>
+                                <h2 id="positions-heading" className="positions-title-new">Open Positions</h2>
+                                <p className="positions-subtitle-new">Explore opportunities across our global engineering hubs.</p>
+                            </div>
+
+                            <div className="positions-search-controls">
+                                <div className="search-input-wrapper">
+                                    <Search size={16} className="search-icon-inside" />
+                                    <input
+                                        type="text"
+                                        placeholder="Search roles..."
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
+                                <button className="btn-filter-toggle">
+                                    <Filter size={16} /> FILTERS
+                                </button>
+                            </div>
                         </div>
 
-                        <div className="positions-table-card">
-                            {filteredJobs.map((job) => (
-                                <div key={job.id} className="position-row-item">
-                                    <div className="job-role-title">{job.title}</div>
-                                    <div>
-                                        <span className={`department-pill ${job.deptColor}`}>{job.dept}</span>
-                                    </div>
-                                    <div className="job-meta-text">{job.location}</div>
-                                    <div className="job-meta-text">{job.type}</div>
-                                    <button
-                                        className="btn-apply-role"
-                                        onClick={() => setSelectedJob(job)}
-                                    >
-                                        APPLY NOW <ArrowUpRight size={14} />
-                                    </button>
-                                </div>
-                            ))}
+                        {/* Open Requisitions Table */}
+                        <div className="positions-table-wrapper">
+                            <table className="jobs-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>JOB TITLE</th>
+                                        <th>DEPARTMENT</th>
+                                        <th>LOCATION</th>
+                                        <th>TYPE</th>
+                                        <th style={{ textAlign: 'right' }}></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredJobs.map((job) => (
+                                        <tr key={job.id} className="job-table-row">
+                                            <td>
+                                                <div className="job-row-title">{job.title}</div>
+                                                <div className="job-row-req">{job.reqId}</div>
+                                            </td>
+                                            <td>
+                                                <span className={`department-pill ${job.deptColor}`}>{job.dept}</span>
+                                            </td>
+                                            <td className="job-row-meta">{job.location}</td>
+                                            <td className="job-row-meta">{job.type}</td>
+                                            <td style={{ textAlign: 'right' }}>
+                                                <button
+                                                    className="btn-apply-table-pill"
+                                                    onClick={() => setSelectedJob(job)}
+                                                >
+                                                    APPLY
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </section>
@@ -274,32 +330,47 @@ const Careers = () => {
                 {/* ── 5. Talent Pool CTA Section ── */}
                 <section className="talent-cta-section" aria-labelledby="talent-heading">
                     <div className="talent-cta-container">
-                        <div className="section-tag-new center-tag">FUTURE REQUISITIONS</div>
-                        <h2 id="talent-heading" className="talent-cta-title">
-                            Don't See Your Role? Join Our Talent Network
-                        </h2>
-                        <p className="talent-cta-subtitle">
-                            We are always looking for exceptional talent. Submit your email and we'll reach out when a position matching your profile opens.
-                        </p>
-                        {talentSubmitted ? (
-                            <div className="form-status-alert success" style={{ maxWidth: '400px', margin: '0 auto' }}>
-                                ✅ Thank you! You've been added to our priority talent network.
+                        <div className="talent-cta-card">
+                            <div className="bouncing-rocket-circle">
+                                <Rocket size={28} color="#0B141C" />
                             </div>
-                        ) : (
-                            <form onSubmit={handleTalentSubmit} style={{ display: 'inline-flex', gap: '0.75rem', maxWidth: '480px', width: '100%' }}>
-                                <input
-                                    type="email"
-                                    placeholder="Enter your work email address..."
-                                    value={talentEmail}
-                                    onChange={(e) => setTalentEmail(e.target.value)}
-                                    required
-                                    style={{ flex: 1, padding: '0.85rem 1.25rem', borderRadius: '50px', backgroundColor: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.12)', color: '#ffffff', outline: 'none' }}
-                                />
-                                <button type="submit" className="btn-join-talent">
-                                    JOIN NETWORK
-                                </button>
-                            </form>
-                        )}
+
+                            <h2 id="talent-heading" className="talent-cta-title">
+                                Ready to define the<br />
+                                <span className="highlight-cyan">next frontier?</span>
+                            </h2>
+                            <p className="talent-cta-subtitle">
+                                Submit your details to our global talent database and be the first to know when high-impact roles open in your field.
+                            </p>
+
+                            {talentSubmitted ? (
+                                <div className="form-status-alert success" style={{ maxWidth: '440px', margin: '0 auto' }}>
+                                    ✅ Thank you! You've been added to our priority talent network.
+                                </div>
+                            ) : (
+                                <form onSubmit={handleTalentSubmit} className="talent-form-inline">
+                                    <input
+                                        type="email"
+                                        placeholder="Email Address"
+                                        value={talentEmail}
+                                        onChange={(e) => setTalentEmail(e.target.value)}
+                                        required
+                                    />
+                                    <button type="submit" className="btn-join-talent-pool">
+                                        JOIN OUR TALENT POOL
+                                    </button>
+                                </form>
+                            )}
+
+                            <div className="talent-trusted-footer">
+                                <span>TRUSTED BY 500+ ENTERPRISES</span>
+                                <div className="trusted-icons">
+                                    <Shield size={16} />
+                                    <Award size={16} />
+                                    <Zap size={16} />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -307,29 +378,27 @@ const Careers = () => {
                 {selectedJob && (
                     <div className="apply-modal-overlay" onClick={() => setSelectedJob(null)}>
                         <div className="apply-modal-content" onClick={(e) => e.stopPropagation()}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
-                                    Apply for {selectedJob.title}
-                                </h3>
-                                <button onClick={() => setSelectedJob(null)} style={{ background: 'none', border: 'none', color: '#ffffff', cursor: 'pointer' }}>
+                            <div className="modal-top-bar">
+                                <h3>Apply for {selectedJob.title}</h3>
+                                <button onClick={() => setSelectedJob(null)} className="modal-close-btn">
                                     <X size={20} />
                                 </button>
                             </div>
-                            <form onSubmit={(e) => { e.preventDefault(); alert("Application submitted successfully!"); setSelectedJob(null); }}>
-                                <div style={{ marginBottom: '1rem' }}>
-                                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, color: 'rgba(186,201,204,0.6)', marginBottom: '0.4rem' }}>FULL NAME</label>
-                                    <input type="text" placeholder="John Doe" required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }} />
+                            <form onSubmit={(e) => { e.preventDefault(); alert("Application submitted successfully!"); setSelectedJob(null); }} className="modal-form-body">
+                                <div className="form-field-box">
+                                    <label>FULL NAME</label>
+                                    <input type="text" placeholder="John Doe" required />
                                 </div>
-                                <div style={{ marginBottom: '1rem' }}>
-                                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, color: 'rgba(186,201,204,0.6)', marginBottom: '0.4rem' }}>EMAIL ADDRESS</label>
-                                    <input type="email" placeholder="john@domain.com" required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }} />
+                                <div className="form-field-box">
+                                    <label>EMAIL ADDRESS</label>
+                                    <input type="email" placeholder="john@domain.com" required />
                                 </div>
-                                <div style={{ marginBottom: '1.5rem' }}>
-                                    <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, color: 'rgba(186,201,204,0.6)', marginBottom: '0.4rem' }}>LINKEDIN / PORTFOLIO URL</label>
-                                    <input type="url" placeholder="https://linkedin.com/in/username" required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff' }} />
+                                <div className="form-field-box">
+                                    <label>LINKEDIN / PORTFOLIO URL</label>
+                                    <input type="url" placeholder="https://linkedin.com/in/username" required />
                                 </div>
-                                <button type="submit" className="btn-join-talent" style={{ width: '100%', justifyContent: 'center' }}>
-                                    SUBMIT APPLICATION <ArrowUpRight size={16} />
+                                <button type="submit" className="btn-modal-submit">
+                                    SUBMIT APPLICATION <ArrowRight size={16} />
                                 </button>
                             </form>
                         </div>

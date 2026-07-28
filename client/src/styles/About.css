@@ -1,18 +1,19 @@
-/* About.css — Redesigned Theme for About Us - Vortextsoft.png */
+/* About.css — Custom Design Match for User HTML */
 
 .about-page-new {
-    background-color: #06090e;
+    background-color: #0B141C;
     color: #ffffff;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
 }
 
-/* ── 1. About Hero Section ──────────────────────────────────────────── */
+/* ── 1. Hero Section ────────────────────────────────────────────────── */
 .about-hero-new {
     padding: 7rem 0 5rem;
-    background: radial-gradient(ellipse 60% 50% at 85% 30%, rgba(0, 200, 204, 0.08) 0%, transparent 70%),
-                linear-gradient(180deg, #06090e 0%, #030508 100%);
+    background: radial-gradient(ellipse 65% 55% at 85% 30%, rgba(0, 200, 204, 0.1) 0%, transparent 70%),
+                linear-gradient(180deg, #0B141C 0%, #060F16 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
 }
 
 .about-hero-container {
@@ -20,7 +21,7 @@
     margin: 0 auto;
     padding: 0 2rem;
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.15fr 0.85fr;
     gap: 4rem;
     align-items: center;
 }
@@ -37,18 +38,27 @@
     gap: 0.5rem;
     padding: 0.4rem 1rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(195, 245, 255, 0.08);
+    border: 1px solid rgba(195, 245, 255, 0.18);
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.85);
+    color: #C3F5FF;
     margin-bottom: 2rem;
     backdrop-filter: blur(8px);
 }
 
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #00C8CC;
+    box-shadow: 0 0 8px #00C8CC;
+    animation: pulse 2s infinite ease-in-out;
+}
+
 .about-headline {
-    font-size: 3.75rem;
+    font-size: 4rem;
     font-weight: 800;
     line-height: 1.1;
     color: #ffffff;
@@ -56,11 +66,17 @@
     letter-spacing: -0.02em;
 }
 
+.highlight-gradient {
+    background: linear-gradient(90deg, #C3F5FF 0%, #00C8CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .about-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
-    max-width: 540px;
+    color: rgba(186, 201, 204, 0.75);
+    max-width: 560px;
     margin: 0 0 2.5rem 0;
 }
 
@@ -74,37 +90,38 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    color: #010409;
+    background-color: #C3F5FF;
+    color: #0B141C;
     font-size: 0.825rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
-    box-shadow: 0 0 24px rgba(0, 200, 204, 0.3);
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
 .btn-about-primary:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
-    box-shadow: 0 0 36px rgba(0, 200, 204, 0.5);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
 .btn-about-secondary {
     display: inline-flex;
     align-items: center;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
     background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #ffffff;
     font-size: 0.825rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
 }
 
 .btn-about-secondary:hover {
@@ -112,35 +129,35 @@
     transform: translateY(-2px);
 }
 
-/* Orbital Radar Backdrop Visual */
+/* Right Abstract Data Visualization SVG Radar */
 .about-hero-right {
     display: flex;
+    justify-content: flex-end;
+}
+
+.radar-visual-wrapper {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-.orbital-radar-box {
-    position: relative;
-    width: 380px;
-    height: 380px;
+.spinning-radar-svg {
+    animation: spinClockwise 60s linear infinite;
 }
 
-.radar-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    border: 1px dashed rgba(0, 200, 204, 0.3);
+@keyframes spinClockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-.circle-1 { width: 180px; height: 180px; animation: spinClockwise 25s linear infinite; }
-.circle-2 { width: 280px; height: 280px; animation: spinCounter 35s linear infinite; }
-.circle-3 { width: 380px; height: 380px; border-style: solid; border-color: rgba(0, 200, 204, 0.12); }
-
-/* ── 2. Ethos / Our Philosophy Section ─────────────────────────────── */
+/* ── 2. Ethos / Philosophy Section ──────────────────────────────────── */
 .ethos-section-new {
     padding: 6rem 0;
-    background-color: #030508;
+    background-color: #060F16;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -150,78 +167,88 @@
     padding: 0 2rem;
 }
 
-.ethos-header-row {
+.section-tag-new {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: #C3F5FF;
+}
+
+.center-tag {
+    text-align: center;
+}
+
+.ethos-top-header {
     display: flex;
-    justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 3.5rem;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 4rem;
 }
 
 .ethos-title-new {
     font-size: 2.5rem;
     font-weight: 800;
     color: #ffffff;
-    margin: 0.5rem 0 0 0;
+    margin: 0.4rem 0 0 0;
+}
+
+.ethos-header-line {
+    flex: 1;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
 }
 
 .ethos-header-desc {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: rgba(240, 246, 252, 0.6);
-    max-width: 480px;
+    color: rgba(186, 201, 204, 0.7);
+    max-width: 420px;
     margin: 0;
 }
 
-.philosophy-grid {
+.ethos-cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
-.philosophy-card {
+.ethos-card-new {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 2.5rem 2rem;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.philosophy-card:hover {
+.ethos-card-new:hover {
     background-color: rgba(255, 255, 255, 0.04);
     border-color: rgba(0, 200, 204, 0.3);
     transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
-.philosophy-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: rgba(0, 200, 204, 0.08);
-    border: 1px solid rgba(0, 200, 204, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.ethos-icon-box {
     margin-bottom: 1.5rem;
 }
 
-.philosophy-card h3 {
-    font-size: 1.35rem;
-    font-weight: 700;
+.ethos-card-title {
+    font-size: 1.5rem;
+    font-weight: 800;
     color: #ffffff;
     margin: 0 0 1rem 0;
 }
 
-.philosophy-card p {
+.ethos-card-desc {
     font-size: 0.9rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.6);
+    color: rgba(186, 201, 204, 0.7);
     margin: 0;
 }
 
-.values-list {
+.values-checklist {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -230,19 +257,25 @@
     gap: 0.75rem;
 }
 
-.values-list li {
+.values-checklist li {
+    font-size: 0.9rem;
+    color: rgba(186, 201, 204, 0.8);
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.875rem;
-    color: rgba(240, 246, 252, 0.85);
-    font-weight: 500;
 }
 
-/* ── 3. Architects of Innovation (OUR TEAM) ────────────────────────── */
+.bullet-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #00C8CC;
+}
+
+/* ── 3. Leadership Team Section ("Architects of Innovation") ────────── */
 .team-section-new {
-    padding: 6rem 0;
-    background-color: #06090e;
+    padding: 7rem 0;
+    background-color: #0B141C;
 }
 
 .team-container-new {
@@ -253,7 +286,8 @@
 
 .team-header-center {
     text-align: center;
-    margin-bottom: 4rem;
+    max-width: 640px;
+    margin: 0 auto 5rem auto;
 }
 
 .team-title-new {
@@ -265,107 +299,120 @@
 
 .team-subtitle-new {
     font-size: 0.95rem;
-    color: rgba(240, 246, 252, 0.6);
-    max-width: 560px;
-    margin: 0 auto;
+    line-height: 1.6;
+    color: rgba(186, 201, 204, 0.7);
+    margin: 0;
 }
 
-.team-grid-new {
+.team-grid-3col {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    gap: 4rem 2.5rem;
 }
 
-.team-card-new {
-    background-color: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
+.team-member-card-new {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    transition: all 0.3s ease;
 }
 
-.team-card-new:hover {
-    background-color: rgba(255, 255, 255, 0.04);
-    border-color: rgba(0, 200, 204, 0.3);
-    transform: translateY(-6px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+.member-avatar-frame {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 2rem;
 }
 
-.team-avatar-frame {
-    width: 140px;
-    height: 140px;
+.avatar-glow-ring {
+    position: absolute;
+    inset: -8px;
     border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid rgba(0, 200, 204, 0.3);
-    margin-bottom: 1.5rem;
-    background-color: #010409;
-    box-shadow: 0 0 24px rgba(0, 200, 204, 0.2);
+    background: radial-gradient(circle, rgba(0, 200, 204, 0.3) 0%, transparent 70%);
+    transition: transform 0.4s ease;
 }
 
-.team-avatar-frame img {
+.team-member-card-new:hover .avatar-glow-ring {
+    transform: scale(1.15);
+}
+
+.member-avatar-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 200, 204, 0.3);
+    filter: grayscale(90%);
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 2;
 }
 
-.role-pill-new {
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding: 0.35rem 0.85rem;
+.team-member-card-new:hover .member-avatar-frame img {
+    filter: grayscale(0%);
+    border-color: #00C8CC;
+}
+
+.role-pill-badge {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.35rem 1rem;
     border-radius: 50px;
-    margin-bottom: 1rem;
-}
-
-.cyan-pill {
-    background-color: rgba(0, 200, 204, 0.12);
-    color: #00C8CC;
-    border: 1px solid rgba(0, 200, 204, 0.3);
-}
-
-.blue-pill {
-    background-color: rgba(59, 130, 246, 0.12);
-    color: #60a5fa;
-    border: 1px solid rgba(59, 130, 246, 0.3);
-}
-
-.team-name-new {
-    font-size: 1.25rem;
+    background-color: #00C8CC;
+    color: #0B141C;
+    font-size: 0.65rem;
     font-weight: 800;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    z-index: 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.member-name-new {
+    font-size: 1.35rem;
+    font-weight: 700;
     color: #ffffff;
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 0.5rem 0;
+    transition: color 0.2s ease;
 }
 
-.team-bio-new {
-    font-size: 0.825rem;
-    line-height: 1.6;
-    color: rgba(240, 246, 252, 0.55);
+.team-member-card-new:hover .member-name-new {
+    color: #C3F5FF;
+}
+
+.member-bio-new {
+    font-size: 0.85rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: rgba(186, 201, 204, 0.65);
     margin: 0;
+    max-width: 320px;
 }
 
-/* ── 4. Culture Section ("Collaborative Innovation is our DNA") ─────── */
-.dna-section-new {
+/* ── 4. Culture & Innovation Section ────────────────────────────────── */
+.culture-dna-section {
     padding: 6rem 0;
-    background-color: #030508;
+    background-color: #060F16;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.dna-container-new {
+.culture-dna-container {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 2rem;
+}
+
+.culture-dna-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
 }
 
-.dna-title-new {
+.dna-headline {
     font-size: 2.75rem;
     font-weight: 800;
     color: #ffffff;
@@ -374,93 +421,110 @@
 }
 
 .dna-description {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
-    margin-bottom: 2.5rem;
+    color: rgba(186, 201, 204, 0.75);
+    margin: 0 0 2.5rem 0;
 }
 
-.dna-stats-grid {
+.dna-metrics-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1.75rem;
 }
 
-.dna-stat-item .stat-value {
-    font-size: 2.25rem;
+.metric-val {
+    font-size: 2rem;
     font-weight: 800;
-    color: #ffffff;
+    color: #C3F5FF;
     line-height: 1;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.25rem;
 }
 
-.dna-stat-item .stat-label {
+.metric-lbl {
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.45);
+    color: rgba(186, 201, 204, 0.5);
 }
 
-.workstation-image-frame {
-    border-radius: 24px;
+.workspace-img-card {
+    position: relative;
+    border-radius: 28px;
     overflow: hidden;
+    aspect-ratio: 16 / 10;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
-.workstation-image-frame img {
+.workspace-img-card img {
     width: 100%;
-    height: 380px;
+    height: 100%;
     object-fit: cover;
-    display: block;
+    transition: transform 0.7s ease;
 }
 
-/* ── 5. CTA Section ────────────────────────────────────────────────── */
-.about-cta-section {
-    padding: 6rem 0 8rem;
+.workspace-img-card:hover img {
+    transform: scale(1.05);
+}
+
+.workspace-overlay-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, #060F16 100%);
+}
+
+/* ── 5. Join Our Journey CTA Section ────────────────────────────────── */
+.about-cta-section-new {
+    padding: 7rem 0 9rem;
     background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
-                #06090e;
+                #0B141C;
     text-align: center;
 }
 
-.about-cta-container {
-    max-width: 850px;
+.about-cta-container-new {
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-.about-cta-title {
-    font-size: 2.75rem;
+.about-cta-title-new {
+    font-size: 3.5rem;
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 1.25rem 0;
-    line-height: 1.2;
+    line-height: 1.15;
 }
 
-.about-cta-subtitle {
+.highlight-cyan-italic {
+    color: #C3F5FF;
+    font-style: italic;
+    text-shadow: 0 0 30px rgba(0, 200, 204, 0.4);
+}
+
+.about-cta-subtitle-new {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
-    margin: 0 0 2.5rem 0;
+    color: rgba(186, 201, 204, 0.75);
+    margin: 0 0 3rem 0;
 }
 
-.about-cta-buttons {
+.about-cta-buttons-new {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1.25rem;
-    flex-wrap: wrap;
 }
 
 .btn-about-cta-primary {
     display: inline-flex;
     align-items: center;
-    padding: 0.9rem 2.25rem;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    color: #010409;
-    font-size: 0.825rem;
-    font-weight: 700;
+    background-color: #C3F5FF;
+    color: #0B141C;
+    font-size: 0.85rem;
+    font-weight: 800;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
@@ -476,13 +540,13 @@
 .btn-about-cta-secondary {
     display: inline-flex;
     align-items: center;
-    padding: 0.9rem 2.25rem;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #ffffff;
-    font-size: 0.825rem;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
@@ -498,28 +562,40 @@
     .about-hero-container {
         grid-template-columns: 1fr;
     }
-    .philosophy-grid {
+    .about-hero-right {
+        display: none;
+    }
+    .ethos-cards-grid {
         grid-template-columns: 1fr;
     }
-    .team-grid-new {
+    .team-grid-3col {
         grid-template-columns: repeat(2, 1fr);
     }
-    .dna-container-new {
+    .culture-dna-grid {
         grid-template-columns: 1fr;
     }
     .about-headline {
         font-size: 3rem;
     }
+    .about-cta-title-new {
+        font-size: 2.75rem;
+    }
 }
 
 @media (max-width: 640px) {
-    .team-grid-new {
+    .team-grid-3col {
         grid-template-columns: 1fr;
+    }
+    .dna-metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    .about-cta-buttons-new {
+        flex-direction: column;
     }
     .about-headline {
         font-size: 2.25rem;
     }
-    .about-cta-title {
+    .about-cta-title-new {
         font-size: 2rem;
     }
 }
