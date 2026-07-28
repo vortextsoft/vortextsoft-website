@@ -2,30 +2,23 @@ import { Helmet } from 'react-helmet-async';
 
 /**
  * Reusable SEO component using react-helmet-async.
- *
- * Usage:
- *   <SEO
- *     title="Services"
- *     description="Explore Vortextsoft's full range of software development services..."
- *     path="/services"
- *     image="/og-image.png"
- *   />
- *
- * All props are optional — sensible defaults are provided for every field.
+ * Configured with official legal name: Vortextsoft Pentra (Pvt) Ltd
  */
 const SEO = ({
   title,
-  description = 'Vortextsoft delivers cutting-edge, scalable software solutions — AI/ML, web, mobile, ERP, IoT and more. Let\'s build your future together.',
+  description = 'Vortextsoft Pentra (Pvt) Ltd delivers cutting-edge, scalable software solutions — AI/ML, web, mobile, ERP, IoT and more. Let\'s build your future together.',
+  keywords = 'Vortextsoft Pentra (Pvt) Ltd, Vortextsoft Pentra, Vortextsoft, Vortexsoft, Vortext Soft, Vortex Soft, Vortextsoft Pentra Pvt Ltd, software agency Sri Lanka',
   path = '',
-  image = '/og-image.png',
+  image = '/vortextsoft-3d-logo.png',
   type = 'website',
   noIndex = false,
 }) => {
-  const SITE_NAME  = 'Vortextsoft';
+  const SITE_NAME  = 'Vortextsoft Pentra';
+  const LEGAL_NAME = 'Vortextsoft Pentra (Pvt) Ltd';
   const BASE_URL   = 'https://vortextsoft.com';
   const TWITTER_HANDLE = '@vortextsoft';
 
-  const pageTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} — Innovative Software Solutions`;
+  const pageTitle = title ? `${title} | ${SITE_NAME}` : `${LEGAL_NAME} — Innovative Software Solutions`;
   const canonical = `${BASE_URL}${path}`;
   const ogImage   = image.startsWith('http') ? image : `${BASE_URL}${image}`;
 
@@ -35,9 +28,11 @@ const SEO = ({
 
   return (
     <Helmet>
-      {/* ── Core ──────────────────────────────────────────────── */}
+      {/* ── Core Metadata ────────────────────────────────────── */}
       <title>{pageTitle}</title>
       <meta name="description" content={safeDescription} />
+      <meta name="keywords" content={keywords} />
+      <meta name="author" content={LEGAL_NAME} />
       <link rel="canonical" href={canonical} />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
@@ -47,7 +42,7 @@ const SEO = ({
       <meta property="og:title"       content={pageTitle} />
       <meta property="og:description" content={safeDescription} />
       <meta property="og:image"       content={ogImage} />
-      <meta property="og:image:alt"   content={`${SITE_NAME} — ${title || 'Home'}`} />
+      <meta property="og:image:alt"   content={`${LEGAL_NAME} — ${title || 'Home'}`} />
       <meta property="og:site_name"   content={SITE_NAME} />
       <meta property="og:locale"      content="en_US" />
 

@@ -1,19 +1,18 @@
-/* Navbar.css */
-.navbar {
-    position: absolute;
-    top: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 1000px;
-    background-color: var(--color-white);
-    padding: 0.5rem 2rem;
-    border-radius: 50px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* Navbar.css — New UI Design Theme */
+
+.navbar-new {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #06090e;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     z-index: 1000;
-    height: 70px;
+    height: 76px;
     display: flex;
     align-items: center;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
 .navbar-container {
@@ -21,122 +20,176 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-.navbar-logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--color-dark-bg);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.navbar-logo .highlight {
-    color: var(--color-primary);
-}
-
-.nav-links {
+.navbar-logo-new {
     display: flex;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
 }
 
-.nav-links li a {
-    font-weight: 500;
-    color: var(--color-text-main);
-    transition: color 0.3s;
-    font-size: 0.95rem;
+.logo-icon-box {
+    width: 36px;
+    height: 36px;
+    background-color: #00C8CC;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px rgba(0, 200, 204, 0.4);
 }
 
-.nav-links li a:hover,
-.nav-links li a.active {
-    color: var(--color-primary);
+.logo-text {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+    font-family: 'Inter', system-ui, sans-serif;
 }
 
-.menu-icon {
+.nav-links-new {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links-new li a {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(240, 246, 252, 0.65);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: all 0.2s ease;
+    padding: 0.4rem 0;
+}
+
+.nav-links-new li a:hover,
+.nav-links-new li a.active {
+    color: #ffffff;
+}
+
+.nav-links-new li a.active {
+    border-bottom: 2px solid #00C8CC;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.btn-nav-contact {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c2f5f7;
+    color: #010409;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 14px rgba(0, 200, 204, 0.25);
+}
+
+.btn-nav-contact:hover {
+    background-color: #00C8CC;
+    transform: translateY(-1px);
+    box-shadow: 0 0 20px rgba(0, 200, 204, 0.45);
+}
+
+.btn-nav-user {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-nav-user:hover {
+    background-color: rgba(0, 200, 204, 0.15);
+    border-color: rgba(0, 200, 204, 0.4);
+    color: #00C8CC;
+}
+
+.menu-icon-new {
     display: none;
     cursor: pointer;
-    color: var(--color-dark-bg);
+    color: #ffffff;
 }
 
-/* Mobile Menu */
-.mobile-menu {
-    display: none;
-    /* Hidden by default on desktop */
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 70px);
-    background-color: var(--color-white);
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 2rem;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 999;
-}
-
-.mobile-menu.active {
-    transform: translateX(0);
-}
-
-.nav-links-mobile {
-    list-style: none;
-    text-align: center;
-    width: 100%;
-}
-
-.nav-links-mobile li {
-    margin: 1.5rem 0;
-}
-
-.nav-links-mobile li a {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--color-text-main);
-}
-
-.nav-links-mobile li a:hover,
-.nav-links-mobile li a.active {
-    color: var(--color-primary);
-}
-
-@media (max-width: 960px) {
-    .navbar {
-        top: 0;
-        width: 100%;
-        max-width: 100%;
-        border-radius: 0;
-        left: 0;
-        transform: none;
-        position: fixed;
-        /* Fixed on mobile for better UX */
-        padding: 0 1rem;
-        height: 60px;
-
-
-    }
-
-    .navbar-logo {
-        font-size: 1.2rem;
-        max-width: 70%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .desktop-nav {
+/* Mobile responsive menu */
+@media (max-width: 992px) {
+    .desktop-nav,
+    .navbar-actions {
         display: none;
     }
 
-    .menu-icon {
+    .menu-icon-new {
         display: block;
     }
 
-    .mobile-menu {
-        top: 70px;
+    .mobile-menu-new {
         display: flex;
-        /* Matches navbar height */
+        position: fixed;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 76px);
+        background-color: #06090e;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 3rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+    }
+
+    .mobile-menu-new.active {
+        transform: translateX(0);
+    }
+
+    .nav-links-mobile {
+        list-style: none;
+        text-align: center;
+        width: 100%;
+        padding: 0;
+    }
+
+    .nav-links-mobile li {
+        margin: 1.5rem 0;
+    }
+
+    .nav-links-mobile li a {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        letter-spacing: 1px;
+    }
+
+    .nav-links-mobile li a.mobile-contact-link {
+        display: inline-block;
+        background-color: #00C8CC;
+        color: #010409;
+        padding: 0.6rem 2rem;
+        border-radius: 50px;
+        font-weight: 700;
+        margin-top: 1rem;
     }
 }

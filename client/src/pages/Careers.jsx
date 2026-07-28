@@ -1,338 +1,370 @@
-import React, { useEffect, useState } from 'react';
-import { api } from '../api';
-import { API_URL } from '../config';
-import { Cpu, Users, TrendingUp, Award } from 'lucide-react';
+import React, { useState } from 'react';
+import {
+    ArrowUpRight,
+    Play,
+    CheckCircle2,
+    Cpu,
+    TrendingUp,
+    Users,
+    Award,
+    Search,
+    Filter,
+    Rocket,
+    Shield,
+    ChevronDown,
+    X
+} from 'lucide-react';
 import SEO from '../components/SEO';
 import '../styles/Careers.css';
 
+const OPEN_JOBS_DATA = [
+    {
+        id: 'job-1',
+        title: 'Senior Full Stack Engineer',
+        reqId: 'Requisition #24-0891',
+        dept: 'CORE ENGINEERING',
+        deptColor: 'dept-navy',
+        location: 'London / Remote',
+        type: 'Full-time'
+    },
+    {
+        id: 'job-2',
+        title: 'AI Researcher (LLM Ops)',
+        reqId: 'Requisition #24-0742',
+        dept: 'VORTEXT LABS',
+        deptColor: 'dept-cyan',
+        location: 'San Francisco',
+        type: 'Contract'
+    },
+    {
+        id: 'job-3',
+        title: 'Cloud Architect (Azure/AWS)',
+        reqId: 'Requisition #24-0912',
+        dept: 'INFRASTRUCTURE',
+        deptColor: 'dept-blue',
+        location: 'Singapore',
+        type: 'Full-time'
+    },
+    {
+        id: 'job-4',
+        title: 'Product Designer',
+        reqId: 'Requisition #24-0888',
+        dept: 'PRODUCT & DESIGN',
+        deptColor: 'dept-dark',
+        location: 'New York / Hybrid',
+        type: 'Full-time'
+    }
+];
+
 const Careers = () => {
-    const [jobs, setJobs] = useState([]);
-    const [expandedJob, setExpandedJob] = useState(null);
-    const [application, setApplication] = useState({
-        name: '', email: '', phone: '', portfolio: '', message: '', cvLink: '', coverLetterLink: ''
-    });
-    const [submitting, setSubmitting] = useState(false);
-    const [successMsg, setSuccessMsg] = useState('');
-    const [uploadingCV, setUploadingCV] = useState(false);
-    const [uploadingCover, setUploadingCover] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedJob, setSelectedJob] = useState(null);
+    const [talentEmail, setTalentEmail] = useState('');
+    const [talentSubmitted, setTalentSubmitted] = useState(false);
 
-    // Hero Animation Logic
-    const handleMouseMove = (e) => {
-        const container = e.currentTarget;
-        const rect = container.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+    const filteredJobs = OPEN_JOBS_DATA.filter(j =>
+        j.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        j.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        j.dept.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const moveX = (x - centerX) / 25;
-        const moveY = (y - centerY) / 25;
-
-        // Hero Elements
-        const heroImage = container.querySelector('.hero-main-image');
-        const heroCircle = container.querySelector('.hero-circle-bg');
-        const heroDecor1 = container.querySelector('.hero-decoration-1');
-        const heroDecor2 = container.querySelector('.hero-decoration-2');
-
-        if (heroImage) heroImage.style.transform = `translate(${moveX * -1}px, ${moveY * -1}px)`;
-        if (heroCircle) heroCircle.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        if (heroDecor1) heroDecor1.style.transform = `translate(${moveX * 1.5}px, ${moveY * 1.5}px)`;
-        if (heroDecor2) heroDecor2.style.transform = `translate(${moveX * -0.5}px, ${moveY * -0.5}px)`;
-    };
-
-    const handleMouseLeave = (e) => {
-        const container = e.currentTarget;
-        const elements = container.querySelectorAll('.hero-main-image, .hero-circle-bg, .hero-decoration-1, .hero-decoration-2');
-        elements.forEach(el => {
-            el.style.transform = 'translate(0, 0)';
-            el.style.transition = 'transform 0.5s ease-out';
-        });
-    };
-
-    useEffect(() => {
-        api.getJobs()
-            .then(data => {
-                // Filter out closed jobs (isOpen !== false allows undefined to be shown as open for legacy data)
-                const openJobs = data.filter(job => job.isOpen !== false);
-                setJobs(openJobs);
-            })
-            .catch(console.error);
-    }, []);
-
-    const toggleJob = (id) => {
-        if (expandedJob === id) setExpandedJob(null);
-        else setExpandedJob(id);
-        setSuccessMsg(''); // Clear msg
-    };
-
-    const handleAppChange = (e) => {
-        setApplication({ ...application, [e.target.name]: e.target.value });
-    };
-
-    const handleCVUpload = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        if (file.type !== 'application/pdf') {
-            alert('Please upload a PDF file');
-            return;
-        }
-
-        setUploadingCV(true);
-        const formData = new FormData();
-        formData.append('document', file);
-
-        try {
-            const response = await fetch(`${API_URL}/upload/document`, {
-                method: 'POST',
-                body: formData
-            });
-            const data = await response.json();
-            if (data.fileUrl) {
-                setApplication({ ...application, cvLink: data.fileUrl });
-            }
-        } catch (error) {
-            console.error('Error uploading CV:', error);
-            alert('Failed to upload CV');
-        } finally {
-            setUploadingCV(false);
-        }
-    };
-
-    const handleCoverLetterUpload = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        if (file.type !== 'application/pdf') {
-            alert('Please upload a PDF file');
-            return;
-        }
-
-        setUploadingCover(true);
-        const formData = new FormData();
-        formData.append('document', file);
-
-        try {
-            const response = await fetch(`${API_URL}/upload/document`, {
-                method: 'POST',
-                body: formData
-            });
-            const data = await response.json();
-            if (data.fileUrl) {
-                setApplication({ ...application, coverLetterLink: data.fileUrl });
-            }
-        } catch (error) {
-            console.error('Error uploading cover letter:', error);
-            alert('Failed to upload cover letter');
-        } finally {
-            setUploadingCover(false);
-        }
-    };
-
-    const submitApplication = async (e, job) => {
+    const handleTalentSubmit = (e) => {
         e.preventDefault();
-        setSubmitting(true);
-        try {
-            await api.submitApplication({
-                ...application,
-                position: job.title,
-                jobId: job.id,
-                status: 'New'
-            });
-            setSuccessMsg('Application submitted successfully!');
-            setApplication({ name: '', email: '', phone: '', portfolio: '', message: '', cvLink: '', coverLetterLink: '' });
-        } catch (error) {
-            alert('Failed to submit application.');
-        } finally {
-            setSubmitting(false);
+        if (talentEmail) {
+            setTalentSubmitted(true);
+            setTimeout(() => setTalentSubmitted(false), 5000);
+            setTalentEmail('');
         }
     };
 
     return (
         <>
-        <SEO
-            title="Careers — Join Our Team"
-            description="Explore exciting career opportunities at Vortextsoft. Join a passionate team building cutting-edge AI, web, and mobile technology solutions."
-            path="/careers"
-        />
-        <div
-            className="page-container"
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-        >
-            <div className="careers-hero">
-                <div className="container hero-container">
-                    <div className="hero-content">
-                        <h1>VortextSoft Careers:<br />Where Passion Meets Purpose</h1>
-                        <p>Our culture is powered by one simple value: treat people the way you want to be treated. Join us to build the future of technology.</p>
-                        <button className="btn-hero" onClick={() => document.getElementById('jobs-section').scrollIntoView({ behavior: 'smooth' })}>
-                            View Open Positions
-                        </button>
-                    </div>
-                    <div className="hero-image-wrapper">
-                        <div className="hero-circle-bg"></div>
-                        <img src="/careers-hero-abstract.png" alt="Careers at VortextSoft" className="hero-main-image" />
-                        <div className="hero-decoration-1"></div>
-                        <div className="hero-decoration-2"></div>
-                    </div>
-                </div>
-            </div>
+            {/* ── SEO Meta Tags ─────────────────────────────────────────────────── */}
+            <SEO
+                title="Careers — Build the Future of Precision"
+                description="Join Vortextsoft Pentra (Pvt) Ltd's global engineering team. Architecting the infrastructure of the next industrial revolution with competitive benefits and rapid growth."
+                path="/careers"
+                image="/vortextsoft-3d-logo.png"
+            />
 
-            <div className="container section">
-                <div className="careers-content">
-                    {/* Who We Are Section */}
-                    <div className="who-we-are-section">
-                        <h2>Who We Are</h2>
-                        <p>
-                            VortextSoft is more than just a software development company; we are a collective of innovators, problem-solvers, and tech enthusiasts dedicated to transforming ideas into reality. Founded on the principles of excellence and integrity, we specialize in delivering high-impact digital solutions for businesses worldwide. Our team creates an environment where creativity thrives, and every member is empowered to make a difference.
-                        </p>
-                    </div>
+            {/* ── Main Page Wrapper ────────────────────────────────────────────── */}
+            <main id="main-content" className="careers-page-new">
 
-                    {/* Why Join Section */}
-                    {/* Why Join Section */}
-                    <div className="why-join-section">
-                        <div className="why-join-header">
-                            <h3>Why Join Vortextsoft?</h3>
-                            <p className="why-join-intro">
-                                We offer more than just a job; we offer a pathway to excellence. Join a team where innovation is the standard and professional growth is guaranteed.
+                {/* ── 1. Hero Section ── */}
+                <section className="careers-hero-new" aria-label="Global Engineering Team">
+                    <div className="careers-hero-container">
+                        <div className="hero-left-content">
+                            <div className="careers-badge">
+                                <span className="badge-dot"></span>
+                                GLOBAL ENGINEERING TEAM
+                            </div>
+                            <h1 className="careers-headline">
+                                Build the Future of<br />
+                                Precision
+                            </h1>
+                            <p className="careers-subtitle">
+                                Vortextsoft is where elite engineering meets enterprise scale. Join a team dedicated to architecting the infrastructure of the next industrial revolution.
                             </p>
+                            <div className="hero-cta-buttons">
+                                <a href="#open-positions" className="btn-careers-primary">
+                                    VIEW OPENINGS <ArrowUpRight size={18} />
+                                </a>
+                                <a href="#culture" className="btn-careers-secondary">
+                                    OUR MISSION
+                                </a>
+                            </div>
                         </div>
 
-                        <div className="benefits-grid">
-                            <div className="benefit-card">
-                                <div className="benefit-icon"><Cpu size={32} /></div>
-                                <h4>Cutting-Edge Tech</h4>
-                                <p>Immerse yourself in projects involving AI, IoT, VR, and Cloud Computing. We stay ahead of the curve.</p>
+                        {/* Right 2x2 Stats Grid */}
+                        <div className="hero-right-stats-grid">
+                            <div className="hero-stat-card">
+                                <div className="stat-value">94%</div>
+                                <div className="stat-label">Retention Rate</div>
                             </div>
-                            <div className="benefit-card">
-                                <div className="benefit-icon"><Users size={32} /></div>
-                                <h4>Inclusive Culture</h4>
-                                <p>Work in a collaborative environment where diverse perspectives are valued and every voice is heard.</p>
+                            <div className="hero-stat-card">
+                                <div className="stat-value">400+</div>
+                                <div className="stat-label">Active Patents</div>
                             </div>
-                            <div className="benefit-card">
-                                <div className="benefit-icon"><TrendingUp size={32} /></div>
-                                <h4>Growth Opportunities</h4>
-                                <p>We invest in your future with mentorship programs, certifications, and clear career progression paths.</p>
+                            <div className="hero-stat-card">
+                                <div className="stat-value">12+</div>
+                                <div className="stat-label">Global Hubs</div>
                             </div>
-                            <div className="benefit-card">
-                                <div className="benefit-icon"><Award size={32} /></div>
-                                <h4>Competitive Benefits</h4>
-                                <p>Enjoy a comprehensive benefits package, performance bonuses, and work-life balance initiatives.</p>
+                            <div className="hero-stat-card">
+                                <div className="stat-value">24/7</div>
+                                <div className="stat-label">Rapid Deploy</div>
                             </div>
                         </div>
                     </div>
+                </section>
 
-                    <div className="jobs-list" id="jobs-section">
-                        <h2>Open Positions</h2>
-                        {jobs.length === 0 ? (
-                            <div className="no-jobs">
-                                <p>Currently, there are no open positions. Please check back later or send us your CV for future opportunities.</p>
-                            </div>
-                        ) : null}
+                {/* ── 2. Culture Section ("Where Passion Meets Purpose") ── */}
+                <section className="culture-section-new" id="culture" aria-labelledby="culture-heading">
+                    <div className="culture-container-new">
+                        <div className="culture-header">
+                            <div className="section-tag-new">THE VORTEXT CULTURE</div>
+                            <h2 id="culture-heading" className="culture-title-new">
+                                Where Passion Meets Purpose
+                            </h2>
+                            <div className="culture-title-underline"></div>
+                        </div>
 
-                        {jobs.map(job => (
-                            <div key={job.id} className={`job-card ${expandedJob === job.id ? 'expanded' : ''}`}>
-                                <div className="job-header">
-                                    <div>
-                                        <h3>{job.title}</h3>
-                                        <div className="job-meta">
-                                            <span>{job.type || 'Full-time'}</span>
-                                            <span className="separator">•</span>
-                                            <span>{job.location || 'Remote'}</span>
-                                        </div>
+                        <div className="culture-grid-card">
+                            {/* Left Video Thumbnail */}
+                            <div className="video-thumbnail-box">
+                                <img
+                                    src="/corporate-team-formal.png"
+                                    alt="Vortextsoft Engineering Team in Interactive Workspace"
+                                    loading="lazy"
+                                />
+                                <div className="play-button-overlay">
+                                    <div className="play-icon-circle">
+                                        <Play size={20} color="#010409" fill="#010409" style={{ marginLeft: '3px' }} />
                                     </div>
-                                    <button className="btn-toggle" onClick={() => toggleJob(job.id)}>
-                                        {expandedJob === job.id ? 'Close' : 'View Details'}
-                                    </button>
+                                    <span className="play-label">WATCH OUR STORY</span>
                                 </div>
-
-                                {expandedJob === job.id && (
-                                    <div className="job-details">
-                                        <div className="detail-section">
-                                            <h4>About the Role</h4>
-                                            <div dangerouslySetInnerHTML={{ __html: job.description }} />
-                                        </div>
-                                        <div className="detail-section">
-                                            <h4>Responsibilities</h4>
-                                            <div dangerouslySetInnerHTML={{ __html: job.responsibilities || "Standard responsibilities apply." }} />
-                                        </div>
-                                        <div className="detail-section">
-                                            <h4>Requirements</h4>
-                                            <div dangerouslySetInnerHTML={{ __html: job.requirements || "Standard requirements apply." }} />
-                                        </div>
-
-                                        <div className="application-form-container">
-                                            <h4>Apply for this position</h4>
-                                            {successMsg ? <div className="success-msg">{successMsg}</div> : (
-                                                <form onSubmit={(e) => submitApplication(e, job)} className="app-form">
-                                                    <div className="form-row">
-                                                        <div className="form-group">
-                                                            <label>Full Name *</label>
-                                                            <input required type="text" name="name" placeholder="John Doe" value={application.name} onChange={handleAppChange} />
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Email Address *</label>
-                                                            <input required type="email" name="email" placeholder="john@example.com" value={application.email} onChange={handleAppChange} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-row">
-                                                        <div className="form-group">
-                                                            <label>Phone Number *</label>
-                                                            <input required type="tel" name="phone" placeholder="+94 77 123 4567" value={application.phone} onChange={handleAppChange} />
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>LinkedIn / Portfolio URL</label>
-                                                            <input type="url" name="portfolio" placeholder="https://linkedin.com/in/yourprofile" value={application.portfolio} onChange={handleAppChange} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-row">
-                                                        <div className="form-group">
-                                                            <label>Upload CV/Resume (PDF) *</label>
-                                                            <div className="file-upload-wrapper">
-                                                                <input
-                                                                    type="file"
-                                                                    accept=".pdf"
-                                                                    onChange={handleCVUpload}
-                                                                    id="cv-upload"
-                                                                    required={!application.cvLink}
-                                                                />
-                                                                {uploadingCV && <span className="upload-status">Uploading...</span>}
-                                                                {application.cvLink && <span className="upload-status success">✓ Uploaded</span>}
-                                                            </div>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>Upload Cover Letter (PDF)</label>
-                                                            <div className="file-upload-wrapper">
-                                                                <input
-                                                                    type="file"
-                                                                    accept=".pdf"
-                                                                    onChange={handleCoverLetterUpload}
-                                                                    id="cover-upload"
-                                                                />
-                                                                {uploadingCover && <span className="upload-status">Uploading...</span>}
-                                                                {application.coverLetterLink && <span className="upload-status success">✓ Uploaded</span>}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label>Additional Message</label>
-                                                        <textarea name="message" placeholder="Tell us why you're a great fit for this role..." rows="4" value={application.message} onChange={handleAppChange}></textarea>
-                                                    </div>
-                                                    <button type="submit" className="btn btn-primary" disabled={submitting || uploadingCV || uploadingCover}>
-                                                        {submitting ? 'Submitting...' : 'Submit Application'}
-                                                    </button>
-                                                </form>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
                             </div>
-                        ))}
+
+                            {/* Right Culture Description */}
+                            <div className="culture-content-box">
+                                <blockquote className="culture-quote">
+                                    "At Vortextsoft, we don't just solve problems; we redefine what's possible in the enterprise landscape."
+                                </blockquote>
+                                <p className="culture-paragraph">
+                                    Our engineering culture is built on the pillars of radical transparency, extreme ownership, and continuous learning. We foster an environment where every voice matters—from our interns to our chief architects.
+                                </p>
+                                <ul className="culture-checklist">
+                                    <li>
+                                        <CheckCircle2 size={18} color="#00C8CC" className="check-icon" />
+                                        <div>
+                                            <strong>Asynchronous Mastery</strong>
+                                            <p>Focus time is sacred. We minimize meetings and maximize deep work through robust documentation.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <CheckCircle2 size={18} color="#00C8CC" className="check-icon" />
+                                        <div>
+                                            <strong>Innovation Sprints</strong>
+                                            <p>10% of your time dedicated to personal R&amp;D projects that could become our next flagship product.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </section>
+
+                {/* ── 3. The Vortext Advantage (4 Benefit Cards) ── */}
+                <section className="advantage-section-new" aria-labelledby="advantage-heading">
+                    <div className="advantage-container-new">
+                        <h2 id="advantage-heading" className="advantage-title-new">The Vortext Advantage</h2>
+                        <div className="advantage-grid-new">
+                            <div className="advantage-card-new">
+                                <div className="advantage-icon-box">
+                                    <Cpu size={22} color="#00C8CC" />
+                                </div>
+                                <h3>Cutting-Edge Tech</h3>
+                                <p>Access the latest silicon and distributed computing paradigms months before they hit the general market.</p>
+                            </div>
+
+                            <div className="advantage-card-new">
+                                <div className="advantage-icon-box">
+                                    <TrendingUp size={22} color="#00C8CC" />
+                                </div>
+                                <h3>Growth Velocity</h3>
+                                <p>Clear career paths and $5k annual learning stipends for certifications, conferences, and books.</p>
+                            </div>
+
+                            <div className="advantage-card-new">
+                                <div className="advantage-icon-box">
+                                    <Users size={22} color="#00C8CC" />
+                                </div>
+                                <h3>Inclusive Pulse</h3>
+                                <p>A truly global workforce with active ERGs and a commitment to radical diversity in leadership.</p>
+                            </div>
+
+                            <div className="advantage-card-new">
+                                <div className="advantage-icon-box">
+                                    <Award size={22} color="#00C8CC" />
+                                </div>
+                                <h3>Tier-1 Benefits</h3>
+                                <p>Top-percentile equity packages, comprehensive health for you and yours, and flexible remote options.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── 4. Open Positions Table ── */}
+                <section className="positions-section-new" id="open-positions" aria-labelledby="positions-heading">
+                    <div className="positions-container-new">
+                        <div className="positions-header-row">
+                            <div>
+                                <h2 id="positions-heading" className="positions-title-new">Open Positions</h2>
+                                <p className="positions-subtitle-new">Explore opportunities across our global engineering hubs.</p>
+                            </div>
+                            <div className="positions-controls">
+                                <div className="search-input-box">
+                                    <Search size={16} className="search-icon" />
+                                    <input
+                                        type="text"
+                                        placeholder="Search roles..."
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
+                                <button className="btn-filter-toggle">
+                                    <Filter size={14} /> FILTERS
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Roles Table */}
+                        <div className="roles-table-wrapper">
+                            <div className="roles-table-header">
+                                <div className="col-title">JOB TITLE</div>
+                                <div className="col-dept">DEPARTMENT</div>
+                                <div className="col-location">LOCATION</div>
+                                <div className="col-type">TYPE</div>
+                                <div className="col-action"></div>
+                            </div>
+                            {filteredJobs.map(job => (
+                                <div key={job.id} className="role-table-row">
+                                    <div className="col-title">
+                                        <div className="role-name">{job.title}</div>
+                                        <div className="role-req">{job.reqId}</div>
+                                    </div>
+                                    <div className="col-dept">
+                                        <span className={`dept-badge ${job.deptColor}`}>{job.dept}</span>
+                                    </div>
+                                    <div className="col-location">{job.location}</div>
+                                    <div className="col-type">{job.type}</div>
+                                    <div className="col-action">
+                                        <button
+                                            className="btn-apply-role"
+                                            onClick={() => setSelectedJob(job)}
+                                        >
+                                            APPLY
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="roles-footer-note">
+                            <p>Don't see a role that fits? We are always looking for exceptional talent.</p>
+                            <a href="#talent-pool" className="btn-view-all-roles">
+                                VIEW ALL ROLES <ChevronDown size={16} />
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── 5. Talent Pool Banner Section ── */}
+                <section className="talent-banner-section" id="talent-pool" aria-labelledby="talent-heading">
+                    <div className="talent-banner-container">
+                        <div className="talent-rocket-badge">
+                            <Rocket size={24} color="#010409" />
+                        </div>
+                        <h2 id="talent-heading" className="talent-headline">Ready to define the next frontier?</h2>
+                        <p className="talent-subtitle">
+                            Submit your details to our global talent database and be the first to know when high-impact roles open in your field.
+                        </p>
+                        {talentSubmitted ? (
+                            <div className="talent-success-alert">
+                                ✅ Thank you! Your profile has been added to our global talent pool.
+                            </div>
+                        ) : (
+                            <form onSubmit={handleTalentSubmit} className="talent-form-inline">
+                                <input
+                                    type="email"
+                                    placeholder="Email Address"
+                                    value={talentEmail}
+                                    onChange={(e) => setTalentEmail(e.target.value)}
+                                    required
+                                />
+                                <button type="submit" className="btn-join-talent-pool">
+                                    JOIN OUR TALENT POOL
+                                </button>
+                            </form>
+                        )}
+                        <div className="talent-trust-bar">
+                            <span>TRUSTED BY 500+ ENTERPRISES</span>
+                            <Shield size={14} color="rgba(240, 246, 252, 0.4)" />
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── Apply Modal ── */}
+                {selectedJob && (
+                    <div className="apply-modal-overlay" onClick={() => setSelectedJob(null)}>
+                        <div className="apply-modal-content" onClick={(e) => e.stopPropagation()}>
+                            <div className="modal-header">
+                                <h3>Apply for {selectedJob.title}</h3>
+                                <button className="btn-close-modal" onClick={() => setSelectedJob(null)}>
+                                    <X size={20} />
+                                </button>
+                            </div>
+                            <form onSubmit={(e) => { e.preventDefault(); alert('Application submitted successfully!'); setSelectedJob(null); }} className="modal-body-form">
+                                <div className="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" placeholder="John Doe" required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" placeholder="john@example.com" required />
+                                </div>
+                                <div className="form-group">
+                                    <label>LinkedIn / Portfolio URL</label>
+                                    <input type="url" placeholder="https://linkedin.com/in/johndoe" required />
+                                </div>
+                                <button type="submit" className="btn-submit-application">
+                                    SUBMIT APPLICATION
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                )}
+
+            </main>
         </>
     );
 };
