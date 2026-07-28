@@ -26,6 +26,23 @@ const DEFAULT_SECONDARY_PROJECTS = [
     }
 ];
 
+const getTagsArray = (tags, fallbackCategory) => {
+    if (Array.isArray(tags)) return tags.length > 0 ? tags : [fallbackCategory ? `#${fallbackCategory}` : '#ENTERPRISE'];
+    if (typeof tags === 'string' && tags.trim()) {
+        try {
+            const parsed = JSON.parse(tags);
+            if (Array.isArray(parsed)) return parsed;
+        } catch (e) {
+            // String is comma-separated list
+        }
+        return tags.split(',').map(t => {
+            const clean = t.trim();
+            return clean.startsWith('#') ? clean : `#${clean}`;
+        }).filter(Boolean);
+    }
+    return [fallbackCategory ? `#${fallbackCategory}` : '#ENTERPRISE'];
+};
+
 const CaseStudies = () => {
     const [activeCategory, setActiveCategory] = useState('ALL');
     const [projects, setProjects] = useState(DEFAULT_SECONDARY_PROJECTS);
@@ -34,7 +51,11 @@ const CaseStudies = () => {
         api.getCaseStudies()
             .then(data => {
                 if (data && data.length > 0) {
-                    setProjects(data);
+                    const formatted = data.map(p => ({
+                        ...p,
+                        tags: getTagsArray(p.tags || p.features, p.category)
+                    }));
+                    setProjects(formatted);
                 }
             })
             .catch(err => {
@@ -183,26 +204,29 @@ const CaseStudies = () => {
                 {/* ── 4. Secondary Projects Grid ── */}
                 <section className="secondary-grid-section" aria-label="Secondary Enterprise Case Studies">
                     <div className="secondary-grid-container">
-                        {filteredProjects.map((project) => (
-                            <div key={project.id} className="secondary-project-card">
-                                <div className="secondary-card-img-frame">
-                                    <img
-                                        src={project.image || '/casestudies-hero.png'}
-                                        alt={project.title}
-                                        loading="lazy"
-                                    />
-                                </div>
-                                <div className="secondary-card-body">
-                                    <h3 className="sec-project-title">{project.title}</h3>
-                                    <p className="sec-project-desc">{project.description}</p>
-                                    <div className="sec-tags-row">
-                                        {(project.tags || [project.category || '#ENTERPRISE']).map((t, idx) => (
-                                            <span key={idx} className="sec-tag-pill">{t}</span>
-                                        ))}
+                        {filteredProjects.map((project) => {
+                            const tagsList = getTagsArray(project.tags, project.category);
+                            return (
+                                <div key={project.id} className="secondary-project-card">
+                                    <div className="secondary-card-img-frame">
+                                        <img
+                                            src={project.image || '/casestudies-hero.png'}
+                                            alt={project.title}
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <div className="secondary-card-body">
+                                        <h3 className="sec-project-title">{project.title}</h3>
+                                        <p className="sec-project-desc">{project.description}</p>
+                                        <div className="sec-tags-row">
+                                            {tagsList.map((t, idx) => (
+                                                <span key={idx} className="sec-tag-pill">{t}</span>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </section>
 

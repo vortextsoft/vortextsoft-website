@@ -29,6 +29,20 @@ const DEFAULT_FEATURED = {
     tabletImage: "/casestudies-hero.png"
 };
 
+const getTagsArray = (tags, fallback = ["UI/UX DESIGN", "ENTERPRISE SAAS"]) => {
+    if (Array.isArray(tags)) return tags.length > 0 ? tags : fallback;
+    if (typeof tags === 'string' && tags.trim()) {
+        try {
+            const parsed = JSON.parse(tags);
+            if (Array.isArray(parsed)) return parsed;
+        } catch (e) {
+            // String is comma-separated list
+        }
+        return tags.split(',').map(t => t.trim()).filter(Boolean);
+    }
+    return fallback;
+};
+
 const Home = () => {
     const [featuredStudy, setFeaturedStudy] = useState(DEFAULT_FEATURED);
     const [counters, setCounters] = useState({ projects: 0, satisfaction: 0, years: 0, team: 0 });
@@ -38,9 +52,10 @@ const Home = () => {
             .then(data => {
                 if (data && data.length > 0) {
                     const topCase = data[0];
+                    const rawTags = topCase.tags || topCase.features || topCase.category;
                     setFeaturedStudy({
                         title: topCase.title || DEFAULT_FEATURED.title,
-                        tags: topCase.features || [topCase.category || 'ENTERPRISE SAAS'],
+                        tags: getTagsArray(rawTags, DEFAULT_FEATURED.tags),
                         description: topCase.description || DEFAULT_FEATURED.description,
                         desktopImage: topCase.hero_image || topCase.image || DEFAULT_FEATURED.desktopImage,
                         tabletImage: DEFAULT_FEATURED.tabletImage
@@ -72,6 +87,8 @@ const Home = () => {
 
         return () => clearInterval(timer);
     }, []);
+
+    const renderTags = getTagsArray(featuredStudy.tags, DEFAULT_FEATURED.tags);
 
     return (
         <>
@@ -217,7 +234,7 @@ const Home = () => {
                             {/* Left Content Column */}
                             <div className="case-card-content">
                                 <div className="case-tags">
-                                    {(featuredStudy.tags || []).map((tag, i) => (
+                                    {renderTags.map((tag, i) => (
                                         <span key={i} className="case-tag">{typeof tag === 'string' ? tag.toUpperCase() : 'ENTERPRISE SAAS'}</span>
                                     ))}
                                 </div>
