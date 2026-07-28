@@ -1,4 +1,4 @@
-/* CaseStudies.css — Exact Vector Match for Case Studies - Vortextsoft.svg */
+/* CaseStudies.css — Custom Design Match for User HTML */
 
 .casestudies-page-new {
     background-color: #0B141C;
@@ -9,10 +9,11 @@
 
 /* ── 1. Hero Section ────────────────────────────────────────────────── */
 .casestudies-hero-new {
-    padding: 7rem 0 4rem;
-    background: radial-gradient(ellipse 60% 50% at 85% 30%, rgba(0, 200, 204, 0.09) 0%, transparent 70%),
+    padding: 7rem 0 5rem;
+    background: radial-gradient(ellipse 65% 55% at 85% 30%, rgba(0, 200, 204, 0.1) 0%, transparent 70%),
                 linear-gradient(180deg, #0B141C 0%, #060F16 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
 }
 
 .casestudies-hero-container {
@@ -20,8 +21,8 @@
     margin: 0 auto;
     padding: 0 2rem;
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 3rem;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
     align-items: center;
 }
 
@@ -47,6 +48,15 @@
     backdrop-filter: blur(8px);
 }
 
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #00C8CC;
+    box-shadow: 0 0 8px #00C8CC;
+    animation: pulse 2s infinite ease-in-out;
+}
+
 .casestudies-headline {
     font-size: 3.85rem;
     font-weight: 800;
@@ -56,47 +66,52 @@
     letter-spacing: -0.02em;
 }
 
+.highlight-cyan {
+    color: #C3F5FF;
+    text-shadow: 0 0 30px rgba(0, 200, 204, 0.4);
+}
+
 .casestudies-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
     color: rgba(186, 201, 204, 0.75);
-    max-width: 580px;
+    max-width: 540px;
     margin: 0;
 }
 
+/* Right Decorative Visual Box */
 .hero-right-col {
     display: flex;
     justify-content: flex-end;
 }
 
-.sparkle-card-box {
-    width: 120px;
-    height: 120px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+.insights-card-box {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 28px;
+    background: #C3F5FF;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 40px rgba(0, 200, 204, 0.4);
 }
 
-.sparkle-icon-wrapper {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    background-color: #00C8CC;
+.insights-icon-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 30px rgba(0, 200, 204, 0.5);
 }
 
-/* ── 2. Category Filter Bar ─────────────────────────────────────────── */
+/* ── 2. Category Filter & Navigation Bar ─────────────────────────────── */
 .filter-bar-section {
-    background-color: #060F16;
+    background-color: rgba(6, 15, 22, 0.9);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 1.25rem 0;
+    padding: 1rem 0;
+    position: sticky;
+    top: 80px;
+    z-index: 40;
 }
 
 .filter-bar-container {
@@ -104,338 +119,379 @@
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.75rem;
-    overflow-x: auto;
 }
 
-.filter-pill {
-    padding: 0.5rem 1.25rem;
+.filter-tabs-pills {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.filter-pill-btn {
+    padding: 0.5rem 1.5rem;
     border-radius: 50px;
     background-color: transparent;
-    border: 1px solid transparent;
+    border: none;
     color: rgba(186, 201, 204, 0.65);
     font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     cursor: pointer;
-    white-space: nowrap;
     transition: all 0.2s ease;
 }
 
-.filter-pill:hover {
+.filter-pill-btn:hover {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.04);
 }
 
-.filter-pill.active {
+.filter-pill-btn.active {
     background-color: #C3F5FF;
     color: #0B141C;
-    border-color: #C3F5FF;
-    font-weight: 700;
-    box-shadow: 0 0 16px rgba(0, 200, 204, 0.35);
+    box-shadow: 0 0 20px rgba(0, 200, 204, 0.35);
 }
 
-/* ── 3. Featured Case Study #042 ARTistryDesign ─────────────────────── */
-.featured-project-section {
+.filter-meta-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(186, 201, 204, 0.5);
+}
+
+/* ── 3. Featured Case Study: ARTistryDesign ─────────────────────────── */
+.featured-study-section {
     padding: 5rem 0;
     background-color: #0B141C;
 }
 
-.featured-project-container {
+.featured-study-container {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-.project-card-featured {
+.featured-study-card-new {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
-    padding: 3.5rem;
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 4rem;
-    align-items: center;
+    border-radius: 40px;
+    padding: 4rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease;
 }
 
-.featured-left-col {
+.featured-study-card-new:hover {
+    border-color: rgba(0, 200, 204, 0.3);
+    box-shadow: 0 30px 80px rgba(0, 200, 204, 0.08);
+}
+
+.featured-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* Left Mockup Image Side */
+.mockup-column {
+    position: relative;
+}
+
+.laptop-mockup-wrapper img {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6);
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.featured-study-card-new:hover .laptop-mockup-wrapper img {
+    transform: translateY(-6px);
+}
+
+.floating-rendering-badge {
+    position: absolute;
+    top: 1.5rem;
+    left: -1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(24, 32, 40, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.badge-render-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 200, 204, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Right Content Side */
+.content-column {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.project-number-badge {
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    color: #00C8CC;
-    margin-bottom: 1.25rem;
+.req-number-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
 }
 
-.featured-project-title {
+.cyan-line-indicator {
+    width: 48px;
+    height: 2px;
+    background-color: #00C8CC;
+}
+
+.case-id-text {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #C3F5FF;
+}
+
+.study-title-new {
     font-size: 3rem;
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 1.25rem 0;
-    line-height: 1.1;
+    line-height: 1.15;
 }
 
-.featured-project-desc {
-    font-size: 0.95rem;
+.study-description-new {
+    font-size: 1rem;
     line-height: 1.65;
-    color: rgba(186, 201, 204, 0.65);
+    color: rgba(186, 201, 204, 0.7);
     margin: 0 0 2rem 0;
 }
 
-.checklist-grid {
+.study-checklist-new {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-}
-
-.checklist-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: rgba(240, 246, 252, 0.9);
-}
-
-.check-box-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: rgba(0, 200, 204, 0.12);
-    border: 1px solid rgba(0, 200, 204, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.tech-badges-row {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
+    gap: 1rem;
     margin-bottom: 2.5rem;
 }
 
-.tech-badge {
+.check-item-new {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    font-size: 0.875rem;
+    color: rgba(186, 201, 204, 0.85);
+    line-height: 1.5;
+}
+
+.tech-stack-group {
+    margin-bottom: 2.5rem;
+}
+
+.tech-stack-label {
     font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    color: rgba(186, 201, 204, 0.8);
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 0.35rem 0.85rem;
-    border-radius: 8px;
+    letter-spacing: 0.15em;
+    color: rgba(186, 201, 204, 0.45);
+    margin-bottom: 0.75rem;
 }
 
-.btn-explore-case {
+.tech-pills-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.tech-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(0, 200, 204, 0.25);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #C3F5FF;
+}
+
+.btn-view-full-project {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.9rem 2.25rem;
-    border-radius: 50px;
-    background-color: #C3F5FF;
-    color: #0B141C;
-    font-size: 0.825rem;
-    font-weight: 700;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 800;
     letter-spacing: 0.08em;
+    color: #C3F5FF;
     text-decoration: none;
-    transition: all 0.25s ease;
-    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
+    transition: gap 0.25s ease;
 }
 
-.btn-explore-case:hover {
-    background-color: #00C8CC;
-    transform: translateY(-2px);
-    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
+.btn-view-full-project:hover {
+    gap: 0.9rem;
 }
 
-.featured-right-col {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.mockup-desktop-img,
-.mockup-tablet-img {
-    width: 100%;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-    object-fit: cover;
-}
-
-.mockup-tablet-frame {
-    width: 75%;
-    margin-top: -3rem;
-    margin-left: 25%;
-}
-
-/* ── 4. Secondary Projects Grid Section ────────────────────────────── */
-.secondary-projects-section {
+/* ── 4. Secondary Projects Grid ────────────────────────────────────── */
+.secondary-grid-section {
     padding: 2rem 0 6rem;
     background-color: #0B141C;
 }
 
-.secondary-projects-container {
+.secondary-grid-container {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 2rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
-.project-card-secondary {
+.secondary-project-card {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 24px;
-    padding: 2.75rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.3s ease;
+    border-radius: 32px;
+    padding: 2rem;
+    transition: all 0.35s ease;
 }
 
-.project-card-secondary:hover {
+.secondary-project-card:hover {
     background-color: rgba(255, 255, 255, 0.04);
     border-color: rgba(0, 200, 204, 0.3);
     transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
-.secondary-card-header {
-    margin-bottom: 2rem;
+.secondary-card-img-frame {
+    height: 260px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 1.75rem;
 }
 
-.secondary-number {
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    color: #00C8CC;
-    margin-bottom: 1rem;
+.secondary-card-img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+    transition: all 0.5s ease;
 }
 
-.secondary-title {
-    font-size: 2rem;
+.secondary-project-card:hover .secondary-card-img-frame img {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.sec-project-title {
+    font-size: 1.75rem;
     font-weight: 800;
     color: #ffffff;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.85rem 0;
 }
 
-.secondary-desc {
-    font-size: 0.9rem;
+.sec-project-desc {
+    font-size: 0.925rem;
     line-height: 1.6;
     color: rgba(186, 201, 204, 0.65);
-    margin: 0;
+    margin: 0 0 1.5rem 0;
 }
 
-.btn-secondary-case {
-    display: inline-flex;
-    align-items: center;
+.sec-tags-row {
+    display: flex;
     gap: 0.5rem;
-    align-self: flex-start;
-    padding: 0.8rem 1.8rem;
-    border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    transition: all 0.25s ease;
 }
 
-.btn-secondary-case:hover {
-    background-color: rgba(0, 200, 204, 0.15);
-    border-color: rgba(0, 200, 204, 0.4);
-    color: #00C8CC;
+.sec-tag-pill {
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(186, 201, 204, 0.6);
 }
 
-/* ── 5. CTA Section ────────────────────────────────────────────────── */
-.casestudies-cta-section {
+/* ── 5. Strategy Call CTA Banner ───────────────────────────────────── */
+.strategy-cta-section {
     padding: 6rem 0 8rem;
     background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
-                #0B141C;
+                #060F16;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.casestudies-cta-container {
-    max-width: 850px;
+.strategy-cta-container {
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-.casestudies-cta-title {
-    font-size: 2.75rem;
+.strategy-cta-title {
+    font-size: 3rem;
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 1.25rem 0;
-    line-height: 1.2;
 }
 
-.casestudies-cta-subtitle {
+.strategy-cta-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(186, 201, 204, 0.7);
-    margin: 0 0 2.5rem 0;
+    color: rgba(186, 201, 204, 0.75);
+    margin: 0 0 3rem 0;
 }
 
-.casestudies-cta-buttons {
+.strategy-cta-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1.25rem;
 }
 
-.btn-cta-primary-pill {
+.btn-strategy-primary {
     display: inline-flex;
     align-items: center;
-    padding: 0.9rem 2.25rem;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
     background-color: #C3F5FF;
     color: #0B141C;
     font-size: 0.825rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
     box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
-.btn-cta-primary-pill:hover {
+.btn-strategy-primary:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
     box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
-.btn-cta-secondary-pill {
+.btn-strategy-secondary {
     display: inline-flex;
     align-items: center;
-    padding: 0.9rem 2.25rem;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid rgba(0, 200, 204, 0.4);
+    color: #C3F5FF;
     font-size: 0.825rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
 }
 
-.btn-cta-secondary-pill:hover {
-    background-color: rgba(255, 255, 255, 0.08);
+.btn-strategy-secondary:hover {
+    background-color: rgba(0, 200, 204, 0.08);
     transform: translateY(-2px);
 }
 
@@ -444,10 +500,10 @@
     .casestudies-hero-container {
         grid-template-columns: 1fr;
     }
-    .project-card-featured {
+    .featured-card-grid {
         grid-template-columns: 1fr;
     }
-    .secondary-projects-container {
+    .secondary-grid-container {
         grid-template-columns: 1fr;
     }
     .casestudies-headline {
@@ -456,10 +512,17 @@
 }
 
 @media (max-width: 640px) {
+    .filter-bar-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .strategy-cta-buttons {
+        flex-direction: column;
+    }
     .casestudies-headline {
         font-size: 2.25rem;
     }
-    .casestudies-cta-title {
+    .strategy-cta-title {
         font-size: 2rem;
     }
 }

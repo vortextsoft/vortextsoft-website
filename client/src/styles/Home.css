@@ -1,4 +1,4 @@
-/* Home.css — Exact Vector Match for Home - Vortextsoft.svg */
+/* Home.css — Exact Custom Design Match for User HTML */
 
 .home-page-new {
     background-color: #0B141C;
@@ -10,7 +10,7 @@
 /* ── 1. Hero Section ────────────────────────────────────────────────── */
 .hero-section-new {
     padding: 7rem 0 5rem;
-    background: radial-gradient(ellipse 65% 55% at 75% 35%, rgba(0, 200, 204, 0.09) 0%, transparent 70%),
+    background: radial-gradient(ellipse 65% 55% at 75% 35%, rgba(0, 200, 204, 0.1) 0%, transparent 70%),
                 linear-gradient(180deg, #0B141C 0%, #060F16 100%);
     position: relative;
 }
@@ -53,6 +53,7 @@
     border-radius: 50%;
     background-color: #00C8CC;
     box-shadow: 0 0 8px #00C8CC;
+    animation: pulse 2s infinite ease-in-out;
 }
 
 .hero-headline {
@@ -140,7 +141,7 @@
     height: 420px;
     background: radial-gradient(circle at 50% 40%, rgba(0, 200, 204, 0.18) 0%, rgba(6, 15, 22, 0.95) 75%);
     border: 1px solid rgba(0, 200, 204, 0.25);
-    border-radius: 24px;
+    border-radius: 28px;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -170,7 +171,7 @@
     border-radius: 50%;
     background-color: #00C8CC;
     box-shadow: 0 0 10px #00C8CC;
-    animation: pulseGlow 2s infinite ease-in-out;
+    animation: pulse 2s infinite ease-in-out;
 }
 
 .hologram-orb-container {
@@ -239,11 +240,6 @@
     to { transform: rotate(0deg); }
 }
 
-@keyframes pulseGlow {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-
 /* ── 2. Tech Stack Marquee Band ─────────────────────────────────────── */
 .tech-ticker-section {
     background-color: #060F16;
@@ -298,7 +294,7 @@
 .stat-card-new {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 2.25rem 1.75rem;
     position: relative;
     overflow: hidden;
@@ -331,6 +327,11 @@
     opacity: 0.03;
     color: #ffffff;
     pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.stat-card-new:hover .watermark-icon {
+    opacity: 0.08;
 }
 
 .stat-number {
@@ -354,12 +355,17 @@
     height: 3px;
     background-color: #00C8CC;
     border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+.stat-card-new:hover .stat-underline {
+    width: 100%;
 }
 
 /* ── 4. Featured Case Study Section ────────────────────────────────── */
 .featured-case-section {
     padding: 4rem 0 7rem;
-    background-color: #0B141C;
+    background-color: #060F16;
 }
 
 .featured-case-container {
@@ -390,11 +396,11 @@
 .featured-case-card {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
-    padding: 3.5rem;
+    border-radius: 36px;
+    padding: 4rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3.5rem;
+    gap: 4rem;
     align-items: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
@@ -417,7 +423,7 @@
 }
 
 .case-title {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 1.25rem 0;
@@ -435,7 +441,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.8rem 1.8rem;
+    padding: 0.9rem 2rem;
     border-radius: 50px;
     background-color: #C3F5FF;
     color: #0B141C;
@@ -473,9 +479,14 @@
     width: 75%;
     margin-top: -3rem;
     margin-left: 25%;
+    transition: transform 0.4s ease;
 }
 
-/* ── 5. CTA Banner Section ──────────────────────────────────────────── */
+.featured-case-card:hover .tablet-mockup-frame {
+    transform: translateY(-8px);
+}
+
+/* ── 5. CTA Section ────────────────────────────────────────────────── */
 .cta-banner-new {
     padding: 6rem 0 8rem;
     background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),

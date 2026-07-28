@@ -1,4 +1,4 @@
-/* Contact.css — Exact Vector Match for Contact Us - Vortextsoft.svg */
+/* Contact.css — Custom Design Match for User HTML */
 
 .contact-page-new {
     background-color: #0B141C;
@@ -7,12 +7,13 @@
     overflow-x: hidden;
 }
 
-/* ── 1. Contact Hero Section ────────────────────────────────────────── */
+/* ── 1. Hero Section ────────────────────────────────────────────────── */
 .contact-hero-new {
     padding: 7rem 0 5rem;
-    background: radial-gradient(ellipse 60% 50% at 85% 30%, rgba(0, 200, 204, 0.09) 0%, transparent 70%),
+    background: radial-gradient(ellipse 65% 55% at 85% 30%, rgba(0, 200, 204, 0.1) 0%, transparent 70%),
                 linear-gradient(180deg, #0B141C 0%, #060F16 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
 }
 
 .contact-hero-container {
@@ -47,6 +48,15 @@
     backdrop-filter: blur(8px);
 }
 
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #00C8CC;
+    box-shadow: 0 0 8px #00C8CC;
+    animation: pulse 2s infinite ease-in-out;
+}
+
 .contact-headline {
     font-size: 3.85rem;
     font-weight: 800;
@@ -54,6 +64,12 @@
     color: #ffffff;
     margin: 0 0 1.5rem 0;
     letter-spacing: -0.02em;
+}
+
+.highlight-gradient {
+    background: linear-gradient(90deg, #C3F5FF 0%, #00C8CC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .contact-subtitle {
@@ -70,169 +86,138 @@
     gap: 0.5rem;
     padding: 0.9rem 2.25rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #ffffff;
+    background-color: #C3F5FF;
+    border: none;
+    color: #0B141C;
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.08em;
     cursor: pointer;
     transition: all 0.25s ease;
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
 .btn-schedule-hero:hover {
-    background-color: rgba(0, 200, 204, 0.15);
-    border-color: rgba(0, 200, 204, 0.4);
-    color: #00C8CC;
+    background-color: #00C8CC;
+    transform: translateY(-2px);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
-/* Right Floating Response Time Visual Card */
+/* Right Floating Response Time Box Visual */
 .contact-hero-right {
     display: flex;
     justify-content: flex-end;
 }
 
-.response-time-card {
+.response-card-box {
     position: relative;
     width: 100%;
-    max-width: 440px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    padding: 2.5rem;
+    max-width: 480px;
+    height: 420px;
+    border-radius: 40px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
-.card-mockup-header {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 2rem;
+.contact-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: transform 0.7s ease;
 }
 
-.card-mockup-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #00C8CC;
-    box-shadow: 0 0 10px #00C8CC;
+.response-card-box:hover .contact-hero-img {
+    transform: scale(1.05);
 }
 
-.card-mockup-title {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: rgba(186, 201, 204, 0.55);
+.contact-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, #0B141C 100%);
 }
 
-.card-mockup-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-}
-
-.mockup-line {
-    height: 10px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.line-wide { width: 90%; }
-.line-mid { width: 70%; }
-.line-short { width: 45%; }
-
-.response-time-badge {
+.floating-response-badge {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem 1.5rem;
-    background: rgba(6, 15, 22, 0.95);
-    border: 1px solid rgba(0, 200, 204, 0.35);
-    border-radius: 16px;
-    backdrop-filter: blur(12px);
+    padding: 1.25rem 1.5rem;
+    background: rgba(24, 32, 40, 0.85);
+    border: 1px solid rgba(0, 200, 204, 0.3);
+    border-radius: 20px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 
-.response-icon {
-    width: 40px;
-    height: 40px;
+.response-icon-circle {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background-color: #00C8CC;
+    background: rgba(0, 200, 204, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 16px rgba(0, 200, 204, 0.4);
 }
 
-.response-text {
+.response-text-group {
     display: flex;
     flex-direction: column;
 }
 
 .response-label {
     font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(186, 201, 204, 0.55);
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #C3F5FF;
 }
 
-.response-value {
-    font-size: 1.15rem;
+.response-time {
+    font-size: 1.5rem;
     font-weight: 800;
     color: #ffffff;
+    letter-spacing: -0.02em;
 }
 
-/* ── 2. Form & Headquarters Grid Section ───────────────────────────── */
+/* ── 2. Contact Grid (Form + Details) ───────────────────────────────── */
 .contact-grid-section {
     padding: 6rem 0;
-    background-color: #0B141C;
+    background-color: #060F16;
 }
 
 .contact-grid-container {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 4rem;
-    align-items: start;
 }
 
-.contact-form-card {
+.grid-2col-layout {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 4rem;
+}
+
+/* Left Form Column Card */
+.form-column-card {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
+    border-radius: 32px;
     padding: 3.5rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
-.form-card-title {
+.column-title-new {
     font-size: 2.25rem;
     font-weight: 800;
     color: #ffffff;
-    margin: 0 0 2rem 0;
+    margin: 0 0 2.5rem 0;
 }
 
-.form-status-alert {
-    padding: 1rem 1.25rem;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    margin-bottom: 1.5rem;
-}
-
-.form-status-alert.success {
-    background: rgba(0, 200, 204, 0.12);
-    border: 1px solid rgba(0, 200, 204, 0.3);
-    color: #00C8CC;
-}
-
-.form-status-alert.error {
-    background: rgba(239, 68, 68, 0.12);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #f87171;
-}
-
-.contact-form-new {
+.contact-form-elements {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -240,287 +225,354 @@
 
 .form-row-2col {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
 }
 
-.form-field label {
-    display: block;
+.form-group-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group-item label {
     font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(186, 201, 204, 0.55);
-    margin-bottom: 0.6rem;
+    letter-spacing: 0.12em;
+    color: rgba(186, 201, 204, 0.6);
 }
 
-.form-field input,
-.form-field textarea {
+.form-group-item input,
+.form-group-item textarea,
+.form-group-item select {
     width: 100%;
-    padding: 0.85rem 1.1rem;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
     background-color: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
     color: #ffffff;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.form-field input:focus,
-.form-field textarea:focus {
+.form-group-item input:focus,
+.form-group-item textarea:focus,
+.form-group-item select:focus {
     border-color: #00C8CC;
+    background-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 16px rgba(0, 200, 204, 0.2);
 }
 
-.btn-submit-connection {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+.form-status-alert {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.form-status-alert.success {
+    background-color: rgba(0, 200, 204, 0.12);
+    border: 1px solid rgba(0, 200, 204, 0.4);
+    color: #C3F5FF;
+}
+
+.form-status-alert.error {
+    background-color: rgba(255, 100, 100, 0.12);
+    border: 1px solid rgba(255, 100, 100, 0.4);
+    color: #ff9999;
+}
+
+.btn-initiate-connection {
     width: 100%;
-    padding: 1rem 2rem;
-    border-radius: 50px;
+    padding: 1.15rem;
+    border-radius: 14px;
     background-color: #C3F5FF;
     border: none;
     color: #0B141C;
     font-size: 0.825rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     transition: all 0.25s ease;
     box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
     margin-top: 0.5rem;
 }
 
-.btn-submit-connection:hover {
+.btn-initiate-connection:hover:not(:disabled) {
     background-color: #00C8CC;
     transform: translateY(-2px);
     box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
-/* Headquarters Column */
-.headquarters-column {
+/* Right Details Side */
+.details-column-side {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    justify-content: space-between;
 }
 
-.headquarters-title {
-    font-size: 2.25rem;
+.details-heading-new {
+    font-size: 1.85rem;
     font-weight: 800;
     color: #ffffff;
-    margin: 0;
+    margin: 0 0 2rem 0;
 }
 
-.hq-info-item {
+.headquarters-card-item {
     display: flex;
-    align-items: flex-start;
-    gap: 1.25rem;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 2rem;
+    transition: background-color 0.2s ease;
 }
 
-.hq-icon-box {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: rgba(0, 200, 204, 0.08);
-    border: 1px solid rgba(0, 200, 204, 0.2);
+.headquarters-card-item:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.detail-icon-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
 }
 
-.hq-info-text h3 {
+.location-name {
     font-size: 1.25rem;
     font-weight: 700;
     color: #ffffff;
-    margin: 0 0 0.35rem 0;
+    margin: 0 0 0.4rem 0;
 }
 
-.hq-info-text p {
-    font-size: 0.875rem;
-    line-height: 1.55;
-    color: rgba(186, 201, 204, 0.65);
+.location-address {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(186, 201, 204, 0.7);
     margin: 0;
 }
 
-.hq-label {
-    display: block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(186, 201, 204, 0.5);
-    margin-bottom: 0.3rem;
+.contact-methods-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
 }
 
-.hq-value {
-    font-size: 1.1rem;
+.contact-method-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background-color 0.2s ease;
+}
+
+.contact-method-card:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.method-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #C3F5FF;
+    margin-bottom: 0.25rem;
+}
+
+.method-value {
+    font-size: 1.05rem;
     font-weight: 700;
     color: #ffffff;
     text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.hq-value:hover {
-    color: #00C8CC;
 }
 
 .regional-hubs-box {
+    padding: 2rem;
+    border-radius: 24px;
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 18px;
-    padding: 1.75rem;
-    margin-top: 1rem;
 }
 
 .hubs-label {
     font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    font-weight: 800;
+    letter-spacing: 0.18em;
     color: rgba(186, 201, 204, 0.5);
     margin-bottom: 1rem;
 }
 
-.hubs-badges {
+.hubs-pills-row {
     display: flex;
-    gap: 0.65rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
 }
 
-.hub-badge {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(186, 201, 204, 0.85);
+.hub-pill {
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
     background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 0.4rem 1rem;
-    border-radius: 8px;
-}
-
-/* ── 3. Digital Command Center Map Section ──────────────────────────── */
-.command-center-section {
-    padding: 0 0 6rem;
-    background-color: #0B141C;
-}
-
-.command-center-container {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.map-frame {
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffffff;
 }
 
-.map-frame iframe {
-    filter: invert(90%) hue-rotate(180deg) contrast(120%);
-    display: block;
+/* ── 3. Digital Command Center Map Section ───────────────────────────── */
+.command-map-section {
+    height: 480px;
+    background-color: #0B141C;
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.map-overlay-badge {
-    position: absolute;
-    bottom: 1.5rem;
-    left: 1.5rem;
+.command-map-frame {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 200, 204, 0.12) 0%, rgba(6, 15, 22, 0.95) 80%),
+                url('/casestudies-hero.png') center/cover no-repeat;
+    opacity: 0.65;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 3rem;
+}
+
+.map-badge-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.6rem 1.25rem;
-    background: rgba(6, 15, 22, 0.95);
-    border: 1px solid rgba(0, 200, 204, 0.35);
+    gap: 0.65rem;
+    padding: 0.85rem 2.25rem;
     border-radius: 50px;
+    background: rgba(11, 20, 28, 0.9);
+    border: 1px solid rgba(0, 200, 204, 0.35);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
     font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-weight: 800;
+    letter-spacing: 0.15em;
     color: #ffffff;
-    backdrop-filter: blur(12px);
 }
 
-/* ── 4. Instant Technical Documentation CTA Section ──────────────────── */
-.docs-cta-section {
+/* ── 4. Technical Documentation CTA Section ─────────────────────────── */
+.doc-cta-section {
     padding: 6rem 0 8rem;
-    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
-                #0B141C;
+    background-color: #060F16;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.docs-cta-container {
-    max-width: 850px;
+.doc-cta-container {
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-.docs-cta-title {
-    font-size: 2.75rem;
+.doc-cta-title {
+    font-size: 2.5rem;
     font-weight: 800;
     color: #ffffff;
-    margin: 0 0 1.25rem 0;
-    line-height: 1.2;
+    margin: 0 0 1rem 0;
 }
 
-.docs-cta-subtitle {
-    font-size: 1.05rem;
-    line-height: 1.65;
+.doc-cta-subtitle {
+    font-size: 1rem;
+    line-height: 1.6;
     color: rgba(186, 201, 204, 0.7);
     margin: 0 0 2.5rem 0;
 }
 
-.docs-cta-buttons {
+.doc-cta-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1.25rem;
 }
 
-.btn-docs-secondary {
+.btn-doc-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     padding: 0.9rem 2.25rem;
-    border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: #ffffff;
     font-size: 0.825rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
+    font-weight: 700;
     text-decoration: none;
     transition: all 0.25s ease;
 }
 
-.btn-docs-secondary:hover {
+.btn-doc-link:hover {
     background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(0, 200, 204, 0.3);
-    color: #00C8CC;
+    border-color: rgba(0, 200, 204, 0.4);
     transform: translateY(-2px);
 }
 
-/* Modal */
-.meeting-modal-overlay {
+/* Modal Styles */
+.modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
-    z-index: 2000;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 100;
+    padding: 1.5rem;
 }
 
-.meeting-modal-content {
-    background-color: #0A0F18;
+.modal-content {
+    background-color: #141c24;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 24px;
-    width: 90%;
-    max-width: 520px;
+    border-radius: 28px;
     padding: 2.5rem;
+    max-width: 540px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.modal-header h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: rgba(186, 201, 204, 0.6);
+    cursor: pointer;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
 }
 
 /* Responsive Media Queries */
@@ -528,7 +580,7 @@
     .contact-hero-container {
         grid-template-columns: 1fr;
     }
-    .contact-grid-container {
+    .grid-2col-layout {
         grid-template-columns: 1fr;
     }
     .contact-headline {
@@ -540,13 +592,13 @@
     .form-row-2col {
         grid-template-columns: 1fr;
     }
+    .doc-cta-buttons {
+        flex-direction: column;
+    }
     .contact-headline {
         font-size: 2.25rem;
     }
-    .docs-cta-title {
+    .doc-cta-title {
         font-size: 2rem;
-    }
-    .docs-cta-buttons {
-        flex-direction: column;
     }
 }

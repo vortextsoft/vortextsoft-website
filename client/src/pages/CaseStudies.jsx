@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, CheckCircle2, Sparkles, Filter } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Filter, TrendingUp, Cpu, Box, Sparkles, Layers } from 'lucide-react';
 import { api } from '../api';
 import SEO from '../components/SEO';
 import '../styles/CaseStudies.css';
@@ -65,7 +65,7 @@ const CaseStudies = () => {
                         <div className="hero-left-col">
                             <div className="casestudies-badge">
                                 <span className="badge-dot"></span>
-                                PORTFOLIO & OUTCOMES
+                                PORTFOLIO &amp; OUTCOMES
                             </div>
                             <h1 className="casestudies-headline">
                                 Success Stories:<br />
@@ -77,100 +77,103 @@ const CaseStudies = () => {
                             </p>
                         </div>
 
-                        {/* Right Sparkle Card */}
+                        {/* Right Decorative Isometric Visual Box */}
                         <div className="hero-right-col">
-                            <div className="sparkle-card-box">
-                                <div className="sparkle-icon-wrapper">
-                                    <Sparkles size={32} color="#010409" />
+                            <div className="insights-card-box">
+                                <div className="insights-icon-wrapper">
+                                    <TrendingUp size={36} color="#0B141C" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── 2. Category Filter Bar ── */}
+                {/* ── 2. Category Filter & Navigation Bar ── */}
                 <section className="filter-bar-section" aria-label="Project Filter Categories">
                     <div className="filter-bar-container">
-                        <div className="filter-tabs">
+                        <div className="filter-tabs-pills">
                             {CATEGORIES.map(cat => (
                                 <button
                                     key={cat}
-                                    className={`filter-pill ${activeCategory === cat ? 'active' : ''}`}
+                                    className={`filter-pill-btn ${activeCategory === cat ? 'active' : ''}`}
                                     onClick={() => setActiveCategory(cat)}
                                 >
                                     [{cat}]
                                 </button>
                             ))}
                         </div>
-                        <div className="filter-count">
-                            <Filter size={14} style={{ marginRight: '6px' }} />
-                            FILTERING {filteredProjects.length} PROJECTS
+
+                        <div className="filter-meta-info">
+                            <Filter size={14} color="rgba(186,201,204,0.6)" />
+                            <span>FILTERING {filteredProjects.length + 1} PROJECTS</span>
                         </div>
                     </div>
                 </section>
 
-                {/* ── 3. Featured Case Study Card (#042 ARTistryDesign) ── */}
-                <section className="featured-project-section" aria-labelledby="featured-project-heading">
-                    <div className="featured-project-container">
-                        <div className="project-card-featured">
-                            {/* Left Text Column */}
-                            <div className="featured-left-col">
-                                <div className="project-number-badge">#042 // FEATURED SYSTEM</div>
-                                <h2 id="featured-project-heading" className="featured-project-title">
-                                    ARTistryDesign Ecosystem
-                                </h2>
-                                <p className="featured-project-desc">
-                                    A comprehensive design management and 3D visualization platform engineered for high-end global architecture firms. Integrates real-time cloud collaboration, BIM data parsing, and automated asset rendering.
-                                </p>
-
-                                <div className="checklist-grid">
-                                    <div className="checklist-item">
-                                        <div className="check-box-icon">
-                                            <CheckCircle2 size={14} color="#00C8CC" />
-                                        </div>
-                                        <span>Real-time Multi-user 3D Viewport Synchronization</span>
+                {/* ── 3. Featured Case Study: ARTistryDesign ── */}
+                <section className="featured-study-section" aria-labelledby="featured-study-heading">
+                    <div className="featured-study-container">
+                        <div className="featured-study-card-new">
+                            <div className="featured-card-grid">
+                                {/* Left Mockup Image Side */}
+                                <div className="mockup-column">
+                                    <div className="laptop-mockup-wrapper">
+                                        <img
+                                            src="/corporate-team-formal.png"
+                                            alt="ARTistryDesign 3D Interior Design Workstation Platform"
+                                            loading="lazy"
+                                        />
                                     </div>
-                                    <div className="checklist-item">
-                                        <div className="check-box-icon">
-                                            <CheckCircle2 size={14} color="#00C8CC" />
+                                    {/* Floating 3D Rendering Badge */}
+                                    <div className="floating-rendering-badge">
+                                        <div className="badge-render-icon">
+                                            <Box size={16} color="#00C8CC" />
                                         </div>
-                                        <span>Automated WebGL Shader Pipeline Optimization</span>
-                                    </div>
-                                    <div className="checklist-item">
-                                        <div className="check-box-icon">
-                                            <CheckCircle2 size={14} color="#00C8CC" />
-                                        </div>
-                                        <span>Enterprise Role-based Permissions & Audit Logs</span>
+                                        <span>3D Rendering Engaged</span>
                                     </div>
                                 </div>
 
-                                <div className="tech-badges-row">
-                                    <span className="tech-badge">REACT.JS</span>
-                                    <span className="tech-badge">THREE.JS</span>
-                                    <span className="tech-badge">NODE.JS</span>
-                                    <span className="tech-badge">AWS</span>
-                                </div>
+                                {/* Right Content Description Side */}
+                                <div className="content-column">
+                                    <div className="req-number-row">
+                                        <div className="cyan-line-indicator"></div>
+                                        <span className="case-id-text">CASE STUDY #042</span>
+                                    </div>
+                                    <h2 id="featured-study-heading" className="study-title-new">
+                                        ARTistryDesign
+                                    </h2>
+                                    <p className="study-description-new">
+                                        A revolutionary interior design platform enabling customers to visualize decoration items with 3D models in their real space before purchasing, featuring precise placement and resizing.
+                                    </p>
 
-                                <Link to="/contact" className="btn-explore-case" id="casestudies-featured-cta">
-                                    VIEW CASE STUDY <ArrowUpRight size={18} />
-                                </Link>
-                            </div>
+                                    <div className="study-checklist-new">
+                                        <div className="check-item-new">
+                                            <CheckCircle2 size={16} color="#00C8CC" />
+                                            <span>3D model placing of decoration items on the floor and wall with millimetric precision.</span>
+                                        </div>
+                                        <div className="check-item-new">
+                                            <CheckCircle2 size={16} color="#00C8CC" />
+                                            <span>Model resizing, rotation, and texture switching for bespoke visualization.</span>
+                                        </div>
+                                        <div className="check-item-new">
+                                            <CheckCircle2 size={16} color="#00C8CC" />
+                                            <span>User-friendly Admin panel for rapid 3D asset deployment and analytics tracking.</span>
+                                        </div>
+                                    </div>
 
-                            {/* Right Image Visuals Column */}
-                            <div className="featured-right-col">
-                                <img
-                                    className="mockup-desktop-img"
-                                    src="/corporate-team-formal.png"
-                                    alt="ARTistryDesign Desktop Dashboard Interface"
-                                    loading="lazy"
-                                />
-                                <div className="mockup-tablet-frame">
-                                    <img
-                                        className="mockup-tablet-img"
-                                        src="/casestudies-hero.png"
-                                        alt="ARTistryDesign Tablet Interface"
-                                        loading="lazy"
-                                    />
+                                    <div className="tech-stack-group">
+                                        <div className="tech-stack-label">TECH STACK</div>
+                                        <div className="tech-pills-row">
+                                            <span className="tech-pill">[Three.js]</span>
+                                            <span className="tech-pill">[WebGL]</span>
+                                            <span className="tech-pill">[React]</span>
+                                            <span className="tech-pill">[Node.js]</span>
+                                        </div>
+                                    </div>
+
+                                    <a href="#view-project" className="btn-view-full-project">
+                                        VIEW FULL PROJECT <ArrowUpRight size={18} />
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -178,43 +181,46 @@ const CaseStudies = () => {
                 </section>
 
                 {/* ── 4. Secondary Projects Grid ── */}
-                <section className="secondary-projects-section" aria-label="Secondary Project Case Studies">
-                    <div className="secondary-projects-container">
-                        {filteredProjects.map((project, index) => (
-                            <div key={project.id || index} className="project-card-secondary">
-                                <div className="secondary-card-header">
-                                    <div className="secondary-number">#{String(index + 40).padStart(3, '0')} // PROJECT</div>
-                                    <h3 className="secondary-title">{project.title}</h3>
-                                    <p className="secondary-desc">{project.description}</p>
+                <section className="secondary-grid-section" aria-label="Secondary Enterprise Case Studies">
+                    <div className="secondary-grid-container">
+                        {filteredProjects.map((project) => (
+                            <div key={project.id} className="secondary-project-card">
+                                <div className="secondary-card-img-frame">
+                                    <img
+                                        src={project.image || '/casestudies-hero.png'}
+                                        alt={project.title}
+                                        loading="lazy"
+                                    />
                                 </div>
-                                <div className="tech-badges-row">
-                                    {(project.tags || []).map(t => (
-                                        <span key={t} className="tech-badge">{t}</span>
-                                    ))}
+                                <div className="secondary-card-body">
+                                    <h3 className="sec-project-title">{project.title}</h3>
+                                    <p className="sec-project-desc">{project.description}</p>
+                                    <div className="sec-tags-row">
+                                        {(project.tags || [project.category || '#ENTERPRISE']).map((t, idx) => (
+                                            <span key={idx} className="sec-tag-pill">{t}</span>
+                                        ))}
+                                    </div>
                                 </div>
-                                <Link to="/contact" className="btn-secondary-case">
-                                    EXPLORE <ArrowUpRight size={16} />
-                                </Link>
                             </div>
                         ))}
                     </div>
                 </section>
 
-                {/* ── 5. Enterprise CTA Banner Section ── */}
-                <section className="casestudies-cta-section" aria-labelledby="cs-cta-heading">
-                    <div className="casestudies-cta-container">
-                        <h2 id="cs-cta-heading" className="casestudies-cta-title">
-                            Have a Project in Mind?
+                {/* ── 5. Strategy Call CTA Banner ── */}
+                <section className="strategy-cta-section" aria-labelledby="strategy-cta-heading">
+                    <div className="strategy-cta-container">
+                        <h2 id="strategy-cta-heading" className="strategy-cta-title">
+                            Ready to Build Your Success Story?
                         </h2>
-                        <p className="casestudies-cta-subtitle">
-                            Let's build software that drives real business metrics. Our senior engineering team is ready to analyze your codebase or blueprint your new platform.
+                        <p className="strategy-cta-subtitle">
+                            Let's combine your industry expertise with our precision engineering to create something world-class.
                         </p>
-                        <div className="casestudies-cta-buttons">
-                            <Link to="/contact" className="btn-cta-primary-pill" id="cs-cta-get-in-touch">
-                                Get in Touch
+                        <div className="strategy-cta-buttons">
+                            <Link to="/contact" className="btn-strategy-primary">
+                                BOOK A STRATEGY CALL
                             </Link>
-                            <Link to="/contact" className="btn-cta-secondary-pill" id="cs-cta-schedule">
-                                Schedule Consultation
+                            <Link to="/services" className="btn-strategy-secondary">
+                                EXPLORE SERVICES
                             </Link>
                         </div>
                     </div>
