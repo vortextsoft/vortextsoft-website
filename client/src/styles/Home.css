@@ -1,7 +1,7 @@
-/* Home.css — Redesigned Theme for Home - Vortextsoft.png */
+/* Home.css — Exact Vector Match for Home - Vortextsoft.svg */
 
 .home-page-new {
-    background-color: #06090e;
+    background-color: #0B141C;
     color: #ffffff;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
@@ -9,9 +9,9 @@
 
 /* ── 1. Hero Section ────────────────────────────────────────────────── */
 .hero-section-new {
-    padding: 6rem 0 5rem;
-    background: radial-gradient(ellipse 60% 50% at 75% 40%, rgba(0, 200, 204, 0.07) 0%, transparent 70%),
-                linear-gradient(180deg, #06090e 0%, #030508 100%);
+    padding: 7rem 0 5rem;
+    background: radial-gradient(ellipse 65% 55% at 75% 35%, rgba(0, 200, 204, 0.09) 0%, transparent 70%),
+                linear-gradient(180deg, #0B141C 0%, #060F16 100%);
     position: relative;
 }
 
@@ -37,12 +37,12 @@
     gap: 0.5rem;
     padding: 0.4rem 1rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(195, 245, 255, 0.08);
+    border: 1px solid rgba(195, 245, 255, 0.18);
     font-size: 0.7rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.85);
+    letter-spacing: 0.12em;
+    color: #C3F5FF;
     margin-bottom: 2rem;
     backdrop-filter: blur(8px);
 }
@@ -56,7 +56,7 @@
 }
 
 .hero-headline {
-    font-size: 3.75rem;
+    font-size: 3.85rem;
     font-weight: 800;
     line-height: 1.1;
     color: #ffffff;
@@ -66,13 +66,13 @@
 
 .highlight-cyan {
     color: #00C8CC;
-    text-shadow: 0 0 30px rgba(0, 200, 204, 0.35);
+    text-shadow: 0 0 32px rgba(0, 200, 204, 0.4);
 }
 
 .hero-description {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.75);
     max-width: 520px;
     margin: 0 0 2.5rem 0;
 }
@@ -88,35 +88,35 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    color: #010409;
-    font-size: 0.85rem;
+    background-color: #C3F5FF;
+    color: #0B141C;
+    font-size: 0.825rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
-    box-shadow: 0 0 24px rgba(0, 200, 204, 0.3);
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
 .btn-hero-primary:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
-    box-shadow: 0 0 36px rgba(0, 200, 204, 0.5);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
 .btn-hero-secondary {
     display: inline-flex;
     align-items: center;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
     background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #ffffff;
-    font-size: 0.85rem;
+    font-size: 0.825rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
     backdrop-filter: blur(8px);
@@ -138,8 +138,8 @@
     width: 100%;
     max-width: 520px;
     height: 420px;
-    background: radial-gradient(circle at 50% 40%, rgba(0, 200, 204, 0.15) 0%, rgba(6, 9, 14, 0.95) 75%);
-    border: 1px solid rgba(0, 200, 204, 0.2);
+    background: radial-gradient(circle at 50% 40%, rgba(0, 200, 204, 0.18) 0%, rgba(6, 15, 22, 0.95) 75%);
+    border: 1px solid rgba(0, 200, 204, 0.25);
     border-radius: 24px;
     padding: 1.5rem;
     display: flex;
@@ -161,7 +161,7 @@
     font-size: 0.7rem;
     font-weight: 800;
     letter-spacing: 0.15em;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(186, 201, 204, 0.5);
 }
 
 .status-dot {
@@ -246,7 +246,7 @@
 
 /* ── 2. Tech Stack Marquee Band ─────────────────────────────────────── */
 .tech-ticker-section {
-    background-color: #030508;
+    background-color: #060F16;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     padding: 1.25rem 0;
@@ -271,8 +271,8 @@
     gap: 0.6rem;
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.6);
+    letter-spacing: 0.12em;
+    color: rgba(186, 201, 204, 0.65);
 }
 
 @keyframes tickerScroll {
@@ -283,7 +283,7 @@
 /* ── 3. Metrics / Key Stats Section ────────────────────────────────── */
 .stats-section-new {
     padding: 6rem 0;
-    background-color: #06090e;
+    background-color: #0B141C;
 }
 
 .stats-container-new {
@@ -345,7 +345,7 @@
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.55);
+    color: rgba(186, 201, 204, 0.6);
     margin-bottom: 1rem;
 }
 
@@ -359,7 +359,7 @@
 /* ── 4. Featured Case Study Section ────────────────────────────────── */
 .featured-case-section {
     padding: 4rem 0 7rem;
-    background-color: #06090e;
+    background-color: #0B141C;
 }
 
 .featured-case-container {
@@ -372,7 +372,7 @@
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.15em;
-    color: rgba(240, 246, 252, 0.5);
+    color: rgba(186, 201, 204, 0.5);
     margin-bottom: 0.5rem;
 }
 
@@ -409,7 +409,7 @@
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    color: rgba(240, 246, 252, 0.7);
+    color: rgba(186, 201, 204, 0.75);
     background-color: rgba(255, 255, 255, 0.06);
     padding: 0.35rem 0.85rem;
     border-radius: 50px;
@@ -427,7 +427,7 @@
 .case-description {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.65);
     margin: 0 0 2rem 0;
 }
 
@@ -437,11 +437,11 @@
     gap: 0.5rem;
     padding: 0.8rem 1.8rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    color: #010409;
+    background-color: #C3F5FF;
+    color: #0B141C;
     font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
     box-shadow: 0 0 20px rgba(0, 200, 204, 0.3);
@@ -479,7 +479,7 @@
 .cta-banner-new {
     padding: 6rem 0 8rem;
     background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
-                #06090e;
+                #0B141C;
     text-align: center;
 }
 
@@ -508,8 +508,8 @@
     align-items: center;
     padding: 0.9rem 2.25rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    color: #010409;
+    background-color: #C3F5FF;
+    color: #0B141C;
     font-size: 0.85rem;
     font-weight: 700;
     text-decoration: none;

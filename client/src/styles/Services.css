@@ -1,7 +1,7 @@
-/* Services.css — Redesigned Theme for Services - Vortextsoft.png */
+/* Services.css — Exact Vector Match for Services - Vortextsoft.svg */
 
 .services-page-new {
-    background-color: #06090e;
+    background-color: #0B141C;
     color: #ffffff;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
@@ -10,8 +10,8 @@
 /* ── 1. Services Hero Section ───────────────────────────────────────── */
 .services-hero-new {
     padding: 7rem 0 5rem;
-    background: radial-gradient(ellipse 70% 60% at 80% 20%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
-                linear-gradient(180deg, #06090e 0%, #030508 100%);
+    background: radial-gradient(ellipse 70% 60% at 80% 20%, rgba(0, 200, 204, 0.09) 0%, transparent 75%),
+                linear-gradient(180deg, #0B141C 0%, #060F16 100%);
     position: relative;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -31,18 +31,18 @@
     gap: 0.5rem;
     padding: 0.4rem 1rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(195, 245, 255, 0.08);
+    border: 1px solid rgba(195, 245, 255, 0.18);
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.85);
+    color: #C3F5FF;
     margin-bottom: 2rem;
     backdrop-filter: blur(8px);
 }
 
 .services-hero-title {
-    font-size: 3.75rem;
+    font-size: 3.85rem;
     font-weight: 800;
     line-height: 1.1;
     color: #ffffff;
@@ -53,13 +53,13 @@
 .title-italic-cyan {
     font-style: italic;
     color: #00C8CC;
-    text-shadow: 0 0 30px rgba(0, 200, 204, 0.35);
+    text-shadow: 0 0 32px rgba(0, 200, 204, 0.4);
 }
 
 .services-hero-subtitle {
     font-size: 1.05rem;
     line-height: 1.7;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.75);
     max-width: 680px;
     margin: 0 0 2.5rem 0;
 }
@@ -75,28 +75,28 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    color: #010409;
+    background-color: #C3F5FF;
+    color: #0B141C;
     font-size: 0.825rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
-    box-shadow: 0 0 24px rgba(0, 200, 204, 0.3);
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
 .btn-services-primary:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
-    box-shadow: 0 0 36px rgba(0, 200, 204, 0.5);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
 .btn-services-secondary {
     display: inline-flex;
     align-items: center;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
     background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -116,7 +116,7 @@
 /* ── 2. Core 8 Services Grid ───────────────────────────────────────── */
 .services-grid-section {
     padding: 5rem 0 6rem;
-    background-color: #06090e;
+    background-color: #0B141C;
 }
 
 .services-grid-container {
@@ -168,14 +168,14 @@
 .service-card-desc {
     font-size: 0.875rem;
     line-height: 1.6;
-    color: rgba(240, 246, 252, 0.55);
+    color: rgba(186, 201, 204, 0.65);
     margin: 0;
 }
 
 /* ── 3. Performance Audit Section ("Precision by the Numbers") ─────── */
 .audit-section-new {
     padding: 6rem 0;
-    background-color: #030508;
+    background-color: #060F16;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     position: relative;
@@ -217,7 +217,7 @@
 .unit-ms {
     font-size: 1.5rem;
     font-weight: 700;
-    color: rgba(240, 246, 252, 0.6);
+    color: rgba(186, 201, 204, 0.65);
     margin-left: 0.25rem;
 }
 
@@ -225,7 +225,7 @@
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.5);
+    color: rgba(186, 201, 204, 0.55);
 }
 
 /* Radar circle backdrop */
@@ -255,7 +255,7 @@
 /* ── 4. Client Testimonial / Executive Quote ────────────────────────── */
 .testimonial-section-new {
     padding: 6rem 0;
-    background-color: #06090e;
+    background-color: #0B141C;
 }
 
 .testimonial-container-new {
@@ -290,7 +290,7 @@
 }
 
 .quote-mark-icon {
-    color: rgba(240, 246, 252, 0.2);
+    color: rgba(186, 201, 204, 0.25);
     margin-bottom: 1.5rem;
 }
 
@@ -314,14 +314,14 @@
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.45);
+    color: rgba(186, 201, 204, 0.5);
 }
 
 /* ── 5. CTA Section ────────────────────────────────────────────────── */
 .services-cta-section-new {
     padding: 6rem 0 8rem;
     background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
-                #06090e;
+                #0B141C;
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -343,7 +343,7 @@
 .services-cta-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.7);
     margin: 0 0 2.5rem 0;
 }
 
@@ -360,8 +360,8 @@
     align-items: center;
     padding: 0.9rem 2.25rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    color: #010409;
+    background-color: #C3F5FF;
+    color: #0B141C;
     font-size: 0.825rem;
     font-weight: 700;
     letter-spacing: 0.08em;

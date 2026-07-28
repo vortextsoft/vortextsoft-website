@@ -1,7 +1,7 @@
-/* Contact.css — Redesigned Theme for Contact Us - Vortextsoft.png */
+/* Contact.css — Exact Vector Match for Contact Us - Vortextsoft.svg */
 
 .contact-page-new {
-    background-color: #06090e;
+    background-color: #0B141C;
     color: #ffffff;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
@@ -10,8 +10,8 @@
 /* ── 1. Contact Hero Section ────────────────────────────────────────── */
 .contact-hero-new {
     padding: 7rem 0 5rem;
-    background: radial-gradient(ellipse 60% 50% at 85% 30%, rgba(0, 200, 204, 0.08) 0%, transparent 70%),
-                linear-gradient(180deg, #06090e 0%, #030508 100%);
+    background: radial-gradient(ellipse 60% 50% at 85% 30%, rgba(0, 200, 204, 0.09) 0%, transparent 70%),
+                linear-gradient(180deg, #0B141C 0%, #060F16 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -37,18 +37,18 @@
     gap: 0.5rem;
     padding: 0.4rem 1rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(195, 245, 255, 0.08);
+    border: 1px solid rgba(195, 245, 255, 0.18);
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.85);
+    color: #C3F5FF;
     margin-bottom: 2rem;
     backdrop-filter: blur(8px);
 }
 
 .contact-headline {
-    font-size: 3.75rem;
+    font-size: 3.85rem;
     font-weight: 800;
     line-height: 1.1;
     color: #ffffff;
@@ -59,7 +59,7 @@
 .contact-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.75);
     max-width: 540px;
     margin: 0 0 2.5rem 0;
 }
@@ -68,7 +68,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
     background-color: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -122,7 +122,7 @@
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    color: rgba(240, 246, 252, 0.5);
+    color: rgba(186, 201, 204, 0.55);
 }
 
 .card-mockup-body {
@@ -147,8 +147,8 @@
     align-items: center;
     gap: 1rem;
     padding: 1rem 1.5rem;
-    background: rgba(6, 9, 14, 0.9);
-    border: 1px solid rgba(0, 200, 204, 0.3);
+    background: rgba(6, 15, 22, 0.95);
+    border: 1px solid rgba(0, 200, 204, 0.35);
     border-radius: 16px;
     backdrop-filter: blur(12px);
 }
@@ -173,7 +173,7 @@
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.5);
+    color: rgba(186, 201, 204, 0.55);
 }
 
 .response-value {
@@ -185,7 +185,7 @@
 /* ── 2. Form & Headquarters Grid Section ───────────────────────────── */
 .contact-grid-section {
     padding: 6rem 0;
-    background-color: #06090e;
+    background-color: #0B141C;
 }
 
 .contact-grid-container {
@@ -249,7 +249,7 @@
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.5);
+    color: rgba(186, 201, 204, 0.55);
     margin-bottom: 0.6rem;
 }
 
@@ -279,22 +279,22 @@
     width: 100%;
     padding: 1rem 2rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
+    background-color: #C3F5FF;
     border: none;
-    color: #010409;
+    color: #0B141C;
     font-size: 0.825rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     cursor: pointer;
     transition: all 0.25s ease;
-    box-shadow: 0 0 24px rgba(0, 200, 204, 0.3);
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
     margin-top: 0.5rem;
 }
 
 .btn-submit-connection:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
-    box-shadow: 0 0 36px rgba(0, 200, 204, 0.5);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
 /* Headquarters Column */
@@ -339,7 +339,7 @@
 .hq-info-text p {
     font-size: 0.875rem;
     line-height: 1.55;
-    color: rgba(240, 246, 252, 0.6);
+    color: rgba(186, 201, 204, 0.65);
     margin: 0;
 }
 
@@ -348,7 +348,7 @@
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.45);
+    color: rgba(186, 201, 204, 0.5);
     margin-bottom: 0.3rem;
 }
 
@@ -376,7 +376,7 @@
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.45);
+    color: rgba(186, 201, 204, 0.5);
     margin-bottom: 1rem;
 }
 
@@ -389,7 +389,7 @@
 .hub-badge {
     font-size: 0.75rem;
     font-weight: 600;
-    color: rgba(240, 246, 252, 0.8);
+    color: rgba(186, 201, 204, 0.85);
     background-color: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 0.4rem 1rem;
@@ -399,7 +399,7 @@
 /* ── 3. Digital Command Center Map Section ──────────────────────────── */
 .command-center-section {
     padding: 0 0 6rem;
-    background-color: #06090e;
+    background-color: #0B141C;
 }
 
 .command-center-container {
@@ -429,8 +429,8 @@
     align-items: center;
     gap: 0.6rem;
     padding: 0.6rem 1.25rem;
-    background: rgba(6, 9, 14, 0.9);
-    border: 1px solid rgba(0, 200, 204, 0.3);
+    background: rgba(6, 15, 22, 0.95);
+    border: 1px solid rgba(0, 200, 204, 0.35);
     border-radius: 50px;
     font-size: 0.75rem;
     font-weight: 700;
@@ -443,7 +443,7 @@
 .docs-cta-section {
     padding: 6rem 0 8rem;
     background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
-                #06090e;
+                #0B141C;
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -465,7 +465,7 @@
 .docs-cta-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.7);
     margin: 0 0 2.5rem 0;
 }
 
@@ -515,7 +515,7 @@
 }
 
 .meeting-modal-content {
-    background-color: #0a0f18;
+    background-color: #0A0F18;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 24px;
     width: 90%;

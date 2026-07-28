@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import { ArrowUpRight, Search, Bookmark, ChevronLeft, ChevronRight, TrendingUp, BookOpen } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowUpRight, Search, TrendingUp, BookOpen } from 'lucide-react';
+import { api } from '../api';
 import SEO from '../components/SEO';
 import '../styles/Blog.css';
 
 const CATEGORIES = ['ALL UPDATES', 'CYBERSECURITY', 'QUANTUM COMPUTING', 'AI & ML', 'INFRASTRUCTURE'];
 
-const FEATURED_ARTICLES = [
+const DEFAULT_FEATURED_ARTICLES = [
     {
         id: 1,
         category: 'SECURITY',
         date: '18 / 12 / 2025',
         readTime: '8 MIN READ',
         title: 'Supremacy of Privacy and Security in the Digital Era',
-        excerpt: 'Explore the critical importance of data privacy and security in today\'s interconnected world. Learn about the latest threats and best practices to safeguard sensitive...',
+        excerpt: 'Explore the critical importance of data privacy and security in today\'s interconnected world. Learn about the latest threats and best practices to safeguard sensitive data.',
         image: '/blog-hero.png'
     },
     {
@@ -21,12 +22,12 @@ const FEATURED_ARTICLES = [
         date: '18 / 12 / 2025',
         readTime: '12 MIN READ',
         title: 'Supremacy of Quantum Computers: The New Frontier',
-        excerpt: 'Discover how quantum computing is poised to revolutionize industries. Understand the potential of qubits and their impact on optimization, drug discovery, and cryptographic...',
+        excerpt: 'Discover how quantum computing is poised to revolutionize industries. Understand the potential of qubits and their impact on optimization, drug discovery, and cryptography.',
         image: '/careers-hero-abstract.png'
     }
 ];
 
-const SECONDARY_ARTICLES = [
+const DEFAULT_SECONDARY_ARTICLES = [
     {
         id: 3,
         category: 'AI SYSTEMS',
@@ -53,6 +54,45 @@ const SECONDARY_ARTICLES = [
 const Blog = () => {
     const [activeCategory, setActiveCategory] = useState('ALL UPDATES');
     const [searchQuery, setSearchQuery] = useState('');
+    const [featuredArticles, setFeaturedArticles] = useState(DEFAULT_FEATURED_ARTICLES);
+    const [secondaryArticles, setSecondaryArticles] = useState(DEFAULT_SECONDARY_ARTICLES);
+
+    useEffect(() => {
+        api.getBlogPosts()
+            .then(data => {
+                if (data && data.length > 0) {
+                    const formatted = data.map(post => ({
+                        id: post.id,
+                        title: post.title,
+                        category: (post.tags || post.category || 'TECH').toUpperCase(),
+                        date: new Date(post.createdAt || Date.now()).toLocaleDateString(),
+                        excerpt: post.excerpt || post.content ? post.content.substring(0, 140) + '...' : '',
+                        image: post.imageUrl || post.image_url || '/blog-hero.png',
+                        link: post.link
+                    }));
+
+                    if (formatted.length >= 2) {
+                        setFeaturedArticles(formatted.slice(0, 2));
+                        setSecondaryArticles(formatted.slice(2));
+                    } else {
+                        setFeaturedArticles(formatted);
+                    }
+                }
+            })
+            .catch(err => {
+                console.log("Blog posts fetch offline, using default articles:", err);
+            });
+    }, []);
+
+    const filteredFeatured = featuredArticles.filter(art =>
+        (art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+         art.excerpt.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+
+    const filteredSecondary = secondaryArticles.filter(art =>
+        (art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+         art.excerpt.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
 
     return (
         <>
@@ -97,17 +137,20 @@ const Blog = () => {
                         {/* Right Dashboard Visual */}
                         <div className="blog-hero-right">
                             <div className="research-dashboard-card">
-                                <img
-                                    src="/casestudies-hero.png"
-                                    alt="Active Research Neural Mesh Dashboard"
-                                    loading="lazy"
-                                />
-                                <div className="research-status-badge">
-                                    <div className="status-icon"><TrendingUp size={16} color="#00C8CC" /></div>
-                                    <div className="status-text">
-                                        <span className="status-label">Active Research</span>
-                                        <span className="status-title">Neural Mesh v2.4</span>
-                                    </div>
+                                <div className="dashboard-header">
+                                    <span className="dash-dot"></span>
+                                    <span className="dash-title">ACTIVE RESEARCH NETWORK V2.4</span>
+                                </div>
+                                <div className="dashboard-body-image">
+                                    <img
+                                        src="/blog-hero.png"
+                                        alt="Active Research Network Visualization"
+                                        loading="lazy"
+                                    />
+                                </div>
+                                <div className="dashboard-badge-overlay">
+                                    <TrendingUp size={14} color="#00C8CC" />
+                                    <span>NEURAL MESH ACTIVE</span>
                                 </div>
                             </div>
                         </div>
@@ -115,13 +158,13 @@ const Blog = () => {
                 </section>
 
                 {/* ── 2. Category Filter & Search Bar ── */}
-                <section className="blog-filter-section" aria-label="Filter Articles">
-                    <div className="blog-filter-container">
-                        <div className="blog-categories-bar">
+                <section className="controls-section" aria-label="Search & Categories">
+                    <div className="controls-container">
+                        <div className="category-pills-row">
                             {CATEGORIES.map(cat => (
                                 <button
                                     key={cat}
-                                    className={`category-btn ${activeCategory === cat ? 'active' : ''}`}
+                                    className={`cat-pill ${activeCategory === cat ? 'active' : ''}`}
                                     onClick={() => setActiveCategory(cat)}
                                 >
                                     {cat}
@@ -129,11 +172,11 @@ const Blog = () => {
                             ))}
                         </div>
 
-                        <div className="blog-search-box">
-                            <Search size={16} className="search-icon" />
+                        <div className="search-input-box">
+                            <Search className="search-icon" size={16} />
                             <input
                                 type="text"
-                                placeholder="Search insights..."
+                                placeholder="Search research..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
@@ -141,91 +184,84 @@ const Blog = () => {
                     </div>
                 </section>
 
-                {/* ── 3. Featured 2 Large Articles Grid ── */}
-                <section className="featured-articles-section" aria-label="Featured Articles">
+                {/* ── 3. Featured 2 Articles Grid ── */}
+                <section className="featured-articles-section" aria-label="Featured Research Articles">
                     <div className="featured-articles-container">
-                        {FEATURED_ARTICLES.map(art => (
-                            <article key={art.id} className="featured-article-card">
-                                <div className="article-image-box">
-                                    <img src={art.image} alt={art.title} loading="lazy" />
-                                    <span className="article-category-pill">{art.category}</span>
+                        {filteredFeatured.map(article => (
+                            <div key={article.id} className="article-card-featured">
+                                <div className="featured-img-frame">
+                                    <img src={article.image} alt={article.title} loading="lazy" />
                                 </div>
-                                <div className="article-card-body">
-                                    <div className="article-meta">
-                                        {art.date} &nbsp;•&nbsp; {art.readTime}
+                                <div className="featured-article-body">
+                                    <div className="article-meta-row">
+                                        <span className="art-tag">{article.category}</span>
+                                        {article.date && <span className="art-tag">{article.date}</span>}
                                     </div>
-                                    <h2 className="article-title">{art.title}</h2>
-                                    <p className="article-excerpt">{art.excerpt}</p>
-                                    <div className="article-footer-row">
-                                        <a href="#read" className="btn-read-article">
-                                            READ FULL ARTICLE <ArrowUpRight size={16} />
+                                    <h3 className="art-title">{article.title}</h3>
+                                    <p className="art-excerpt">{article.excerpt}</p>
+                                    {article.link ? (
+                                        <a href={article.link} target="_blank" rel="noopener noreferrer" className="btn-read-article">
+                                            READ ARTICLE <ArrowUpRight size={18} />
                                         </a>
-                                        <button className="btn-article-action" aria-label="Save Article">
-                                            <Bookmark size={16} />
-                                        </button>
-                                    </div>
+                                    ) : (
+                                        <span className="btn-read-article">
+                                            READ ARTICLE <ArrowUpRight size={18} />
+                                        </span>
+                                    )}
                                 </div>
-                            </article>
+                            </div>
                         ))}
                     </div>
                 </section>
 
-                {/* ── 4. 3-Column Secondary Articles Grid ── */}
-                <section className="secondary-articles-section" aria-label="Secondary Articles">
-                    <div className="secondary-articles-container">
-                        {SECONDARY_ARTICLES.map(art => (
-                            <article key={art.id} className="secondary-article-card">
-                                <span className="sec-category">{art.category}</span>
-                                <h3 className="sec-title">{art.title}</h3>
-                                <p className="sec-excerpt">{art.excerpt}</p>
-                                <div className="sec-date">{art.date}</div>
-                            </article>
-                        ))}
-                    </div>
-                </section>
-
-                {/* ── 5. Pagination Bar ── */}
-                <div className="pagination-bar" aria-label="Pagination">
-                    <button className="page-nav-btn"><ChevronLeft size={16} /></button>
-                    <button className="page-num-btn active">01</button>
-                    <button className="page-num-btn">02</button>
-                    <button className="page-num-btn">03</button>
-                    <span className="page-ellipsis">...</span>
-                    <button className="page-num-btn">12</button>
-                    <button className="page-nav-btn"><ChevronRight size={16} /></button>
-                </div>
-
-                {/* ── 6. Newsletter Subscription Section ("Stay Ahead of the Curve") ── */}
-                <section className="newsletter-banner-section" aria-labelledby="newsletter-heading">
-                    <div className="newsletter-banner-container">
-                        <div className="newsletter-content-col">
-                            <h2 id="newsletter-heading" className="newsletter-title">
-                                Stay Ahead of the Curve
-                            </h2>
-                            <p className="newsletter-subtitle">
-                                Join 10,000+ industry professionals. Receive a weekly curation of deep-tech insights delivered straight to your inbox. No fluff, just precision.
-                            </p>
-                            <form onSubmit={(e) => e.preventDefault()} className="newsletter-form-inline">
-                                <input
-                                    type="email"
-                                    placeholder="professional@company.com"
-                                    required
-                                />
-                                <button type="submit" className="btn-subscribe-cyan">
-                                    SUBSCRIBE NOW
-                                </button>
-                            </form>
-                            <div className="newsletter-disclaimer">
-                                * We respect your data. Unsubscribe anytime with one click.
-                            </div>
+                {/* ── 4. Secondary 3 Articles Grid ── */}
+                {filteredSecondary.length > 0 && (
+                    <section className="secondary-articles-section" aria-label="Secondary Articles Grid">
+                        <div className="secondary-articles-container">
+                            {filteredSecondary.map(article => (
+                                <div key={article.id} className="article-card-secondary">
+                                    <div>
+                                        <div className="article-meta-row">
+                                            <span className="art-tag">{article.category}</span>
+                                        </div>
+                                        <h4 className="sec-art-title">{article.title}</h4>
+                                        <p className="sec-art-excerpt">{article.excerpt}</p>
+                                    </div>
+                                    {article.link ? (
+                                        <a href={article.link} target="_blank" rel="noopener noreferrer" className="btn-sec-read">
+                                            READ NOW <ArrowUpRight size={16} />
+                                        </a>
+                                    ) : (
+                                        <span className="btn-sec-read">
+                                            READ NOW <ArrowUpRight size={16} />
+                                        </span>
+                                    )}
+                                </div>
+                            ))}
                         </div>
+                    </section>
+                )}
 
-                        {/* Right Icon Graphic */}
-                        <div className="newsletter-graphic-col" aria-hidden="true">
-                            <div className="book-icon-outer-ring">
-                                <BookOpen size={40} color="#00C8CC" />
-                            </div>
-                        </div>
+                {/* ── 5. Newsletter Banner ("Stay Ahead of the Curve") ── */}
+                <section className="newsletter-banner-new" aria-labelledby="newsletter-heading">
+                    <div className="newsletter-container-new">
+                        <div className="section-tag-new center-tag">STAY INFORMED</div>
+                        <h2 id="newsletter-heading" className="newsletter-title-new">
+                            Stay Ahead of the Curve
+                        </h2>
+                        <p className="newsletter-subtitle-new">
+                            Subscribe to our technical briefing. Published bi-weekly with zero noise, only deep architectural breakdowns.
+                        </p>
+                        <form onSubmit={(e) => { e.preventDefault(); alert("Thank you for subscribing to Vortextsoft Briefing!"); }} className="newsletter-form-inline">
+                            <input
+                                type="email"
+                                placeholder="Enter your work email address..."
+                                required
+                            />
+                            <button type="submit" className="btn-subscribe-pill">
+                                SUBSCRIBE
+                            </button>
+                        </form>
                     </div>
                 </section>
 

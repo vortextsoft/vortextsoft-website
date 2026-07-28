@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Rocket, Eye, Shield, CheckCircle2 } from 'lucide-react';
+import { api } from '../api';
 import SEO from '../components/SEO';
 import '../styles/About.css';
 
-const TEAM_MEMBERS = [
+const DEFAULT_TEAM_MEMBERS = [
     {
         id: 1,
         name: "Mathanamohan Madhunicka",
@@ -56,6 +57,28 @@ const TEAM_MEMBERS = [
 ];
 
 const About = () => {
+    const [teamMembers, setTeamMembers] = useState(DEFAULT_TEAM_MEMBERS);
+
+    useEffect(() => {
+        api.getTeam()
+            .then(data => {
+                if (data && data.length > 0) {
+                    const formatted = data.map((t, idx) => ({
+                        id: t.id || idx,
+                        name: t.name,
+                        role: (t.role || "ENGINEER").toUpperCase(),
+                        roleColor: "cyan-pill",
+                        bio: t.shortDescription || "Passionate about exploring new technologies and software innovation.",
+                        image: t.profileImage || "/vortextsoft-3d-logo.png"
+                    }));
+                    setTeamMembers(formatted);
+                }
+            })
+            .catch(err => {
+                console.log("Team fetch offline, using default team data:", err);
+            });
+    }, []);
+
     return (
         <>
             {/* ── SEO Meta Tags ─────────────────────────────────────────────────── */}
@@ -100,145 +123,157 @@ const About = () => {
                                 <div className="radar-circle circle-1"></div>
                                 <div className="radar-circle circle-2"></div>
                                 <div className="radar-circle circle-3"></div>
+                                <div className="radar-core-dot"></div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── 2. Ethos / Our Philosophy Section ── */}
+                {/* ── 2. Ethos Section (Mission, Vision, Values) ── */}
                 <section className="ethos-section-new" aria-labelledby="ethos-heading">
                     <div className="ethos-container-new">
-                        <div className="ethos-header-row">
-                            <div>
-                                <div className="section-tag-new">ETHOS</div>
-                                <h2 id="ethos-heading" className="ethos-title-new">Our Philosophy</h2>
-                            </div>
-                            <p className="ethos-header-desc">
-                                Rooted in technical excellence and human-centric design, we build software that isn't just functional, but transformative.
-                            </p>
+                        <div className="ethos-header-content">
+                            <div className="section-tag-new">ORGANIZATIONAL PHILOSOPHY</div>
+                            <h2 id="ethos-heading" className="section-title-new">Our Ethos</h2>
                         </div>
 
-                        {/* 3 Philosophy Cards */}
-                        <div className="philosophy-grid">
-                            <div className="philosophy-card">
-                                <div className="philosophy-icon-box">
+                        <div className="ethos-cards-grid">
+                            {/* Mission Card */}
+                            <div className="ethos-card-new">
+                                <div className="ethos-icon-box">
                                     <Rocket size={22} color="#00C8CC" />
                                 </div>
-                                <h3>Our Mission</h3>
-                                <p>To deliver intelligent, future-ready technology solutions that empower businesses to thrive in the digital age through precision engineering.</p>
+                                <h3 className="ethos-card-title">Our Mission</h3>
+                                <p className="ethos-card-desc">
+                                    To deliver cutting-edge, scalable, and high-performance software solutions tailored to our clients' unique business needs. We aim to solve complex challenges with elegance and speed.
+                                </p>
                             </div>
 
-                            <div className="philosophy-card">
-                                <div className="philosophy-icon-box">
+                            {/* Vision Card */}
+                            <div className="ethos-card-new">
+                                <div className="ethos-icon-box">
                                     <Eye size={22} color="#00C8CC" />
                                 </div>
-                                <h3>Our Vision</h3>
-                                <p>To drive global innovation, efficiency, and digital growth through accessible and scalable software engineering that sets new industry standards.</p>
+                                <h3 className="ethos-card-title">Our Vision</h3>
+                                <p className="ethos-card-desc">
+                                    To be the global leader in digital transformation, empowering businesses through innovation, reliability, and technical supremacy.
+                                </p>
                             </div>
 
-                            <div className="philosophy-card">
-                                <div className="philosophy-icon-box">
+                            {/* Core Values Card */}
+                            <div className="ethos-card-new">
+                                <div className="ethos-icon-box">
                                     <Shield size={22} color="#00C8CC" />
                                 </div>
-                                <h3>Core Values</h3>
-                                <ul className="values-list">
-                                    <li><CheckCircle2 size={14} color="#00C8CC" /> Quality &amp; Excellence</li>
-                                    <li><CheckCircle2 size={14} color="#00C8CC" /> Reliability &amp; Trust</li>
-                                    <li><CheckCircle2 size={14} color="#00C8CC" /> Continuous Innovation</li>
-                                    <li><CheckCircle2 size={14} color="#00C8CC" /> Customer-Centricity</li>
-                                </ul>
+                                <h3 className="ethos-card-title">Core Values</h3>
+                                <p className="ethos-card-desc">
+                                    Innovation, Excellence, Integrity, and Client-Centric Collaboration. We take pride in building long-term partnerships anchored in uncompromised code quality.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── 3. Architects of Innovation (OUR TEAM) ── */}
+                {/* ── 3. Team Section ("Architects of Innovation") ── */}
                 <section className="team-section-new" aria-labelledby="team-heading">
                     <div className="team-container-new">
-                        <div className="team-header-center">
-                            <div className="section-tag-new center-tag">OUR TEAM</div>
-                            <h2 id="team-heading" className="team-title-new">Architects of Innovation</h2>
-                            <p className="team-subtitle-new">
-                                Our professional experts. Our team is a collective force of top talents, experts, and visionaries from diverse fields.
-                            </p>
+                        <div className="team-header-content">
+                            <div className="section-tag-new">LEADERSHIP &amp; ENGINEERING</div>
+                            <h2 id="team-heading" className="section-title-new">Architects of Innovation</h2>
                         </div>
 
-                        <div className="team-grid-new">
-                            {TEAM_MEMBERS.map(m => (
-                                <div key={m.id} className="team-card-new">
-                                    <div className="team-avatar-frame">
-                                        <img src={m.image} alt={m.name} loading="lazy" />
+                        <div className="team-cards-grid">
+                            {teamMembers.map((member) => (
+                                <div key={member.id} className="team-member-card">
+                                    <div className="team-member-img-frame">
+                                        <img
+                                            src={member.image}
+                                            alt={member.name}
+                                            loading="lazy"
+                                        />
                                     </div>
-                                    <div className={`role-pill-new ${m.roleColor}`}>
-                                        {m.role}
+                                    <div className="team-member-info">
+                                        <h3 className="member-name">{member.name}</h3>
+                                        <div className="member-role-badge">
+                                            <span className={`role-pill ${member.roleColor}`}>{member.role}</span>
+                                        </div>
+                                        <p className="member-bio">{member.bio}</p>
                                     </div>
-                                    <h3 className="team-name-new">{m.name}</h3>
-                                    <p className="team-bio-new">{m.bio}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </section>
 
-                {/* ── 4. Culture Section ("Collaborative Innovation is our DNA") ── */}
-                <section className="dna-section-new" aria-labelledby="dna-heading">
-                    <div className="dna-container-new">
-                        <div className="dna-content-col">
-                            <div className="section-tag-new">CULTURE</div>
-                            <h2 id="dna-heading" className="dna-title-new">
-                                Collaborative Innovation is our DNA
-                            </h2>
-                            <p className="dna-description">
-                                At Vortextsoft, we've fostered an environment where unconventional thinking meets technical rigor. We believe that the best solutions arise when diverse perspectives are allowed to collide in a culture of radical transparency and trust.
+                {/* ── 4. Collaborative Innovation Section ── */}
+                <section className="culture-stats-section" aria-label="Collaborative Culture & Metrics">
+                    <div className="culture-stats-container">
+                        <div className="culture-left-content">
+                            <div className="section-tag-new">GLOBAL IMPACT</div>
+                            <h2 className="culture-title-new">Collaborative Innovation</h2>
+                            <p className="culture-desc-new">
+                                We believe the strongest software is forged through diverse perspectives. Our remote-first engineering culture brings together specialists across AI, cloud architecture, and spatial computing to architect solutions that scale seamlessly.
                             </p>
-                            <div className="dna-stats-grid">
-                                <div className="dna-stat-item">
-                                    <div className="stat-value">24/7</div>
-                                    <div className="stat-label">GLOBAL SUPPORT OPERATIONS</div>
+
+                            <div className="culture-checklist-new">
+                                <div className="culture-check-item">
+                                    <div className="culture-check-box">
+                                        <CheckCircle2 size={14} color="#00C8CC" />
+                                    </div>
+                                    <span>Agile Sprint Delivery &amp; Continuous Integration</span>
                                 </div>
-                                <div className="dna-stat-item">
-                                    <div className="stat-value">100+</div>
-                                    <div className="stat-label">ENTERPRISE PROJECTS DELIVERED</div>
+                                <div className="culture-check-item">
+                                    <div className="culture-check-box">
+                                        <CheckCircle2 size={14} color="#00C8CC" />
+                                    </div>
+                                    <span>Military-Grade Code Audits &amp; Data Encryption</span>
                                 </div>
-                                <div className="dna-stat-item">
-                                    <div className="stat-value">100%</div>
-                                    <div className="stat-label">AGILE WORKFLOW ADOPTION</div>
-                                </div>
-                                <div className="dna-stat-item">
-                                    <div className="stat-value">0%</div>
-                                    <div className="stat-label">DEBT FROM LEGACY TECH</div>
+                                <div className="culture-check-item">
+                                    <div className="culture-check-box">
+                                        <CheckCircle2 size={14} color="#00C8CC" />
+                                    </div>
+                                    <span>24/7 Dedicated Enterprise Support &amp; Maintenance</span>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Right Workstation Image */}
-                        <div className="dna-image-col">
-                            <div className="workstation-image-frame">
-                                <img
-                                    src="/corporate-team-formal.png"
-                                    alt="Vortextsoft Collaborative Engineering Workspace"
-                                    loading="lazy"
-                                />
+                        {/* Right Stats Grid */}
+                        <div className="culture-stats-grid">
+                            <div className="culture-stat-box">
+                                <div className="c-stat-number">15+</div>
+                                <div className="c-stat-label">PROJECTS DELIVERED</div>
+                            </div>
+                            <div className="culture-stat-box">
+                                <div className="c-stat-number">98%</div>
+                                <div className="c-stat-label">CLIENT SATISFACTION</div>
+                            </div>
+                            <div className="culture-stat-box">
+                                <div className="c-stat-number">2+</div>
+                                <div className="c-stat-label">YEARS OF EXCELLENCE</div>
+                            </div>
+                            <div className="culture-stat-box">
+                                <div className="c-stat-number">10+</div>
+                                <div className="c-stat-label">EXPERT TEAM MEMBERS</div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── 5. CTA Section ("Ready to define the next frontier?") ── */}
+                {/* ── 5. Enterprise CTA Banner Section ── */}
                 <section className="about-cta-section" aria-labelledby="about-cta-heading">
                     <div className="about-cta-container">
                         <h2 id="about-cta-heading" className="about-cta-title">
-                            Ready to define the next frontier?
+                            Ready to Build Something Extraordinary?
                         </h2>
                         <p className="about-cta-subtitle">
-                            Whether you're a potential partner or looking to join our elite team of engineers and visionaries, let's start a conversation that leads to the future.
+                            Partner with Vortextsoft to transform your digital strategy into high-performance software engineering.
                         </p>
                         <div className="about-cta-buttons">
-                            <Link to="/careers" className="btn-about-cta-primary">
-                                JOIN OUR TEAM
+                            <Link to="/contact" className="btn-about-cta-primary" id="about-cta-contact">
+                                Get in Touch
                             </Link>
-                            <Link to="/contact" className="btn-about-cta-secondary">
-                                CONTACT US
+                            <Link to="/case-studies" className="btn-about-cta-secondary" id="about-cta-work">
+                                View Our Work
                             </Link>
                         </div>
                     </div>

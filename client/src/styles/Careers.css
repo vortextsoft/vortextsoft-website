@@ -1,7 +1,7 @@
-/* Careers.css — Redesigned Theme for Careers - Vortextsoft.png */
+/* Careers.css — Exact Vector Match for Careers - Vortextsoft.svg */
 
 .careers-page-new {
-    background-color: #06090e;
+    background-color: #0B141C;
     color: #ffffff;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
@@ -10,8 +10,8 @@
 /* ── 1. Hero Section ────────────────────────────────────────────────── */
 .careers-hero-new {
     padding: 7rem 0 5rem;
-    background: radial-gradient(ellipse 60% 50% at 85% 30%, rgba(0, 200, 204, 0.08) 0%, transparent 70%),
-                linear-gradient(180deg, #06090e 0%, #030508 100%);
+    background: radial-gradient(ellipse 60% 50% at 85% 30%, rgba(0, 200, 204, 0.09) 0%, transparent 70%),
+                linear-gradient(180deg, #0B141C 0%, #060F16 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -37,18 +37,18 @@
     gap: 0.5rem;
     padding: 0.4rem 1rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(195, 245, 255, 0.08);
+    border: 1px solid rgba(195, 245, 255, 0.18);
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.85);
+    color: #C3F5FF;
     margin-bottom: 2rem;
     backdrop-filter: blur(8px);
 }
 
 .careers-headline {
-    font-size: 3.75rem;
+    font-size: 3.85rem;
     font-weight: 800;
     line-height: 1.1;
     color: #ffffff;
@@ -59,7 +59,7 @@
 .careers-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.75);
     max-width: 540px;
     margin: 0 0 2.5rem 0;
 }
@@ -74,28 +74,28 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    color: #010409;
+    background-color: #C3F5FF;
+    color: #0B141C;
     font-size: 0.825rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
     transition: all 0.25s ease;
-    box-shadow: 0 0 24px rgba(0, 200, 204, 0.3);
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
 .btn-careers-primary:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
-    box-shadow: 0 0 36px rgba(0, 200, 204, 0.5);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
 .btn-careers-secondary {
     display: inline-flex;
     align-items: center;
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
     background-color: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -112,219 +112,180 @@
     transform: translateY(-2px);
 }
 
-/* Right 2x2 Stats Grid */
-.hero-right-stats-grid {
+.hero-right-stats {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
 }
 
-.hero-stat-card {
+.careers-stat-card {
     background-color: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 20px;
-    padding: 2rem;
+    padding: 1.75rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
-.hero-stat-card .stat-value {
+.careers-stat-val {
     font-size: 2.75rem;
     font-weight: 800;
     color: #ffffff;
+    margin-bottom: 0.25rem;
     line-height: 1;
-    margin-bottom: 0.5rem;
 }
 
-.hero-stat-card .stat-label {
-    font-size: 0.7rem;
+.careers-stat-lbl {
+    font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.5);
+    letter-spacing: 0.12em;
+    color: rgba(186, 201, 204, 0.55);
 }
 
-/* ── 2. Culture Section ("Where Passion Meets Purpose") ─────────────── */
-.culture-section-new {
+/* ── 2. Culture & Purpose Section ─────────────────────────────────── */
+.purpose-section-new {
     padding: 6rem 0;
-    background-color: #06090e;
+    background-color: #0B141C;
 }
 
-.culture-container-new {
+.purpose-container-new {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 2rem;
-}
-
-.culture-header {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
-.culture-title-new {
-    font-size: 2.75rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin: 0.5rem 0 1rem 0;
-}
-
-.culture-title-underline {
-    width: 60px;
-    height: 4px;
-    background-color: #00C8CC;
-    border-radius: 2px;
-    margin: 0 auto;
-}
-
-.culture-grid-card {
-    background-color: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
-    padding: 3.5rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+}
+
+.purpose-left-media {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
-.video-thumbnail-box {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    height: 360px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.video-thumbnail-box img {
+.purpose-left-media img {
     width: 100%;
-    height: 100%;
+    height: 420px;
     object-fit: cover;
     display: block;
 }
 
-.play-button-overlay {
+.media-play-overlay {
     position: absolute;
-    bottom: 1.5rem;
-    left: 1.5rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(6, 15, 22, 0.4);
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    background: rgba(6, 9, 14, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 0.6rem 1.25rem 0.6rem 0.6rem;
-    border-radius: 50px;
-    backdrop-filter: blur(12px);
-    cursor: pointer;
+    justify-content: center;
 }
 
-.play-icon-circle {
-    width: 36px;
-    height: 36px;
+.play-circle-btn {
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     background-color: #00C8CC;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 0 30px rgba(0, 200, 204, 0.6);
 }
 
-.play-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+.purpose-right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.purpose-tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: rgba(186, 201, 204, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.purpose-title {
+    font-size: 2.75rem;
+    font-weight: 800;
     color: #ffffff;
+    margin: 0 0 1.25rem 0;
+    line-height: 1.15;
 }
 
-.culture-quote {
-    font-size: 1.35rem;
-    font-weight: 600;
-    line-height: 1.5;
-    color: #ffffff;
-    font-style: italic;
-    margin: 0 0 1.5rem 0;
-}
-
-.culture-paragraph {
+.purpose-desc {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.65);
     margin: 0 0 2rem 0;
 }
 
-.culture-checklist {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.purpose-checklist {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-}
-
-.culture-checklist li {
-    display: flex;
-    align-items: flex-start;
     gap: 0.85rem;
 }
 
-.culture-checklist strong {
-    display: block;
-    font-size: 0.95rem;
-    color: #ffffff;
-    margin-bottom: 0.2rem;
-}
-
-.culture-checklist p {
+.purpose-check-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     font-size: 0.85rem;
-    color: rgba(240, 246, 252, 0.6);
-    margin: 0;
+    font-weight: 600;
+    color: rgba(240, 246, 252, 0.9);
 }
 
-/* ── 3. The Vortext Advantage (4 Benefit Cards) ─────────────────────── */
-.advantage-section-new {
-    padding: 5rem 0;
-    background-color: #030508;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+.purpose-icon-box {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0, 200, 204, 0.12);
+    border: 1px solid rgba(0, 200, 204, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-.advantage-container-new {
+/* ── 3. Benefits Grid Section ───────────────────────────────────────── */
+.benefits-section-new {
+    padding: 4rem 0 6rem;
+    background-color: #0B141C;
+}
+
+.benefits-container-new {
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 2rem;
-}
-
-.advantage-title-new {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #ffffff;
-    text-align: center;
-    margin: 0 0 3.5rem 0;
-}
-
-.advantage-grid-new {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
 }
 
-.advantage-card-new {
+.benefit-card-new {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 20px;
     padding: 2.25rem 1.75rem;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     transition: all 0.3s ease;
 }
 
-.advantage-card-new:hover {
+.benefit-card-new:hover {
     background-color: rgba(255, 255, 255, 0.04);
     border-color: rgba(0, 200, 204, 0.3);
     transform: translateY(-4px);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
-.advantage-icon-box {
+.benefit-icon-box {
     width: 44px;
     height: 44px;
     border-radius: 12px;
@@ -336,24 +297,26 @@
     margin-bottom: 1.5rem;
 }
 
-.advantage-card-new h3 {
+.benefit-card-title {
     font-size: 1.15rem;
     font-weight: 700;
     color: #ffffff;
-    margin: 0 0 0.85rem 0;
+    margin: 0 0 0.75rem 0;
 }
 
-.advantage-card-new p {
+.benefit-card-desc {
     font-size: 0.85rem;
     line-height: 1.6;
-    color: rgba(240, 246, 252, 0.55);
+    color: rgba(186, 201, 204, 0.65);
     margin: 0;
 }
 
-/* ── 4. Open Positions Table ───────────────────────────────────────── */
+/* ── 4. Open Positions Table Section ────────────────────────────────── */
 .positions-section-new {
-    padding: 6rem 0;
-    background-color: #06090e;
+    padding: 5rem 0 6rem;
+    background-color: #060F16;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .positions-container-new {
@@ -362,279 +325,86 @@
     padding: 0 2rem;
 }
 
-.positions-header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 2.5rem;
+.positions-header-new {
+    margin-bottom: 3rem;
 }
 
 .positions-title-new {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin: 0 0 0.5rem 0;
-}
-
-.positions-subtitle-new {
-    font-size: 0.95rem;
-    color: rgba(240, 246, 252, 0.55);
-    margin: 0;
-}
-
-.positions-controls {
-    display: flex;
-    gap: 1rem;
-}
-
-.search-input-box {
-    position: relative;
-    width: 260px;
-}
-
-.search-input-box .search-icon {
-    position: absolute;
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
-    color: rgba(240, 246, 252, 0.4);
-}
-
-.search-input-box input {
-    width: 100%;
-    padding: 0.65rem 1rem 0.65rem 2.5rem;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #ffffff;
-    font-size: 0.8rem;
-    outline: none;
-}
-
-.btn-filter-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.65rem 1.25rem;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: rgba(240, 246, 252, 0.8);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-}
-
-/* Roles Table */
-.roles-table-wrapper {
-    background-color: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 2rem;
-}
-
-.roles-table-header {
-    display: grid;
-    grid-template-columns: 2fr 1.2fr 1.2fr 1fr 0.8fr;
-    padding: 1.25rem 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.45);
-}
-
-.role-table-row {
-    display: grid;
-    grid-template-columns: 2fr 1.2fr 1.2fr 1fr 0.8fr;
-    padding: 1.5rem 2rem;
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    transition: background-color 0.2s ease;
-}
-
-.role-table-row:hover {
-    background-color: rgba(255, 255, 255, 0.03);
-}
-
-.role-table-row:last-child {
-    border-bottom: none;
-}
-
-.role-name {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 0.2rem;
-}
-
-.role-req {
-    font-size: 0.7rem;
-    color: rgba(240, 246, 252, 0.4);
-}
-
-.dept-badge {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding: 0.35rem 0.75rem;
-    border-radius: 50px;
-}
-
-.dept-navy { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-.dept-cyan { background: rgba(0, 200, 204, 0.15); color: #00C8CC; }
-.dept-blue { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
-.dept-dark { background: rgba(255, 255, 255, 0.08); color: rgba(240, 246, 252, 0.7); }
-
-.col-location, .col-type {
-    font-size: 0.85rem;
-    color: rgba(240, 246, 252, 0.7);
-}
-
-.col-action {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.btn-apply-role {
-    padding: 0.5rem 1.4rem;
-    border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.btn-apply-role:hover {
-    background-color: #c2f5f7;
-    border-color: #00C8CC;
-    color: #010409;
-    box-shadow: 0 0 16px rgba(0, 200, 204, 0.3);
-}
-
-.roles-footer-note {
-    text-align: center;
-    color: rgba(240, 246, 252, 0.5);
-    font-size: 0.85rem;
-}
-
-.btn-view-all-roles {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: #00C8CC;
-    text-decoration: none;
-}
-
-/* ── 5. Talent Pool Banner Section ─────────────────────────────────── */
-.talent-banner-section {
-    padding: 6rem 0 8rem;
-    background-color: #06090e;
-}
-
-.talent-banner-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 4rem 3rem;
-    background-color: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-
-.talent-rocket-badge {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background-color: #00C8CC;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 0 24px rgba(0, 200, 204, 0.4);
-}
-
-.talent-headline {
     font-size: 2.75rem;
     font-weight: 800;
     color: #ffffff;
-    margin: 0 0 1rem 0;
+    margin: 0;
 }
 
-.talent-subtitle {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
-    max-width: 620px;
-    margin: 0 0 2.5rem 0;
+.positions-table-card {
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    overflow: hidden;
 }
 
-.talent-form-inline {
-    display: flex;
-    gap: 0.75rem;
-    max-width: 540px;
-    width: 100%;
-    margin-bottom: 2rem;
+.position-row-item {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.75rem 2.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: background-color 0.2s ease;
 }
 
-.talent-form-inline input {
-    flex: 1;
-    padding: 0.9rem 1.25rem;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 50px;
+.position-row-item:last-child {
+    border-bottom: none;
+}
+
+.position-row-item:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.job-role-title {
+    font-size: 1.15rem;
+    font-weight: 700;
     color: #ffffff;
-    font-size: 0.85rem;
-    outline: none;
 }
 
-.talent-form-inline input:focus {
-    border-color: #00C8CC;
-}
-
-.btn-join-talent-pool {
-    padding: 0.9rem 1.8rem;
+.department-pill {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    border: none;
-    color: #010409;
+    background-color: rgba(0, 200, 204, 0.08);
+    border: 1px solid rgba(0, 200, 204, 0.2);
+    color: #00C8CC;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.job-meta-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(186, 201, 204, 0.65);
+}
+
+.btn-apply-role {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    background-color: #C3F5FF;
+    color: #0B141C;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     cursor: pointer;
-    white-space: nowrap;
+    border: none;
     transition: all 0.25s ease;
 }
 
-.btn-join-talent-pool:hover {
+.btn-apply-role:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
-    box-shadow: 0 0 24px rgba(0, 200, 204, 0.4);
-}
-
-.talent-trust-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.4);
+    box-shadow: 0 0 16px rgba(0, 200, 204, 0.4);
 }
 
 /* Modal */
@@ -644,7 +414,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px);
     z-index: 2000;
     display: flex;
@@ -653,67 +423,63 @@
 }
 
 .apply-modal-content {
-    background-color: #0a0f18;
+    background-color: #0A0F18;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 24px;
     width: 90%;
-    max-width: 500px;
+    max-width: 540px;
     padding: 2.5rem;
 }
 
-.modal-header {
-    display: flex;
-    justify-content: space-between;
+/* ── 5. Talent Pool CTA Section ─────────────────────────────────────── */
+.talent-cta-section {
+    padding: 6rem 0 8rem;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
+                #0B141C;
+    text-align: center;
+}
+
+.talent-cta-container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.talent-cta-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 1.25rem 0;
+    line-height: 1.2;
+}
+
+.talent-cta-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: rgba(186, 201, 204, 0.7);
+    margin: 0 0 2.5rem 0;
+}
+
+.btn-join-talent {
+    display: inline-flex;
     align-items: center;
-    margin-bottom: 2rem;
-}
-
-.modal-header h3 {
-    font-size: 1.25rem;
-    color: #ffffff;
-    margin: 0;
-}
-
-.btn-close-modal {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.6);
-    cursor: pointer;
-}
-
-.modal-body-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 0.4rem;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 8px;
-    color: #ffffff;
-    outline: none;
-}
-
-.btn-submit-application {
-    margin-top: 1rem;
-    padding: 0.85rem;
-    background-color: #00C8CC;
-    border: none;
+    gap: 0.5rem;
+    padding: 0.9rem 2.25rem;
     border-radius: 50px;
-    color: #010409;
+    background-color: #C3F5FF;
+    color: #0B141C;
+    font-size: 0.825rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
+}
+
+.btn-join-talent:hover {
+    background-color: #00C8CC;
+    transform: translateY(-2px);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
 /* Responsive Media Queries */
@@ -721,31 +487,31 @@
     .careers-hero-container {
         grid-template-columns: 1fr;
     }
-    .culture-grid-card {
+    .purpose-container-new {
         grid-template-columns: 1fr;
     }
-    .advantage-grid-new {
+    .benefits-container-new {
         grid-template-columns: repeat(2, 1fr);
     }
-    .roles-table-header, .role-table-row {
-        grid-template-columns: 1.5fr 1fr 1fr;
+    .position-row-item {
+        grid-template-columns: 1fr 1fr;
     }
-    .col-type, .col-req {
-        display: none;
+    .careers-headline {
+        font-size: 3rem;
     }
 }
 
 @media (max-width: 640px) {
-    .advantage-grid-new {
+    .hero-right-stats {
+        grid-template-columns: 1fr;
+    }
+    .benefits-container-new {
         grid-template-columns: 1fr;
     }
     .careers-headline {
         font-size: 2.25rem;
     }
-    .talent-headline {
+    .talent-cta-title {
         font-size: 2rem;
-    }
-    .talent-form-inline {
-        flex-direction: column;
     }
 }

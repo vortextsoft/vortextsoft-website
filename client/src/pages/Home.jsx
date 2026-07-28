@@ -1,15 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Rocket, ThumbsUp, Calendar, Users, Cpu, Shield, Cloud, Terminal, Code, Layers, Globe } from 'lucide-react';
+import { ArrowUpRight, Rocket, ThumbsUp, Calendar, Users, Cpu, Shield, Cloud, Terminal, Code, Layers } from 'lucide-react';
 import { api } from '../api';
 import SEO from '../components/SEO';
 import '../styles/Home.css';
 
+const DEFAULT_FEATURED = {
+    title: "ARTistryDesign Ecosystem",
+    tags: ["UI/UX DESIGN", "ENTERPRISE SAAS"],
+    description: "Developing a comprehensive design management platform for high-end architecture firms. Real-time collaboration, 3D visualization integration, and project tracking scaled for global operations.",
+    desktopImage: "/corporate-team-formal.png",
+    tabletImage: "/casestudies-hero.png"
+};
+
 const Home = () => {
-    const [partners, setPartners] = useState([]);
+    const [featuredStudy, setFeaturedStudy] = useState(DEFAULT_FEATURED);
 
     useEffect(() => {
-        api.getPartners().then(data => setPartners(data)).catch(err => console.log(err));
+        api.getCaseStudies()
+            .then(data => {
+                if (data && data.length > 0) {
+                    const topCase = data[0];
+                    setFeaturedStudy({
+                        title: topCase.title || DEFAULT_FEATURED.title,
+                        tags: topCase.features || [topCase.category || 'ENTERPRISE SAAS'],
+                        description: topCase.description || DEFAULT_FEATURED.description,
+                        desktopImage: topCase.hero_image || topCase.image || DEFAULT_FEATURED.desktopImage,
+                        tabletImage: DEFAULT_FEATURED.tabletImage
+                    });
+                }
+            })
+            .catch(err => {
+                console.log("Featured case study database fetch offline, using default:", err);
+            });
     }, []);
 
     return (
@@ -52,7 +75,7 @@ const Home = () => {
                             </div>
                         </div>
 
-                        {/* Right Futuristic 3D Hologram Card */}
+                        {/* Right Hologram Tech Visual Card */}
                         <div className="hero-right-visual">
                             <div className="hologram-card">
                                 <div className="card-top-header">
@@ -73,7 +96,7 @@ const Home = () => {
                     </div>
                 </section>
 
-                {/* ── 2. Tech Stack Marquee Band ── */}
+                {/* ── 2. Tech Stack Ticker Band ── */}
                 <section className="tech-ticker-section" aria-label="Our Technology Stack">
                     <div className="tech-ticker-track">
                         <div className="tech-ticker-content">
@@ -83,7 +106,7 @@ const Home = () => {
                             <span className="ticker-item"><Code size={16} /> PYTHON</span>
                             <span className="ticker-item"><Cpu size={16} /> AI/ML</span>
                             <span className="ticker-item"><Shield size={16} /> CYBER SECURITY</span>
-                            {/* Duplicated for seamless loop */}
+                            {/* Duplicated for seamless marquee loop */}
                             <span className="ticker-item"><Terminal size={16} /> REACT.JS</span>
                             <span className="ticker-item"><Cloud size={16} /> AWS CLOUD</span>
                             <span className="ticker-item"><Layers size={16} /> NODE.JS</span>
@@ -94,7 +117,7 @@ const Home = () => {
                     </div>
                 </section>
 
-                {/* ── 3. Metrics / Key Stats Section ── */}
+                {/* ── 3. Metrics / Key Stats Section (4 Cards) ── */}
                 <section className="stats-section-new" aria-labelledby="stats-heading">
                     <h2 id="stats-heading" className="sr-only">Key Enterprise Metrics</h2>
                     <div className="stats-container-new">
@@ -144,22 +167,23 @@ const Home = () => {
                     </div>
                 </section>
 
-                {/* ── 4. Featured Case Study Section ── */}
+                {/* ── 4. Featured Case Study Section (Dynamic Data Connected) ── */}
                 <section className="featured-case-section" aria-labelledby="case-study-heading">
                     <div className="featured-case-container">
                         <div className="section-tag-new">SUCCESS STORIES</div>
                         <h2 id="case-study-heading" className="section-title-new">Featured Case Study</h2>
 
                         <div className="featured-case-card">
-                            {/* Left Text Column */}
+                            {/* Left Content Column */}
                             <div className="case-card-content">
                                 <div className="case-tags">
-                                    <span className="case-tag">UI/UX DESIGN</span>
-                                    <span className="case-tag">ENTERPRISE SAAS</span>
+                                    {(featuredStudy.tags || []).map((tag, i) => (
+                                        <span key={i} className="case-tag">{typeof tag === 'string' ? tag.toUpperCase() : 'ENTERPRISE SAAS'}</span>
+                                    ))}
                                 </div>
-                                <h3 className="case-title">ARTistryDesign Ecosystem</h3>
+                                <h3 className="case-title">{featuredStudy.title}</h3>
                                 <p className="case-description">
-                                    Developing a comprehensive design management platform for high-end architecture firms. Real-time collaboration, 3D visualization integration, and project tracking scaled for global operations.
+                                    {featuredStudy.description}
                                 </p>
                                 <Link to="/case-studies" className="btn-view-case" id="home-featured-case-link">
                                     VIEW CASE STUDY <ArrowUpRight size={18} />
@@ -170,15 +194,15 @@ const Home = () => {
                             <div className="case-card-visuals">
                                 <div className="desktop-mockup-frame">
                                     <img
-                                        src="/corporate-team-formal.png"
-                                        alt="ARTistryDesign Ecosystem Dashboard Interface"
+                                        src={featuredStudy.desktopImage}
+                                        alt={`${featuredStudy.title} Desktop Dashboard Interface`}
                                         loading="lazy"
                                     />
                                 </div>
                                 <div className="tablet-mockup-frame">
                                     <img
-                                        src="/casestudies-hero.png"
-                                        alt="ARTistryDesign Tablet Interface"
+                                        src={featuredStudy.tabletImage}
+                                        alt={`${featuredStudy.title} Tablet Interface`}
                                         loading="lazy"
                                     />
                                 </div>
@@ -187,7 +211,7 @@ const Home = () => {
                     </div>
                 </section>
 
-                {/* ── 5. CTA Banner Section ("Ready to Start Your Project?") ── */}
+                {/* ── 5. CTA Section ("Ready to Start Your Project?") ── */}
                 <section className="cta-banner-new" aria-labelledby="cta-banner-heading">
                     <div className="cta-banner-container">
                         <div className="section-tag-new center-tag">LET'S BUILD TOGETHER</div>
