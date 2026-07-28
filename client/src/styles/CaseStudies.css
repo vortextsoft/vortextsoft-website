@@ -1,7 +1,7 @@
-/* CaseStudies.css — Redesigned Theme for Case Studies - Vortextsoft.png */
+/* CaseStudies.css — Exact Vector Match for Case Studies - Vortextsoft.svg */
 
 .casestudies-page-new {
-    background-color: #06090e;
+    background-color: #0B141C;
     color: #ffffff;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
@@ -10,8 +10,8 @@
 /* ── 1. Hero Section ────────────────────────────────────────────────── */
 .casestudies-hero-new {
     padding: 7rem 0 4rem;
-    background: radial-gradient(ellipse 60% 50% at 85% 30%, rgba(0, 200, 204, 0.08) 0%, transparent 70%),
-                linear-gradient(180deg, #06090e 0%, #030508 100%);
+    background: radial-gradient(ellipse 60% 50% at 85% 30%, rgba(0, 200, 204, 0.09) 0%, transparent 70%),
+                linear-gradient(180deg, #0B141C 0%, #060F16 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -37,18 +37,18 @@
     gap: 0.5rem;
     padding: 0.4rem 1rem;
     border-radius: 50px;
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(195, 245, 255, 0.08);
+    border: 1px solid rgba(195, 245, 255, 0.18);
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.85);
+    color: #C3F5FF;
     margin-bottom: 2rem;
     backdrop-filter: blur(8px);
 }
 
 .casestudies-headline {
-    font-size: 3.75rem;
+    font-size: 3.85rem;
     font-weight: 800;
     line-height: 1.1;
     color: #ffffff;
@@ -59,7 +59,7 @@
 .casestudies-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.75);
     max-width: 580px;
     margin: 0;
 }
@@ -94,7 +94,7 @@
 
 /* ── 2. Category Filter Bar ─────────────────────────────────────────── */
 .filter-bar-section {
-    background-color: #030508;
+    background-color: #060F16;
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     padding: 1.25rem 0;
 }
@@ -104,49 +104,42 @@
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 0.75rem;
+    overflow-x: auto;
 }
 
-.filter-tabs {
-    display: flex;
-    gap: 1rem;
-}
-
-.filter-tab-btn {
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(240, 246, 252, 0.6);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+.filter-pill {
     padding: 0.5rem 1.25rem;
-    border-radius: 8px;
+    border-radius: 50px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: rgba(186, 201, 204, 0.65);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     cursor: pointer;
+    white-space: nowrap;
     transition: all 0.2s ease;
 }
 
-.filter-tab-btn:hover,
-.filter-tab-btn.active {
-    background-color: #c2f5f7;
-    border-color: #00C8CC;
-    color: #010409;
-    box-shadow: 0 0 16px rgba(0, 200, 204, 0.3);
+.filter-pill:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.04);
 }
 
-.filter-count {
-    font-size: 0.7rem;
+.filter-pill.active {
+    background-color: #C3F5FF;
+    color: #0B141C;
+    border-color: #C3F5FF;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    color: rgba(240, 246, 252, 0.45);
-    display: flex;
-    align-items: center;
+    box-shadow: 0 0 16px rgba(0, 200, 204, 0.35);
 }
 
-/* ── 3. Featured Case Study Card ────────────────────────────────────── */
+/* ── 3. Featured Case Study #042 ARTistryDesign ─────────────────────── */
 .featured-project-section {
     padding: 5rem 0;
-    background-color: #06090e;
+    background-color: #0B141C;
 }
 
 .featured-project-container {
@@ -155,59 +148,34 @@
     padding: 0 2rem;
 }
 
-.featured-project-card {
+.project-card-featured {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 28px;
     padding: 3.5rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.1fr 0.9fr;
     gap: 4rem;
     align-items: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
-.project-image-box {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+.featured-left-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.project-image-box img {
-    width: 100%;
-    height: 380px;
-    object-fit: cover;
-    display: block;
-}
-
-.image-badge-overlay {
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 0.9rem;
-    background: rgba(6, 9, 14, 0.85);
-    border: 1px solid rgba(0, 200, 204, 0.3);
-    border-radius: 50px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #ffffff;
-    backdrop-filter: blur(12px);
-}
-
-.case-number-tag {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: rgba(240, 246, 252, 0.5);
-    margin-bottom: 0.75rem;
+.project-number-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #00C8CC;
+    margin-bottom: 1.25rem;
 }
 
 .featured-project-title {
-    font-size: 2.75rem;
+    font-size: 3rem;
     font-weight: 800;
     color: #ffffff;
     margin: 0 0 1.25rem 0;
@@ -217,65 +185,104 @@
 .featured-project-desc {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
-    margin: 0 0 1.75rem 0;
+    color: rgba(186, 201, 204, 0.65);
+    margin: 0 0 2rem 0;
 }
 
-.feature-checklist {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 2rem 0;
+.checklist-grid {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
-}
-
-.feature-checklist li {
-    display: flex;
-    align-items: flex-start;
     gap: 0.75rem;
-    font-size: 0.85rem;
-    color: rgba(240, 246, 252, 0.8);
-    line-height: 1.5;
-}
-
-.tech-stack-badges {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
     margin-bottom: 2rem;
 }
 
-.tech-badge {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: rgba(240, 246, 252, 0.6);
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 0.3rem 0.75rem;
-    border-radius: 6px;
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(240, 246, 252, 0.9);
 }
 
-.btn-view-project {
+.check-box-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0, 200, 204, 0.12);
+    border: 1px solid rgba(0, 200, 204, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tech-badges-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.tech-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(186, 201, 204, 0.8);
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.35rem 0.85rem;
+    border-radius: 8px;
+}
+
+.btn-explore-case {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8rem;
+    padding: 0.9rem 2.25rem;
+    border-radius: 50px;
+    background-color: #C3F5FF;
+    color: #0B141C;
+    font-size: 0.825rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    color: #ffffff;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
-.btn-view-project:hover {
-    color: #00C8CC;
+.btn-explore-case:hover {
+    background-color: #00C8CC;
+    transform: translateY(-2px);
+    box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
-/* ── 4. 2-Column Secondary Projects Grid ────────────────────────────── */
+.featured-right-col {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.mockup-desktop-img,
+.mockup-tablet-img {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    object-fit: cover;
+}
+
+.mockup-tablet-frame {
+    width: 75%;
+    margin-top: -3rem;
+    margin-left: 25%;
+}
+
+/* ── 4. Secondary Projects Grid Section ────────────────────────────── */
 .secondary-projects-section {
-    padding: 0 0 6rem;
-    background-color: #06090e;
+    padding: 2rem 0 6rem;
+    background-color: #0B141C;
 }
 
 .secondary-projects-container {
@@ -287,65 +294,78 @@
     gap: 2rem;
 }
 
-.secondary-project-card {
+.project-card-secondary {
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 24px;
-    overflow: hidden;
+    padding: 2.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     transition: all 0.3s ease;
 }
 
-.secondary-project-card:hover {
+.project-card-secondary:hover {
     background-color: rgba(255, 255, 255, 0.04);
     border-color: rgba(0, 200, 204, 0.3);
     transform: translateY(-4px);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
-.secondary-card-image img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    display: block;
+.secondary-card-header {
+    margin-bottom: 2rem;
 }
 
-.secondary-card-body {
-    padding: 2rem;
-}
-
-.secondary-card-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 0.75rem 0;
-}
-
-.secondary-card-desc {
-    font-size: 0.875rem;
-    line-height: 1.6;
-    color: rgba(240, 246, 252, 0.6);
-    margin: 0 0 1.5rem 0;
-}
-
-.secondary-card-tags {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.secondary-tag {
-    font-size: 0.7rem;
-    font-weight: 700;
+.secondary-number {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
     color: #00C8CC;
-    background-color: rgba(0, 200, 204, 0.08);
-    padding: 0.25rem 0.65rem;
-    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.secondary-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 1rem 0;
+}
+
+.secondary-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(186, 201, 204, 0.65);
+    margin: 0;
+}
+
+.btn-secondary-case {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.btn-secondary-case:hover {
+    background-color: rgba(0, 200, 204, 0.15);
+    border-color: rgba(0, 200, 204, 0.4);
+    color: #00C8CC;
 }
 
 /* ── 5. CTA Section ────────────────────────────────────────────────── */
 .casestudies-cta-section {
     padding: 6rem 0 8rem;
     background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0, 200, 204, 0.08) 0%, transparent 75%),
-                #06090e;
+                #0B141C;
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -367,7 +387,7 @@
 .casestudies-cta-subtitle {
     font-size: 1.05rem;
     line-height: 1.65;
-    color: rgba(240, 246, 252, 0.65);
+    color: rgba(186, 201, 204, 0.7);
     margin: 0 0 2.5rem 0;
 }
 
@@ -376,16 +396,15 @@
     justify-content: center;
     align-items: center;
     gap: 1.25rem;
-    flex-wrap: wrap;
 }
 
-.btn-casestudies-cta-primary {
+.btn-cta-primary-pill {
     display: inline-flex;
     align-items: center;
     padding: 0.9rem 2.25rem;
     border-radius: 50px;
-    background-color: #c2f5f7;
-    color: #010409;
+    background-color: #C3F5FF;
+    color: #0B141C;
     font-size: 0.825rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -394,13 +413,13 @@
     box-shadow: 0 0 24px rgba(0, 200, 204, 0.35);
 }
 
-.btn-casestudies-cta-primary:hover {
+.btn-cta-primary-pill:hover {
     background-color: #00C8CC;
     transform: translateY(-2px);
     box-shadow: 0 0 36px rgba(0, 200, 204, 0.55);
 }
 
-.btn-casestudies-cta-secondary {
+.btn-cta-secondary-pill {
     display: inline-flex;
     align-items: center;
     padding: 0.9rem 2.25rem;
@@ -415,7 +434,7 @@
     transition: all 0.25s ease;
 }
 
-.btn-casestudies-cta-secondary:hover {
+.btn-cta-secondary-pill:hover {
     background-color: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
 }
@@ -425,7 +444,7 @@
     .casestudies-hero-container {
         grid-template-columns: 1fr;
     }
-    .featured-project-card {
+    .project-card-featured {
         grid-template-columns: 1fr;
     }
     .secondary-projects-container {
@@ -442,10 +461,5 @@
     }
     .casestudies-cta-title {
         font-size: 2rem;
-    }
-    .filter-bar-container {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
     }
 }

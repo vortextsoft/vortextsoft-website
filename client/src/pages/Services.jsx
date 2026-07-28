@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     ArrowUpRight,
@@ -14,61 +14,89 @@ import {
     Calendar,
     Quote
 } from 'lucide-react';
+import { api } from '../api';
 import SEO from '../components/SEO';
 import '../styles/Services.css';
 
-const SERVICES_DATA = [
+const DEFAULT_SERVICES = [
     {
         id: 1,
         title: "Custom Software",
-        icon: <Terminal size={22} color="#00C8CC" />,
+        iconName: "Terminal",
         description: "Bespoke architecture designed to solve unique organizational bottlenecks with absolute code efficiency."
     },
     {
         id: 2,
         title: "AI & Data Science",
-        icon: <Cpu size={22} color="#00C8CC" />,
+        iconName: "Cpu",
         description: "Predictive modeling and neural network integration to transform raw data into executable intelligence."
     },
     {
         id: 3,
         title: "AR/VR Solutions",
-        icon: <Box size={22} color="#00C8CC" />,
+        iconName: "Box",
         description: "Immersive enterprise training and visualization tools built on high-fidelity spatial computing frameworks."
     },
     {
         id: 4,
         title: "DevOps & Cloud",
-        icon: <Cloud size={22} color="#00C8CC" />,
+        iconName: "Cloud",
         description: "Auto-scaling infrastructure and CI/CD pipelines that guarantee 99.9% availability across global regions."
     },
     {
         id: 5,
         title: "IoT & Embedded",
-        icon: <Wifi size={22} color="#00C8CC" />,
+        iconName: "Wifi",
         description: "Real-time edge computing and sensor integration for industrial automation and smart logistics."
     },
     {
         id: 6,
         title: "Web & Mobile",
-        icon: <Layout size={22} color="#00C8CC" />,
+        iconName: "Layout",
         description: "Progressive cross-platform applications with fluid UI/UX and zero-latency backend synchronization."
     },
     {
         id: 7,
         title: "Enterprise ERP",
-        icon: <Layers size={22} color="#00C8CC" />,
+        iconName: "Layers",
         description: "Consolidated resource planning modules that unify finance, supply chain, and HR operations."
     },
     {
         id: 8,
         title: "QA & Testing",
-        icon: <ShieldCheck size={22} color="#00C8CC" />,
+        iconName: "ShieldCheck",
         description: "Rigorous automated testing and security auditing ensuring military-grade software stability."
     }
 ];
 
+const renderIcon = (name) => {
+    switch (name) {
+        case 'Cpu': return <Cpu size={22} color="#00C8CC" />;
+        case 'Box': return <Box size={22} color="#00C8CC" />;
+        case 'Cloud': return <Cloud size={22} color="#00C8CC" />;
+        case 'Wifi': return <Wifi size={22} color="#00C8CC" />;
+        case 'Layout': return <Layout size={22} color="#00C8CC" />;
+        case 'Layers': return <Layers size={22} color="#00C8CC" />;
+        case 'ShieldCheck': return <ShieldCheck size={22} color="#00C8CC" />;
+        default: return <Terminal size={22} color="#00C8CC" />;
+    }
+};
+
 const Services = () => {
+    const [services, setServices] = useState(DEFAULT_SERVICES);
+
+    useEffect(() => {
+        api.getServices()
+            .then(data => {
+                if (data && data.length > 0) {
+                    setServices(data);
+                }
+            })
+            .catch(err => {
+                console.log("Database fetch offline, using default services data:", err);
+            });
+    }, []);
+
     return (
         <>
             {/* ── SEO Meta Tags ─────────────────────────────────────────────────── */}
@@ -107,15 +135,15 @@ const Services = () => {
                 </section>
 
                 {/* ── 2. Core 8 Services Grid ── */}
-                <section className="services-grid-section" id="core-services" aria-label="Core Engineering Services">
+                <section id="core-services" className="services-grid-section" aria-label="Core Engineering Services">
                     <div className="services-grid-container">
-                        {SERVICES_DATA.map((s) => (
-                            <div key={s.id} className="service-card-new">
+                        {services.map((item) => (
+                            <div key={item.id} className="service-card-new">
                                 <div className="service-card-icon-box">
-                                    {s.icon}
+                                    {renderIcon(item.iconName || item.icon)}
                                 </div>
-                                <h3 className="service-card-title">{s.title}</h3>
-                                <p className="service-card-desc">{s.description}</p>
+                                <h3 className="service-card-title">{item.title}</h3>
+                                <p className="service-card-desc">{item.description}</p>
                             </div>
                         ))}
                     </div>
@@ -130,25 +158,31 @@ const Services = () => {
                         </div>
 
                         <div className="audit-stats-grid">
+                            {/* Audit Item 1 */}
                             <div className="audit-stat-item">
                                 <div className="audit-stat-value">99%</div>
                                 <div className="audit-stat-label">PLATFORM UPTIME</div>
                             </div>
+                            {/* Audit Item 2 */}
                             <div className="audit-stat-item">
                                 <div className="audit-stat-value">12k+</div>
                                 <div className="audit-stat-label">GLOBAL DEPLOYMENTS</div>
                             </div>
+                            {/* Audit Item 3 */}
                             <div className="audit-stat-item">
-                                <div className="audit-stat-value">45<span className="unit-ms">MS</span></div>
+                                <div className="audit-stat-value">
+                                    45<span className="unit-ms">MS</span>
+                                </div>
                                 <div className="audit-stat-label">AVG LATENCY</div>
                             </div>
+                            {/* Audit Item 4 */}
                             <div className="audit-stat-item">
                                 <div className="audit-stat-value">14x</div>
                                 <div className="audit-stat-label">ROI MULTIPLIER</div>
                             </div>
                         </div>
 
-                        {/* Concentric radar circle decoration */}
+                        {/* Radar Background Visual */}
                         <div className="radar-circles-backdrop" aria-hidden="true">
                             <div className="radar-ring ring-a"></div>
                             <div className="radar-ring ring-b"></div>
@@ -158,23 +192,20 @@ const Services = () => {
                 </section>
 
                 {/* ── 4. Client Testimonial / Executive Quote ── */}
-                <section className="testimonial-section-new" aria-label="Client Testimonial">
+                <section className="testimonial-section-new" aria-label="Executive Testimonial">
                     <div className="testimonial-container-new">
                         <div className="testimonial-card-new">
-                            {/* Left Executive Portrait */}
                             <div className="testimonial-image-col">
                                 <img
                                     src="/corporate-team-formal.png"
-                                    alt="Director of Engineering, Global Logistics Corp"
+                                    alt="Client Executive Leader"
                                     loading="lazy"
                                 />
                             </div>
-
-                            {/* Right Quote Content */}
                             <div className="testimonial-content-col">
-                                <Quote className="quote-mark-icon" size={48} />
+                                <Quote size={40} className="quote-mark-icon" />
                                 <blockquote className="testimonial-quote-text">
-                                    "Vortextsoft didn't just build a software platform; they engineered a competitive advantage. Their precision-first approach to our logistics network reduced operational overhead by 32% within the first quarter."
+                                    "Vortextsoft re-architected our legacy data pipelines within 60 days. Our system throughput quadrupled while server overhead fell by 40%. Their engineering rigor is unmatched."
                                 </blockquote>
                                 <div className="testimonial-author-box">
                                     <div className="author-name">Director of Engineering</div>
@@ -185,22 +216,22 @@ const Services = () => {
                     </div>
                 </section>
 
-                {/* ── 5. CTA Section ("Ready to synchronize your enterprise operations?") ── */}
+                {/* ── 5. Enterprise CTA Banner Section ── */}
                 <section className="services-cta-section-new" aria-labelledby="services-cta-heading">
                     <div className="services-cta-container">
                         <h2 id="services-cta-heading" className="services-cta-title">
                             Ready to synchronize your enterprise operations?
                         </h2>
                         <p className="services-cta-subtitle">
-                            Join the elite circle of global enterprises leveraging Vortextsoft's precision-engineered solutions. Let's build your future, bit by bit.
+                            Connect with our principal architects for a technical discovery session. We build systems that define markets.
                         </p>
                         <div className="services-cta-buttons">
                             <Link to="/contact" className="btn-services-cta-primary" id="services-cta-consultation">
                                 SCHEDULE A CONSULTATION
                             </Link>
-                            <Link to="/case-studies" className="btn-services-cta-secondary" id="services-cta-download">
+                            <a href="#core-services" className="btn-services-cta-secondary" id="services-cta-tech-stack">
                                 <Download size={16} /> DOWNLOAD TECH STACK
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </section>

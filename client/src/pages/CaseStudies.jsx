@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, CheckCircle2, Sparkles, Filter, Layers } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Sparkles, Filter } from 'lucide-react';
+import { api } from '../api';
 import SEO from '../components/SEO';
 import '../styles/CaseStudies.css';
 
 const CATEGORIES = ['ALL', 'WEBSITE', 'MOBILE', 'ENTERPRISE'];
 
-const SECONDARY_PROJECTS = [
+const DEFAULT_SECONDARY_PROJECTS = [
     {
         id: 'cloud-sync',
         title: 'CloudSync Enterprise',
@@ -27,10 +28,23 @@ const SECONDARY_PROJECTS = [
 
 const CaseStudies = () => {
     const [activeCategory, setActiveCategory] = useState('ALL');
+    const [projects, setProjects] = useState(DEFAULT_SECONDARY_PROJECTS);
+
+    useEffect(() => {
+        api.getCaseStudies()
+            .then(data => {
+                if (data && data.length > 0) {
+                    setProjects(data);
+                }
+            })
+            .catch(err => {
+                console.log("Case studies fetch offline, using default projects:", err);
+            });
+    }, []);
 
     const filteredProjects = activeCategory === 'ALL'
-        ? SECONDARY_PROJECTS
-        : SECONDARY_PROJECTS.filter(p => p.category === activeCategory);
+        ? projects
+        : projects.filter(p => (p.category || 'ENTERPRISE').toUpperCase() === activeCategory);
 
     return (
         <>
@@ -81,7 +95,7 @@ const CaseStudies = () => {
                             {CATEGORIES.map(cat => (
                                 <button
                                     key={cat}
-                                    className={`filter-tab-btn ${activeCategory === cat ? 'active' : ''}`}
+                                    className={`filter-pill ${activeCategory === cat ? 'active' : ''}`}
                                     onClick={() => setActiveCategory(cat)}
                                 >
                                     [{cat}]
@@ -90,7 +104,7 @@ const CaseStudies = () => {
                         </div>
                         <div className="filter-count">
                             <Filter size={14} style={{ marginRight: '6px' }} />
-                            FILTERING {activeCategory === 'ALL' ? '12' : filteredProjects.length} PROJECTS
+                            FILTERING {filteredProjects.length} PROJECTS
                         </div>
                     </div>
                 </section>
@@ -98,99 +112,109 @@ const CaseStudies = () => {
                 {/* ── 3. Featured Case Study Card (#042 ARTistryDesign) ── */}
                 <section className="featured-project-section" aria-labelledby="featured-project-heading">
                     <div className="featured-project-container">
-                        <div className="featured-project-card">
-                            {/* Left Image Mockup */}
-                            <div className="project-image-box">
-                                <img
-                                    src="/about-hero-walking.png"
-                                    alt="ARTistryDesign 3D Rendering Platform"
-                                    loading="lazy"
-                                />
-                                <div className="image-badge-overlay">
-                                    <Layers size={14} color="#00C8CC" />
-                                    <span>3D Rendering Engaged</span>
-                                </div>
-                            </div>
-
-                            {/* Right Project Details */}
-                            <div className="project-details-box">
-                                <div className="case-number-tag">—— CASE STUDY #042</div>
+                        <div className="project-card-featured">
+                            {/* Left Text Column */}
+                            <div className="featured-left-col">
+                                <div className="project-number-badge">#042 // FEATURED SYSTEM</div>
                                 <h2 id="featured-project-heading" className="featured-project-title">
-                                    ARTistryDesign
+                                    ARTistryDesign Ecosystem
                                 </h2>
                                 <p className="featured-project-desc">
-                                    A revolutionary interior design platform enabling customers to visualize decoration items with 3D models in their real space before purchasing, featuring precise placement and resizing.
+                                    A comprehensive design management and 3D visualization platform engineered for high-end global architecture firms. Integrates real-time cloud collaboration, BIM data parsing, and automated asset rendering.
                                 </p>
 
-                                {/* Checklist */}
-                                <ul className="feature-checklist">
-                                    <li>
-                                        <CheckCircle2 size={16} color="#00C8CC" />
-                                        <span>3D model placing of decoration items on the floor and wall with millimetric precision.</span>
-                                    </li>
-                                    <li>
-                                        <CheckCircle2 size={16} color="#00C8CC" />
-                                        <span>Model resizing, rotation, and texture switching for bespoke visualization.</span>
-                                    </li>
-                                    <li>
-                                        <CheckCircle2 size={16} color="#00C8CC" />
-                                        <span>User-friendly Admin panel for rapid 3D asset deployment and analytics tracking.</span>
-                                    </li>
-                                </ul>
-
-                                {/* Tech Stack Tags */}
-                                <div className="tech-stack-badges">
-                                    <span className="tech-badge">[Three.js]</span>
-                                    <span className="tech-badge">[WebGL]</span>
-                                    <span className="tech-badge">[React]</span>
-                                    <span className="tech-badge">[Node.js]</span>
+                                <div className="checklist-grid">
+                                    <div className="checklist-item">
+                                        <div className="check-box-icon">
+                                            <CheckCircle2 size={14} color="#00C8CC" />
+                                        </div>
+                                        <span>Real-time Multi-user 3D Viewport Synchronization</span>
+                                    </div>
+                                    <div className="checklist-item">
+                                        <div className="check-box-icon">
+                                            <CheckCircle2 size={14} color="#00C8CC" />
+                                        </div>
+                                        <span>Automated WebGL Shader Pipeline Optimization</span>
+                                    </div>
+                                    <div className="checklist-item">
+                                        <div className="check-box-icon">
+                                            <CheckCircle2 size={14} color="#00C8CC" />
+                                        </div>
+                                        <span>Enterprise Role-based Permissions & Audit Logs</span>
+                                    </div>
                                 </div>
 
-                                <Link to="/contact" className="btn-view-project" id="casestudy-view-artistry">
-                                    VIEW FULL PROJECT <ArrowUpRight size={18} />
+                                <div className="tech-badges-row">
+                                    <span className="tech-badge">REACT.JS</span>
+                                    <span className="tech-badge">THREE.JS</span>
+                                    <span className="tech-badge">NODE.JS</span>
+                                    <span className="tech-badge">AWS</span>
+                                </div>
+
+                                <Link to="/contact" className="btn-explore-case" id="casestudies-featured-cta">
+                                    VIEW CASE STUDY <ArrowUpRight size={18} />
                                 </Link>
+                            </div>
+
+                            {/* Right Image Visuals Column */}
+                            <div className="featured-right-col">
+                                <img
+                                    className="mockup-desktop-img"
+                                    src="/corporate-team-formal.png"
+                                    alt="ARTistryDesign Desktop Dashboard Interface"
+                                    loading="lazy"
+                                />
+                                <div className="mockup-tablet-frame">
+                                    <img
+                                        className="mockup-tablet-img"
+                                        src="/casestudies-hero.png"
+                                        alt="ARTistryDesign Tablet Interface"
+                                        loading="lazy"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── 4. 2-Column Secondary Projects Grid ── */}
-                <section className="secondary-projects-section" aria-label="More Case Studies">
+                {/* ── 4. Secondary Projects Grid ── */}
+                <section className="secondary-projects-section" aria-label="Secondary Project Case Studies">
                     <div className="secondary-projects-container">
-                        {filteredProjects.map(project => (
-                            <div key={project.id} className="secondary-project-card">
-                                <div className="secondary-card-image">
-                                    <img src={project.image} alt={project.title} loading="lazy" />
+                        {filteredProjects.map((project, index) => (
+                            <div key={project.id || index} className="project-card-secondary">
+                                <div className="secondary-card-header">
+                                    <div className="secondary-number">#{String(index + 40).padStart(3, '0')} // PROJECT</div>
+                                    <h3 className="secondary-title">{project.title}</h3>
+                                    <p className="secondary-desc">{project.description}</p>
                                 </div>
-                                <div className="secondary-card-body">
-                                    <h3 className="secondary-card-title">{project.title}</h3>
-                                    <p className="secondary-card-desc">{project.description}</p>
-                                    <div className="secondary-card-tags">
-                                        {project.tags.map(tag => (
-                                            <span key={tag} className="secondary-tag">{tag}</span>
-                                        ))}
-                                    </div>
+                                <div className="tech-badges-row">
+                                    {(project.tags || []).map(t => (
+                                        <span key={t} className="tech-badge">{t}</span>
+                                    ))}
                                 </div>
+                                <Link to="/contact" className="btn-secondary-case">
+                                    EXPLORE <ArrowUpRight size={16} />
+                                </Link>
                             </div>
                         ))}
                     </div>
                 </section>
 
-                {/* ── 5. CTA Section ("Ready to Build Your Success Story?") ── */}
-                <section className="casestudies-cta-section" aria-labelledby="casestudies-cta-heading">
+                {/* ── 5. Enterprise CTA Banner Section ── */}
+                <section className="casestudies-cta-section" aria-labelledby="cs-cta-heading">
                     <div className="casestudies-cta-container">
-                        <h2 id="casestudies-cta-heading" className="casestudies-cta-title">
-                            Ready to Build Your Success Story?
+                        <h2 id="cs-cta-heading" className="casestudies-cta-title">
+                            Have a Project in Mind?
                         </h2>
                         <p className="casestudies-cta-subtitle">
-                            Let's combine your industry expertise with our precision engineering to create something world-class.
+                            Let's build software that drives real business metrics. Our senior engineering team is ready to analyze your codebase or blueprint your new platform.
                         </p>
                         <div className="casestudies-cta-buttons">
-                            <Link to="/contact" className="btn-casestudies-cta-primary" id="casestudies-strategy-btn">
-                                BOOK A STRATEGY CALL
+                            <Link to="/contact" className="btn-cta-primary-pill" id="cs-cta-get-in-touch">
+                                Get in Touch
                             </Link>
-                            <Link to="/services" className="btn-casestudies-cta-secondary" id="casestudies-explore-services-btn">
-                                EXPLORE SERVICES
+                            <Link to="/contact" className="btn-cta-secondary-pill" id="cs-cta-schedule">
+                                Schedule Consultation
                             </Link>
                         </div>
                     </div>
